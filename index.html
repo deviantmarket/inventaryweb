@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>INVENTORIX — Inventario Inteligente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Pequeños estilos para las nuevas visuales de portada */
+    .hero-stats{display:flex;gap:12px;margin-top:18px}
+    .stat{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:10px 12px;border-radius:12px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(2,6,23,0.35);transition:transform .32s ease,box-shadow .32s ease}
+    .stat:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.5)}
+    .stat svg{width:28px;height:28px}
+    .stat .num{font-weight:700;color:var(--accent);font-size:16px}
+    .stat .lbl{color:var(--muted);font-size:12px}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">INVENTORIX</div>
+    <nav>
+      <button id="loginBtn" class="btn secondary">Iniciar sesión</button>
+      <button id="buyBtn" class="btn primary">Comprar $1</button>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <div class="hero-card">
+      <h1>INVENTORIX</h1>
+      <p class="tag">Inventario automático, inteligente y atractivos para empresas.</p>
+      <ul class="features">
+        <li><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12a9 9 0 11-3.07-6.43" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sincronización automática</li>
+        <li><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" stroke="#06b6d4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Panel administrativo</li>
+        <li><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h18v18H3z" stroke="#2563eb" stroke-width="1.4" fill="#06132b" opacity="0.9"/></svg></span>Pagos integrados con PayPal</li>
+      </ul>
+      <div class="hero-actions">
+        <button id="buyBtn2" class="btn cta">Comprar ahora — $1</button>
+        <button id="demoBtn" class="btn ghost">Ver demo</button>
+      </div>
+      <div class="hero-stats" aria-hidden="true">
+        <div class="stat">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div>
+            <div class="num">99%</div>
+            <div class="lbl">Disponibilidad</div>
+          </div>
+        </div>
+        <div class="stat">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 6 .5-4.5 4 1 6L12 15l-5.5 3.5 1-6L3 8.5 9 8 12 2z" fill="#06b6d4" opacity="0.95"/></svg>
+          <div>
+            <div class="num">Autom.</div>
+            <div class="lbl">Procesos</div>
+          </div>
+        </div>
+        <div class="stat">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#06b6d4" stroke-width="1.6" fill="#06132b" opacity="0.95"/></svg>
+          <div>
+            <div class="num">24/7</div>
+            <div class="lbl">Soporte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="screenshot">
+      <img src="https://images.unsplash.com/photo-1581093588401-9f1f9a1bc0d3?auto=format&fit=crop&w=800&q=80" alt="UI preview" onerror="this.onerror=null;this.src='https://picsum.photos/800/500?random=1';">
+      <div class="float-icon x1" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3v18" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="float-icon x2" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 6 .5-4.5 4 1 6L12 15l-5.5 3.5 1-6L3 8.5 9 8 12 2z" fill="#2563eb" opacity="0.95"/></svg>
+      </div>
+      <div class="float-icon x3" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#06b6d4" stroke-width="1.6" fill="#06132b" opacity="0.95"/></svg>
+      </div>
+    </div>
+  </main>
+
+  <section class="panel" id="panel">
+    <h2>Accede a tu panel</h2>
+    <div id="statusMsg">No has iniciado sesión.</div>
+    <div class="controls">
+      <button id="openLogin" class="btn secondary">Iniciar sesión</button>
+      <button id="openAdmin" class="btn ghost">Panel admin</button>
+    </div>
+  </section>
+
+  <!-- Login modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3>Iniciar sesión</h3>
+      <form id="loginForm">
+        <label>Email
+          <input type="email" id="email" required placeholder="tu@empresa.com">
+        </label>
+        <label>Contraseña
+          <input type="password" id="password" required placeholder="••••••••">
+        </label>
+        <div class="modal-actions">
+          <button type="submit" class="btn primary">Entrar</button>
+          <button type="button" id="closeModal" class="btn ghost">Cerrar</button>
+        </div>
+      </form>
+      <p class="small">Nota: el administrador con acceso gratuito es la cuenta configurada en el backend.</p>
+    </div>
+  </div>
+
+  <script>
+  // Activar animaciones en cascada cuando el DOM esté listo
+  window.addEventListener('DOMContentLoaded', ()=>{
+    document.body.classList.add('loaded');
+    document.querySelector('.hero-card h1')?.classList.add('enter');
+    document.querySelector('.tag')?.classList.add('enter');
+    document.querySelector('.features')?.classList.add('enter');
+    document.querySelectorAll('.features li').forEach((li,i)=>{ li.style.animationDelay = (0.28 + i*0.08)+'s' });
+    document.querySelector('.hero-actions')?.classList.add('enter');
+    document.querySelector('.screenshot img')?.classList.add('enter');
+  });
+
+  const PAYPAL_QR = 'https://www.paypal.com/qrcodes/p2pqrc/NQY63UULSD9YW';
+
+  async function api(path, opts){
+    const res = await fetch(path, opts);
+    return res.json().catch(()=>({}));
+  }
+
+  // Modal
+  const modal = document.getElementById('modal');
+  document.getElementById('openLogin').onclick = ()=> modal.style.display='flex';
+  document.getElementById('loginBtn').onclick = ()=> modal.style.display='flex';
+  document.getElementById('closeModal').onclick = ()=> modal.style.display='none';
+
+  document.getElementById('loginForm').onsubmit = async (e)=>{
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const r = await api('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+    if(r.success){
+      modal.style.display='none';
+      updateStatus();
+      alert('Sesión iniciada');
+    } else alert('Credenciales incorrectas');
+  }
+
+  // Purchase
+  async function purchase(){
+    // Abre el QR/PayPal en nueva pestaña
+    window.open(PAYPAL_QR,'_blank');
+    // Después de pagar, el usuario puede confirmar (simulación)
+    if(confirm('¿Confirmar que pagaste? (simulación)')){
+      await api('/api/confirm-payment',{method:'POST'});
+      updateStatus();
+      alert('Pago confirmado — acceso concedido.');
+    }
+  }
+
+  document.getElementById('buyBtn').onclick = purchase;
+  document.getElementById('buyBtn2').onclick = purchase;
+
+  document.getElementById('openAdmin').onclick = async ()=>{
+    const s = await api('/api/status');
+    if(s.admin) window.location.href='/admin';
+    else alert('Solo el admin puede acceder aquí. Inicia sesión con la cuenta admin.');
+  }
+
+  async function updateStatus(){
+    const s = await api('/api/status');
+    const el = document.getElementById('statusMsg');
+    if(s.email){
+      el.innerText = `Conectado como ${s.email}. Acceso: ${s.paid? 'COMPLETO' : 'NO PAGADO'}`;
+    } else {
+      el.innerText = 'No has iniciado sesión.';
+    }
+  }
+
+  document.getElementById('demoBtn').onclick = async ()=>{
+    const s = await api('/api/status');
+    if(s.paid) window.location.href='/dashboard';
+    else alert('Compra la app para acceder al panel.');
+  }
+
+  updateStatus();
+  </script>
+</body>
+</html>

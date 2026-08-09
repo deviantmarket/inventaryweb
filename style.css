@@ -1,0 +1,73 @@
+:root{
+	--bg:#0f1724;
+	--card:#0b1220;
+	--accent:#2563eb; /* azul principal */
+	--accent-2:#06b6d4; /* acento secundario */
+	--muted:#94a3b8;
+	--glass: rgba(255,255,255,0.04);
+}
+*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;padding:0}
+body{background:linear-gradient(180deg,#071021 0%, #0f1724 100%);color:#e6eef8;min-height:100vh}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:20px 40px}
+.brand{font-weight:800;letter-spacing:1px;font-size:20px;color:var(--accent)}
+.btn{border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+.btn.primary{background:linear-gradient(90deg,var(--accent),#1e40af);color:white}
+.btn.cta{background:linear-gradient(90deg,var(--accent-2),var(--accent));color:#021024}
+.btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+.btn.ghost{background:transparent;color:var(--muted)}
+.hero{display:flex;gap:30px;padding:60px;align-items:center}
+.hero-card{max-width:700px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:34px;border-radius:18px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+.hero-card h1{font-size:48px;margin-bottom:6px;transform:translateY(8px);opacity:0;transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1)}
+.hero-card h1.enter{transform:translateY(0);opacity:1}
+.tag{color:var(--muted);margin-bottom:16px;opacity:0;transform:translateY(6px);transition:opacity .6s .12s ease,transform .6s .12s cubic-bezier(.2,.9,.2,1)}
+.tag.enter{opacity:1;transform:translateY(0)}
+.features{display:flex;gap:12px;list-style:none;margin:18px 0 24px;opacity:0;transform:translateY(8px);transition:opacity .6s .22s ease, transform .6s .22s cubic-bezier(.2,.9,.2,1)}
+.features.enter{opacity:1;transform:translateY(0)}
+.features li{background:var(--glass);padding:8px 12px;border-radius:10px;color:var(--muted);transform:translateY(6px);opacity:0;animation:chip-in .5s forwards}
+.features li:nth-child(1){animation-delay:.28s}
+.features li:nth-child(2){animation-delay:.36s}
+.features li:nth-child(3){animation-delay:.44s}
+
+@keyframes chip-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.hero-actions{display:flex;gap:12px;opacity:0;transform:translateY(8px);transition:opacity .6s .38s ease, transform .6s .38s cubic-bezier(.2,.9,.2,1)}
+.hero-actions.enter{opacity:1;transform:translateY(0)}
+.screenshot img{width:460px;border-radius:14px;box-shadow:0 20px 40px rgba(2,6,23,0.6);transform:scale(.98);opacity:0;transition:transform .7s .18s cubic-bezier(.2,.9,.2,1),opacity .7s .18s}
+.hero{position:relative;overflow:visible}
+
+/* Iconos flotantes decorativos en portada */
+.float-icon{position:absolute;width:56px;height:56px;opacity:0.95;pointer-events:none;animation:float 6s ease-in-out infinite;transform-origin:center}
+.float-icon svg{width:100%;height:100%;filter:drop-shadow(0 6px 18px rgba(37,99,235,0.12))}
+.float-icon.x1{top:6%;right:6%;animation-delay:0s}
+.float-icon.x2{top:18%;left:6%;animation-delay:1.2s}
+.float-icon.x3{bottom:10%;right:18%;animation-delay:2.4s}
+
+@keyframes float{0%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(6deg)}100%{transform:translateY(0) rotate(0deg)}}
+
+/* Iconos de característica */
+.feature-icon{display:inline-block;width:18px;height:18px;margin-right:8px;vertical-align:middle;transition:transform .36s cubic-bezier(.2,.9,.2,1)}
+li:hover .feature-icon{transform:translateY(-6px) rotate(8deg)}
+
+.screenshot img.enter{transform:scale(1);opacity:1}
+.panel{margin:20px;padding:24px;background:var(--card);border-radius:12px;margin:20px 40px}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6)}
+.modal-content{background:linear-gradient(180deg,#071129,#081022);padding:20px;border-radius:12px;min-width:320px}
+label{display:block;margin:10px 0}
+input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef8}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.small{font-size:12px;color:var(--muted);margin-top:8px}
+
+/* Button microinteractions */
+.btn{transition:transform .14s ease,box-shadow .14s ease}
+.btn:active{transform:translateY(1px) scale(.995)}
+.btn.primary:hover{box-shadow:0 8px 30px rgba(124,58,237,0.18);transform:translateY(-3px)}
+.btn.cta:hover{box-shadow:0 10px 40px rgba(6,182,212,0.12);transform:translateY(-4px)}
+
+/* Page loaded class for cascading animations */
+body.loaded .hero-card{box-shadow:0 20px 50px rgba(2,6,23,0.6)}
+
+@media(max-width:900px){
+	.hero{flex-direction:column;padding:30px}
+	.screenshot img{width:100%}
+}
+
