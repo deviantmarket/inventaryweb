@@ -1,185 +1,974 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>INVENTORIX — Inventario Inteligente</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css">
-  <style>
-    /* Pequeños estilos para las nuevas visuales de portada */
-    .hero-stats{display:flex;gap:12px;margin-top:18px}
-    .stat{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:10px 12px;border-radius:12px;display:flex;align-items:center;gap:10px;box-shadow:0 8px 30px rgba(2,6,23,0.35);transition:transform .32s ease,box-shadow .32s ease}
-    .stat:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.5)}
-    .stat svg{width:28px;height:28px}
-    .stat .num{font-weight:700;color:var(--accent);font-size:16px}
-    .stat .lbl{color:var(--muted);font-size:12px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sabor Caribe - Comida caribeña gourmet, combos especiales y productos frescos. Pide fácil y rápido por WhatsApp con delivery a domicilio.">
+    <meta name="theme-color" content="#ff5a36">
+    <meta property="og:title" content="Sabor Caribe | Sabor que inspira">
+    <meta property="og:description" content="Disfruta de la mejor comida caribeña artesanal. Haz tu pedido directo por WhatsApp con delivery rápido.">
+    <meta property="og:type" content="website">
+
+    <title>Sabor Caribe | Sabor Gourmet & Delivery</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="nav">
-    <div class="brand">INVENTORIX</div>
-    <nav>
-      <button id="loginBtn" class="btn secondary">Iniciar sesión</button>
-      <button id="buyBtn" class="btn primary">Comprar $1</button>
-    </nav>
-  </header>
 
-  <main class="hero">
-    <div class="hero-card">
-      <h1>INVENTORIX</h1>
-      <p class="tag">Inventario automático, inteligente y atractivos para empresas.</p>
-      <ul class="features">
-        <li><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 12a9 9 0 11-3.07-6.43" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Sincronización automática</li>
-        <li><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" stroke="#06b6d4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 21v-1a4 4 0 00-4-4H7a4 4 0 00-4 4v1" stroke="#2563eb" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Panel administrativo</li>
-        <li><span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3h18v18H3z" stroke="#2563eb" stroke-width="1.4" fill="#06132b" opacity="0.9"/></svg></span>Pagos integrados con PayPal</li>
-      </ul>
-      <div class="hero-actions">
-        <button id="buyBtn2" class="btn cta">Comprar ahora — $1</button>
-        <button id="demoBtn" class="btn ghost">Ver demo</button>
-      </div>
-      <div class="hero-stats" aria-hidden="true">
-        <div class="stat">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div>
-            <div class="num">99%</div>
-            <div class="lbl">Disponibilidad</div>
-          </div>
+    <!-- ================= TOP ANNOUNCEMENT BAR ================= -->
+    <aside class="announcement-bar" aria-label="Información de servicio">
+        <div class="container announcement-content">
+            <div class="announcement-item status-badge" id="storeStatus">
+                <span class="pulse-dot"></span>
+                <strong>Abierto ahora</strong>
+                <span class="delivery-time">• Entregas en 25 - 40 min</span>
+            </div>
+            <div class="announcement-promo">
+                <span class="promo-tag">OFERTA</span>
+                <span>¡Envío <strong>GRATIS</strong> en pedidos mayores a $30!</span>
+            </div>
         </div>
-        <div class="stat">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 6 .5-4.5 4 1 6L12 15l-5.5 3.5 1-6L3 8.5 9 8 12 2z" fill="#06b6d4" opacity="0.95"/></svg>
-          <div>
-            <div class="num">Autom.</div>
-            <div class="lbl">Procesos</div>
-          </div>
+    </aside>
+
+    <!-- ================= HEADER ================= -->
+    <header class="header" id="siteHeader">
+        <div class="container nav-container">
+            <a href="#inicio" class="logo" aria-label="Sabor Caribe - Volver al inicio">
+                <span class="logo-icon">🌴</span>
+                <span class="logo-text">Sabor <span>Caribe</span></span>
+            </a>
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                type="button"
+                aria-label="Abrir menú de navegación"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="nav" id="mainNav" aria-label="Navegación principal">
+                <a href="#inicio" class="nav-link active">Inicio</a>
+                <a href="#productos" class="nav-link">Menú</a>
+                <a href="#combos" class="nav-link">Combos</a>
+                <a href="#beneficios" class="nav-link">¿Por qué nosotros?</a>
+                <a href="#como-pedir" class="nav-link">Cómo pedir</a>
+                <a href="#testimonios" class="nav-link">Opiniones</a>
+                <a href="#faq" class="nav-link">Preguntas</a>
+
+                <button
+                    class="cart-button"
+                    id="openCart"
+                    type="button"
+                    aria-label="Ver carrito de compras"
+                >
+                    <span class="cart-icon">🛒</span>
+                    <span class="cart-label">Carrito</span>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+            </nav>
         </div>
-        <div class="stat">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#06b6d4" stroke-width="1.6" fill="#06132b" opacity="0.95"/></svg>
-          <div>
-            <div class="num">24/7</div>
-            <div class="lbl">Soporte</div>
-          </div>
+    </header>
+
+    <main>
+        <!-- ================= HERO ================= -->
+        <section class="hero" id="inicio">
+            <div class="hero-background"></div>
+            <div class="hero-glow glow-1"></div>
+            <div class="hero-glow glow-2"></div>
+
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="hero-pill">
+                        <span class="pill-spark">✨</span>
+                        <span>SABOR · CALIDAD · EXPERIENCIA GOURMET</span>
+                    </div>
+
+                    <h1>
+                        El sabor caribeño que convierte cada momento en
+                        <span class="highlight">algo inolvidable.</span>
+                    </h1>
+
+                    <p class="hero-text">
+                        Platos preparados al instante con ingredientes frescos, sazón artesanal y ese toque tropical único que te hará repetir. Pide en segundos directo por WhatsApp.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="#productos" class="button primary-button hero-cta">
+                            <span class="btn-icon">🍽️</span>
+                            <span>Explorar Menú</span>
+                        </a>
+
+                        <a
+                            href="#"
+                            class="button secondary-button whatsapp-hero-btn"
+                            id="heroWhatsapp"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <span class="btn-icon">💬</span>
+                            <span>Pedir por WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <div class="hero-features">
+                        <div class="feature-chip">
+                            <span class="chip-icon">🌿</span>
+                            <span>100% Fresco</span>
+                        </div>
+                        <div class="feature-chip">
+                            <span class="chip-icon">🛵</span>
+                            <span>Delivery Rápido</span>
+                        </div>
+                        <div class="feature-chip">
+                            <span class="chip-icon">⭐</span>
+                            <span>4.9 / 5 Calificación</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-image-area">
+                    <div class="hero-circle circle-one"></div>
+                    <div class="hero-circle circle-two"></div>
+
+                    <div class="hero-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1000&q=80"
+                            alt="Plato especial gourmet Sabor Caribe"
+                            loading="eager"
+                            onerror="this.onerror=null; this.src='imagenes/hero.jpg';"
+                        >
+                        <div class="hero-image-overlay"></div>
+                    </div>
+
+                    <div class="hero-floating-card card-top">
+                        <div class="floating-icon">🔥</div>
+                        <div>
+                            <strong>+1,200 Pedidos</strong>
+                            <span>Clientes felices este mes</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-floating-card card-bottom">
+                        <div class="floating-stars">⭐⭐⭐⭐⭐</div>
+                        <strong>"¡El mejor pollo y sazón!"</strong>
+                        <span>Carlos R. · Cliente Frecuente</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STATS / TRUST BAR ================= -->
+        <section class="trust-bar" aria-label="Estadísticas de servicio">
+            <div class="container trust-grid">
+                <div class="trust-item">
+                    <span class="trust-number">100%</span>
+                    <span class="trust-text">Ingredientes Frescos y del Día</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <span class="trust-number">30 min</span>
+                    <span class="trust-text">Tiempo promedio de entrega</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <span class="trust-number">4.9 ★</span>
+                    <span class="trust-text">Más de 500+ reseñas 5 estrellas</span>
+                </div>
+                <div class="trust-divider"></div>
+                <div class="trust-item">
+                    <span class="trust-number">0 Costo</span>
+                    <span class="trust-text">Envío gratis en compras desde $30</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PRODUCTOS ================= -->
+        <section class="section products-section" id="productos">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <p class="small-title">NUESTRO MENÚ COMPLETO</p>
+                        <h2>Descubre nuestros platos</h2>
+                    </div>
+                    <p class="section-desc">
+                        Selecciona tus favoritos y añádelos al carrito. Tu pedido se enviará listo y formateado por WhatsApp.
+                    </p>
+                </div>
+
+                <!-- Live Search Bar -->
+                <div class="search-bar-wrapper">
+                    <div class="search-input-box">
+                        <span class="search-icon">🔍</span>
+                        <input
+                            type="search"
+                            id="searchInput"
+                            placeholder="Buscar por nombre, ingrediente o plato (ej. Pollo, Pasta, Burger...)"
+                            autocomplete="off"
+                        >
+                        <button type="button" id="clearSearch" class="clear-search-btn" aria-label="Limpiar búsqueda" style="display: none;">✕</button>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="filters" role="tablist">
+                        <button class="filter active" type="button" data-filter="todos">
+                            Todos <span class="filter-count" id="count-todos">6</span>
+                        </button>
+                        <button class="filter" type="button" data-filter="platos">
+                            🍖 Platos <span class="filter-count" id="count-platos">2</span>
+                        </button>
+                        <button class="filter" type="button" data-filter="hamburguesas">
+                            🍔 Hamburguesas <span class="filter-count" id="count-hamburguesas">1</span>
+                        </button>
+                        <button class="filter" type="button" data-filter="bebidas">
+                            🍹 Bebidas <span class="filter-count" id="count-bebidas">2</span>
+                        </button>
+                        <button class="filter" type="button" data-filter="postres">
+                            🍰 Postres <span class="filter-count" id="count-postres">1</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid" id="productGrid">
+
+                    <!-- PRODUCTO 01 -->
+                    <article class="product-card" data-category="platos" data-name="Pollo Caribeño" data-description="Pollo dorado marinado con hierbas caribeñas, arroz con coco, plátano maduro y ensalada fresca">
+                        <div class="product-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80"
+                                alt="Pollo Caribeño Dorado"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/productos/producto-01.jpg';"
+                            >
+                            <span class="product-label label-hot">🔥 Popular</span>
+                            <span class="product-time-badge">⏱️ 20 min</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <span class="product-rating">⭐ 4.9 (120)</span>
+                                <span class="product-tag-inline">Recomendado</span>
+                            </div>
+                            <div class="product-title">
+                                <h3>Pollo Caribeño</h3>
+                                <strong class="product-price">$14.00</strong>
+                            </div>
+                            <p>Pollo dorado marinado con hierbas caribeñas, arroz con coco, plátano maduro y ensalada fresca.</p>
+                            <div class="card-footer-action">
+                                <button class="add-button" type="button" data-name="Pollo Caribeño" data-price="14" data-image="https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=800&q=80">
+                                    <span class="btn-text">+ Agregar al pedido</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUCTO 02 -->
+                    <article class="product-card" data-category="platos" data-name="Pasta Tropical" data-description="Pasta artesanal en salsa cremosa de la casa con camarones frescos salteados y toque tropical">
+                        <div class="product-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80"
+                                alt="Pasta Tropical con Camarones"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/productos/producto-02.jpg';"
+                            >
+                            <span class="product-label label-chef">👨‍🍳 Especial del Chef</span>
+                            <span class="product-time-badge">⏱️ 25 min</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <span class="product-rating">⭐ 4.8 (95)</span>
+                                <span class="product-tag-inline">Gourmet</span>
+                            </div>
+                            <div class="product-title">
+                                <h3>Pasta Tropical</h3>
+                                <strong class="product-price">$16.00</strong>
+                            </div>
+                            <p>Pasta artesanal en salsa cremosa de la casa con camarones frescos salteados y toque tropical.</p>
+                            <div class="card-footer-action">
+                                <button class="add-button" type="button" data-name="Pasta Tropical" data-price="16" data-image="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80">
+                                    <span class="btn-text">+ Agregar al pedido</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUCTO 03 -->
+                    <article class="product-card" data-category="hamburguesas" data-name="Burger Caribe" data-description="Carne Angus 200g, queso cheddar fundido, cebolla caramelizada al ron, tocineta crujiente y salsa especial">
+                        <div class="product-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80"
+                                alt="Burger Caribe Premium"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/productos/producto-03.jpg';"
+                            >
+                            <span class="product-label label-new">✨ Nueva</span>
+                            <span class="product-time-badge">⏱️ 15 min</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <span class="product-rating">⭐ 5.0 (160)</span>
+                                <span class="product-tag-inline">Top Ventas</span>
+                            </div>
+                            <div class="product-title">
+                                <h3>Burger Caribe</h3>
+                                <strong class="product-price">$12.00</strong>
+                            </div>
+                            <p>Carne Angus 200g, queso fundido, cebolla caramelizada al ron, tocineta crujiente y salsa especial.</p>
+                            <div class="card-footer-action">
+                                <button class="add-button" type="button" data-name="Burger Caribe" data-price="12" data-image="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80">
+                                    <span class="btn-text">+ Agregar al pedido</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUCTO 04 -->
+                    <article class="product-card" data-category="bebidas" data-name="Limonada Tropical" data-description="Limonada artesanal con infusión de frutas tropicales, hierbabuena fresca y hielo frappé">
+                        <div class="product-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80"
+                                alt="Limonada Tropical Refrescante"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/productos/producto-04.jpg';"
+                            >
+                            <span class="product-label label-fresh">🍃 Refrescante</span>
+                            <span class="product-time-badge">⏱️ 5 min</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <span class="product-rating">⭐ 4.9 (88)</span>
+                                <span class="product-tag-inline">Natural</span>
+                            </div>
+                            <div class="product-title">
+                                <h3>Limonada Tropical</h3>
+                                <strong class="product-price">$5.00</strong>
+                            </div>
+                            <p>Limonada artesanal con infusión de frutas tropicales, hierbabuena fresca y hielo frappé.</p>
+                            <div class="card-footer-action">
+                                <button class="add-button" type="button" data-name="Limonada Tropical" data-price="5" data-image="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80">
+                                    <span class="btn-text">+ Agregar al pedido</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUCTO 05 -->
+                    <article class="product-card" data-category="bebidas" data-name="Batido Tropical" data-description="Mezcla cremosa de mango, maracuyá y fresas frescas preparado al momento">
+                        <div class="product-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=80"
+                                alt="Batido Tropical de Mango y Maracuyá"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/productos/producto-05.jpg';"
+                            >
+                            <span class="product-label label-fresh">🥭 100% Fruta</span>
+                            <span class="product-time-badge">⏱️ 5 min</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <span class="product-rating">⭐ 4.8 (64)</span>
+                                <span class="product-tag-inline">Sin azúcar añadida</span>
+                            </div>
+                            <div class="product-title">
+                                <h3>Batido Tropical</h3>
+                                <strong class="product-price">$6.00</strong>
+                            </div>
+                            <p>Mezcla cremosa de mango, maracuyá y fresas frescas preparado al momento con pulpa natural.</p>
+                            <div class="card-footer-action">
+                                <button class="add-button" type="button" data-name="Batido Tropical" data-price="6" data-image="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=80">
+                                    <span class="btn-text">+ Agregar al pedido</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PRODUCTO 06 -->
+                    <article class="product-card" data-category="postres" data-name="Cheesecake Tropical" data-description="Cheesecake suave estilo New York con reducción de maracuyá natural y base crocante">
+                        <div class="product-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80"
+                                alt="Cheesecake Tropical de Maracuyá"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/productos/producto-06.jpg';"
+                            >
+                            <span class="product-label label-sweet">🍰 Dulce</span>
+                            <span class="product-time-badge">⏱️ Listo</span>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-meta">
+                                <span class="product-rating">⭐ 4.9 (104)</span>
+                                <span class="product-tag-inline">Artesanal</span>
+                            </div>
+                            <div class="product-title">
+                                <h3>Cheesecake Tropical</h3>
+                                <strong class="product-price">$7.00</strong>
+                            </div>
+                            <p>Cheesecake suave estilo New York con reducción de maracuyá natural y base crocante de galleta.</p>
+                            <div class="card-footer-action">
+                                <button class="add-button" type="button" data-name="Cheesecake Tropical" data-price="7" data-image="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80">
+                                    <span class="btn-text">+ Agregar al pedido</span>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <!-- No Results State -->
+                <div id="noResults" class="no-results" style="display: none;">
+                    <div class="no-results-icon">🔍</div>
+                    <h3>No encontramos platos con esa búsqueda</h3>
+                    <p>Intenta con otra palabra o revisa nuestras categorías arriba.</p>
+                    <button type="button" class="button secondary-button" id="resetSearchBtn">Ver todo el menú</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= COMBOS ================= -->
+        <section class="section combos-section" id="combos">
+            <div class="container">
+                <div class="section-header dark-header">
+                    <div>
+                        <p class="small-title">OFERTAS Y AHORRO</p>
+                        <h2>Combos Especiales</h2>
+                    </div>
+                    <p>Las combinaciones favoritas de nuestros clientes con el mejor precio para compartir.</p>
+                </div>
+
+                <div class="combo-grid">
+
+                    <!-- COMBO 01 -->
+                    <article class="combo-card">
+                        <div class="combo-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+                                alt="Combo Caribe Individual"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/combos/combo-01.jpg';"
+                            >
+                            <span class="combo-badge-tag">AHORRA $3.00</span>
+                        </div>
+                        <div class="combo-content">
+                            <p class="combo-small">👤 PARA 1 PERSONA</p>
+                            <h3>Combo Caribe</h3>
+                            <p>Plato fuerte de Pollo Caribeño + Bebida Tropical grande + Acompañamiento extra de tostones.</p>
+                            <ul class="combo-includes">
+                                <li>✓ 1 Pollo Caribeño con Arroz</li>
+                                <li>✓ 1 Limonada Tropical</li>
+                                <li>✓ Porción de Tostones con salsa</li>
+                            </ul>
+                            <div class="combo-bottom">
+                                <div class="price-block">
+                                    <span class="old-price">$21.00</span>
+                                    <strong>$18.00</strong>
+                                </div>
+                                <button class="add-button combo-add-btn" type="button" data-name="Combo Caribe" data-price="18" data-image="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80">
+                                    Agregar Combo
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- COMBO 02 (FEATURED) -->
+                    <article class="combo-card featured">
+                        <div class="featured-ribbon">⭐ MÁS VENDIDO</div>
+                        <div class="combo-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
+                                alt="Combo Familiar Festín"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/combos/combo-02.jpg';"
+                            >
+                            <span class="combo-badge-tag">AHORRA $8.00</span>
+                        </div>
+                        <div class="combo-content">
+                            <p class="combo-small">👨‍👩‍👧‍👦 PARA 3-4 PERSONAS</p>
+                            <h3>Combo Familiar</h3>
+                            <p>Festín completo: 2 Platos Fuertes + 2 Burgers Caribeñas + 4 Bebidas Tropicales + 1 Postre a elegir.</p>
+                            <ul class="combo-includes">
+                                <li>✓ 2 Platos a elección</li>
+                                <li>✓ 2 Burgers Caribeñas</li>
+                                <li>✓ 4 Bebidas Tropicales</li>
+                                <li>✓ 1 Cheesecake Tropical</li>
+                            </ul>
+                            <div class="combo-bottom">
+                                <div class="price-block">
+                                    <span class="old-price">$43.00</span>
+                                    <strong class="highlight-price">$35.00</strong>
+                                </div>
+                                <button class="add-button combo-add-btn primary" type="button" data-name="Combo Familiar" data-price="35" data-image="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80">
+                                    Agregar Combo
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- COMBO 03 -->
+                    <article class="combo-card">
+                        <div class="combo-image">
+                            <img
+                                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+                                alt="Combo Especial Dúo"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='imagenes/combos/combo-03.jpg';"
+                            >
+                            <span class="combo-badge-tag">AHORRA $5.00</span>
+                        </div>
+                        <div class="combo-content">
+                            <p class="combo-small">👫 PARA 2 PERSONAS (DÚO)</p>
+                            <h3>Combo Especial</h3>
+                            <p>2 Burgers Caribeñas completas + 2 Batidos Tropicales + Papas crujientes con queso fundido.</p>
+                            <ul class="combo-includes">
+                                <li>✓ 2 Burgers Caribeñas Premium</li>
+                                <li>✓ 2 Batidos Tropicales</li>
+                                <li>✓ Papas especiales con tocineta</li>
+                            </ul>
+                            <div class="combo-bottom">
+                                <div class="price-block">
+                                    <span class="old-price">$33.00</span>
+                                    <strong>$28.00</strong>
+                                </div>
+                                <button class="add-button combo-add-btn" type="button" data-name="Combo Especial" data-price="28" data-image="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80">
+                                    Agregar Combo
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= BENEFICIOS / POR QUÉ ELEGIRNOS ================= -->
+        <section class="section benefits-section" id="beneficios">
+            <div class="container">
+                <div class="process-heading">
+                    <p class="small-title">NUESTRO COMPROMISO</p>
+                    <h2>¿Por qué elegir Sabor Caribe?</h2>
+                    <p>Cuidamos cada detalle desde la cocina hasta que recibes tu comida en tus manos.</p>
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <span>🥩</span>
+                        </div>
+                        <h3>Ingredientes 100% Frescos</h3>
+                        <p>Carnes seleccionadas del día, mariscos frescos y vegetales crujientes. Nada de comida congelada ni prehecha.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <span>📦</span>
+                        </div>
+                        <h3>Empaque Térmico Ecológico</h3>
+                        <p>Tu comida llega caliente, crujiente y perfectamente presentada en empaques biodegradables de alta calidad.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <span>⚡</span>
+                        </div>
+                        <h3>Delivery Rápido & Seguro</h3>
+                        <p>Repartidores dedicados para que disfrutes tu orden en el menor tiempo posible y sin demoras inesperadas.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon-wrapper">
+                            <span>💬</span>
+                        </div>
+                        <h3>Atención Personalizada</h3>
+                        <p>Atención directa por WhatsApp con personas reales listas para resolver cualquier pedido especial o duda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= COMO PEDIR ================= -->
+        <section class="section process-section" id="como-pedir">
+            <div class="container">
+                <div class="process-heading">
+                    <p class="small-title">PROCESO RÁPIDO</p>
+                    <h2>¿Cómo hacer tu pedido?</h2>
+                    <p>En tan solo 3 pasos sencillos tu orden estará en camino.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <article class="step-card">
+                        <div class="step-top">
+                            <span class="step-number">PASO 01</span>
+                            <span class="step-icon">🛒</span>
+                        </div>
+                        <h3>Elige y agrega al carrito</h3>
+                        <p>Explora nuestro menú, escoge tus platos y combos favoritos y personaliza las cantidades que desees.</p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-top">
+                            <span class="step-number">PASO 02</span>
+                            <span class="step-icon">📝</span>
+                        </div>
+                        <h3>Completa tus datos</h3>
+                        <p>Ingresa tu dirección de entrega y método de pago preferido. Generaremos tu mensaje automáticamente.</p>
+                    </article>
+
+                    <article class="step-card">
+                        <div class="step-top">
+                            <span class="step-number">PASO 03</span>
+                            <span class="step-icon">🛵</span>
+                        </div>
+                        <h3>Confirma por WhatsApp</h3>
+                        <p>Envías tu orden con un clic a nuestro WhatsApp. Te confirmamos el tiempo exacto y te lo llevamos caliente.</p>
+                    </article>
+                </div>
+
+                <div class="process-bottom">
+                    <div class="process-guarantee">
+                        <span class="guarantee-icon">🛡️</span>
+                        <span><strong>Garantía de Sabor:</strong> Si algo no está perfecto, lo solucionamos al instante.</span>
+                    </div>
+                    <a href="#productos" class="button primary-button">
+                        Ver Menú y Ordenar
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TESTIMONIOS ================= -->
+        <section class="section testimonials-section" id="testimonios">
+            <div class="container">
+                <div class="process-heading">
+                    <p class="small-title">CLIENTES SATISFECHOS</p>
+                    <h2>Lo que dicen quienes ya probaron</h2>
+                    <p>La opinión de nuestros comensales es nuestra mayor carta de presentación.</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "El Pollo Caribeño tiene un sazón increíble, el arroz con coco estaba en su punto perfecto. El delivery llegó en 25 minutos super caliente."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-1">MG</div>
+                            <div>
+                                <strong>María González</strong>
+                                <span>Cliente Verificado · Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "Pedimos el Combo Familiar para el fin de semana y todos quedamos encantados. Las hamburguesas son gigantes y la salsa especial es de otro mundo."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-2">AR</div>
+                            <div>
+                                <strong>Alejandro Rodríguez</strong>
+                                <span>Cliente Verificado · Pedido WhatsApp</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "Excelente atención al cliente por WhatsApp. Modificaron un ingrediente por alergia sin problema y la comida llegó impecable. 10/10."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar avatar-3">SL</div>
+                            <div>
+                                <strong>Sofía López</strong>
+                                <span>Cliente Verificado · Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PREGUNTAS FRECUENTES (FAQ) ================= -->
+        <section class="section faq-section" id="faq">
+            <div class="container">
+                <div class="process-heading">
+                    <p class="small-title">RESOLVEMOS TUS DUDAS</p>
+                    <h2>Preguntas Frecuentes</h2>
+                    <p>Todo lo que necesitas saber sobre nuestros pedidos, delivery y formas de pago.</p>
+                </div>
+
+                <div class="faq-container">
+                    <details class="faq-item" open>
+                        <summary class="faq-question">
+                            <span>¿Cuánto tiempo tarda en llegar mi pedido?</span>
+                            <span class="faq-chevron">▾</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>El tiempo promedio de entrega es de <strong>25 a 40 minutos</strong> dependiendo de tu ubicación y la demanda del momento. Al enviar tu pedido por WhatsApp te daremos el tiempo exacto estimado.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>¿Qué métodos de pago aceptan?</span>
+                            <span class="faq-chevron">▾</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Aceptamos pagos en <strong>efectivo contra entrega, transferencias bancarias, Zelle, Pago Móvil y tarjetas de débito/crédito</strong> con punto de venta inalámbrico al recibir tu orden.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>¿Cómo funciona el envío gratis?</span>
+                            <span class="faq-chevron">▾</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Todos los pedidos cuyo total supere los <strong>$30.00</strong> cuentan con <strong>Envío Gratis</strong> dentro de nuestra zona de cobertura habitual.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>¿Puedo personalizar o quitar ingredientes de mi plato?</span>
+                            <span class="faq-chevron">▾</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>¡Claro que sí! En el carrito encontrarás un campo de <em>"Notas especiales"</em> donde puedes especificar si deseas algún ingrediente aparte, sin cebolla, salsas extras, etc.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">
+                            <span>¿Puedo retirar mi pedido personalmente en el local?</span>
+                            <span class="faq-chevron">▾</span>
+                        </summary>
+                        <div class="faq-answer">
+                            <p>Sí, en el carrito puedes seleccionar la opción <strong>"Retiro en Local"</strong> para tener tu pedido listo y caliente sin costo de envío.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACTO / CTA BANNER ================= -->
+        <section class="contact-section">
+            <div class="container contact-box">
+                <div class="contact-box-content">
+                    <p class="small-title">ATENCIÓN INMEDIATA</p>
+                    <h2>¿Listo para disfrutar de un sabor único?</h2>
+                    <p>Haz tu pedido ahora mismo o escríbenos directamente para resolver cualquier consulta especial.</p>
+                </div>
+                <div class="contact-box-actions">
+                    <a
+                        href="https://wa.me/18494268576?text=Hola!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido%20en%20Sabor%20Caribe"
+                        class="button primary-button whatsapp-cta-btn"
+                        id="contactWhatsapp"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span class="btn-icon">💬</span>
+                        <span>Conversar por WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#inicio" class="logo">
+                    <span class="logo-icon">🌴</span>
+                    <span class="logo-text">Sabor <span>Caribe</span></span>
+                </a>
+                <p class="footer-tagline">
+                    Comida caribeña gourmet con ingredientes frescos y entrega rápida directo a tu puerta.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram" class="social-link">📸</a>
+                    <a href="#" aria-label="Facebook" class="social-link">📘</a>
+                    <a href="#" aria-label="TikTok" class="social-link">🎵</a>
+                    <a href="https://wa.me/18494268576" target="_blank" rel="noopener" aria-label="WhatsApp" class="social-link">💬</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Enlaces Rápidos</h4>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Menú y Platos</a></li>
+                    <li><a href="#combos">Combos Especiales</a></li>
+                    <li><a href="#beneficios">¿Por qué nosotros?</a></li>
+                    <li><a href="#faq">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-schedule">
+                <h4>Horario de Atención</h4>
+                <p><strong>Lunes a Jueves:</strong> 11:30 AM - 10:00 PM</p>
+                <p><strong>Viernes a Domingo:</strong> 11:30 AM - 11:30 PM</p>
+                <p class="schedule-status"><span class="pulse-dot"></span> Cocina Activa & Delivery Disponible</p>
+            </div>
+
+            <div class="footer-payments">
+                <h4>Métodos de Pago</h4>
+                <div class="payment-badges">
+                    <span class="pay-badge">💵 Efectivo</span>
+                    <span class="pay-badge">💳 Tarjetas</span>
+                    <span class="pay-badge">📱 Transferencia</span>
+                    <span class="pay-badge">⚡ Zelle</span>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="screenshot">
-      <img src="https://images.unsplash.com/photo-1581093588401-9f1f9a1bc0d3?auto=format&fit=crop&w=800&q=80" alt="UI preview" onerror="this.onerror=null;this.src='https://picsum.photos/800/500?random=1';">
-      <div class="float-icon x1" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h18" stroke="#2563eb" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3v18" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <div class="float-icon x2" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3 6 6 .5-4.5 4 1 6L12 15l-5.5 3.5 1-6L3 8.5 9 8 12 2z" fill="#2563eb" opacity="0.95"/></svg>
-      </div>
-      <div class="float-icon x3" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="12" rx="2" stroke="#06b6d4" stroke-width="1.6" fill="#06132b" opacity="0.95"/></svg>
-      </div>
-    </div>
-  </main>
 
-  <section class="panel" id="panel">
-    <h2>Accede a tu panel</h2>
-    <div id="statusMsg">No has iniciado sesión.</div>
-    <div class="controls">
-      <button id="openLogin" class="btn secondary">Iniciar sesión</button>
-      <button id="openAdmin" class="btn ghost">Panel admin</button>
-    </div>
-  </section>
-
-  <!-- Login modal -->
-  <div id="modal" class="modal" aria-hidden="true">
-    <div class="modal-content">
-      <h3>Iniciar sesión</h3>
-      <form id="loginForm">
-        <label>Email
-          <input type="email" id="email" required placeholder="tu@empresa.com">
-        </label>
-        <label>Contraseña
-          <input type="password" id="password" required placeholder="••••••••">
-        </label>
-        <div class="modal-actions">
-          <button type="submit" class="btn primary">Entrar</button>
-          <button type="button" id="closeModal" class="btn ghost">Cerrar</button>
+        <div class="container footer-bottom">
+            <p>© 2026 Sabor Caribe · Todos los derechos reservados.</p>
+            <p class="footer-credit">Hecho con pasión por el buen sabor caribeño 🌴</p>
         </div>
-      </form>
-      <p class="small">Nota: el administrador con acceso gratuito es la cuenta configurada en el backend.</p>
+    </footer>
+
+    <!-- ================= CARRITO OVERLAY & DRAWER ================= -->
+    <div class="cart-overlay" id="cartOverlay" tabindex="-1" aria-hidden="true"></div>
+
+    <aside class="cart-panel" id="cartPanel" aria-label="Carrito de compras" role="dialog" aria-modal="true">
+        <div class="cart-header">
+            <div>
+                <p class="small-title">TU ORDEN</p>
+                <h2>Mi Carrito</h2>
+            </div>
+            <div class="cart-header-actions">
+                <button class="clear-cart-btn" id="clearAllCartBtn" type="button" title="Vaciar todo el carrito" style="display: none;">
+                    <span>🗑️ Vaciar todo</span>
+                </button>
+                <button class="close-cart" id="closeCart" type="button" aria-label="Cerrar carrito">×</button>
+            </div>
+        </div>
+
+        <!-- Free Delivery Progress Bar -->
+        <div class="free-shipping-bar" id="freeShippingBanner">
+            <div class="shipping-progress-track">
+                <div class="shipping-progress-fill" id="shippingProgressFill" style="width: 0%;"></div>
+            </div>
+            <p class="shipping-progress-text" id="shippingProgressText">
+                Agrega <strong>$30.00</strong> para <strong>Envío Gratis</strong> 🛵
+            </p>
+        </div>
+
+        <!-- Cart Items List -->
+        <div class="cart-items" id="cartItems">
+            <!-- Dynamic items rendered by JS -->
+        </div>
+
+        <!-- Checkout / Delivery Information Form -->
+        <div class="cart-checkout-form" id="cartCheckoutForm">
+            <div class="form-section-title">
+                <span>📍 Datos de Entrega</span>
+            </div>
+
+            <!-- Delivery Mode Selector -->
+            <div class="delivery-tabs" role="tablist">
+                <button type="button" class="delivery-tab active" id="tabDelivery" data-mode="delivery">
+                    🛵 A Domicilio
+                </button>
+                <button type="button" class="delivery-tab" id="tabPickup" data-mode="pickup">
+                    🏪 Retiro en Local
+                </button>
+            </div>
+
+            <div class="form-fields">
+                <div class="form-group">
+                    <label for="customerName">Nombre completo *</label>
+                    <input type="text" id="customerName" placeholder="Ej. Juan Pérez" autocomplete="name" required>
+                </div>
+
+                <div class="form-group" id="addressGroup">
+                    <label for="customerAddress">Dirección y Referencia *</label>
+                    <input type="text" id="customerAddress" placeholder="Ej. Calle Sol #24, Apto 3B (frente al parque)" autocomplete="street-address">
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentMethod">Forma de Pago</label>
+                    <select id="paymentMethod">
+                        <option value="Efectivo contra entrega">💵 Efectivo contra entrega</option>
+                        <option value="Transferencia / Pago Móvil">📱 Transferencia / Pago Móvil</option>
+                        <option value="Zelle">⚡ Zelle</option>
+                        <option value="Tarjeta al recibir (Punto de venta)">💳 Tarjeta al recibir (Punto)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="orderNotes">Notas de cocina o delivery (opcional)</label>
+                    <input type="text" id="orderNotes" placeholder="Ej. Sin cebolla, salsa tártara extra, timbre averiado...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Summary & WhatsApp Submit -->
+        <div class="cart-footer">
+            <div class="summary-lines">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">$0.00</span>
+                </div>
+                <div class="summary-row" id="deliveryRow">
+                    <span>Costo de Envío</span>
+                    <span id="deliveryCost">$2.50</span>
+                </div>
+                <div class="summary-row total-row">
+                    <strong>Total a pagar</strong>
+                    <strong id="cartTotal">$0.00</strong>
+                </div>
+            </div>
+
+            <button class="whatsapp-button" id="whatsappOrder" type="button" disabled>
+                <span class="btn-icon">💬</span>
+                <span>Enviar Pedido por WhatsApp</span>
+            </button>
+            <p class="whatsapp-disclaimer">
+                🔒 Serás redirigido a WhatsApp para confirmar tu orden al instante.
+            </p>
+        </div>
+    </aside>
+
+    <!-- ================= FLOATING ACTION BUTTONS ================= -->
+    <div class="floating-actions" id="floatingActions">
+        <!-- Floating Cart Trigger -->
+        <button type="button" class="floating-cart-btn" id="floatingCartBtn" aria-label="Ver carrito">
+            <span class="floating-cart-icon">🛒</span>
+            <span class="floating-cart-text">Ver Carrito</span>
+            <span class="floating-cart-badge" id="floatingCartCount">0</span>
+            <span class="floating-cart-total" id="floatingCartTotal">$0.00</span>
+        </button>
+
+        <!-- Floating Direct WhatsApp Button -->
+        <a
+            href="https://wa.me/18494268576?text=Hola!%20Quisiera%20informaci%C3%B3n%20sobre%20el%20men%C3%BA%20de%20Sabor%20Caribe"
+            class="floating-whatsapp-btn"
+            target="_blank"
+            rel="noopener"
+            aria-label="Hablar por WhatsApp con Sabor Caribe"
+        >
+            <span class="wa-icon">💬</span>
+            <span class="wa-tooltip">¿Preguntas? ¡Escríbenos!</span>
+        </a>
     </div>
-  </div>
 
-  <script>
-  // Activar animaciones en cascada cuando el DOM esté listo
-  window.addEventListener('DOMContentLoaded', ()=>{
-    document.body.classList.add('loaded');
-    document.querySelector('.hero-card h1')?.classList.add('enter');
-    document.querySelector('.tag')?.classList.add('enter');
-    document.querySelector('.features')?.classList.add('enter');
-    document.querySelectorAll('.features li').forEach((li,i)=>{ li.style.animationDelay = (0.28 + i*0.08)+'s' });
-    document.querySelector('.hero-actions')?.classList.add('enter');
-    document.querySelector('.screenshot img')?.classList.add('enter');
-  });
+    <!-- ================= TOAST NOTIFICATIONS ================= -->
+    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
-  const PAYPAL_QR = 'https://www.paypal.com/qrcodes/p2pqrc/NQY63UULSD9YW';
-
-  async function api(path, opts){
-    const res = await fetch(path, opts);
-    return res.json().catch(()=>({}));
-  }
-
-  // Modal
-  const modal = document.getElementById('modal');
-  document.getElementById('openLogin').onclick = ()=> modal.style.display='flex';
-  document.getElementById('loginBtn').onclick = ()=> modal.style.display='flex';
-  document.getElementById('closeModal').onclick = ()=> modal.style.display='none';
-
-  document.getElementById('loginForm').onsubmit = async (e)=>{
-    e.preventDefault();
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const r = await api('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
-    if(r.success){
-      modal.style.display='none';
-      updateStatus();
-      alert('Sesión iniciada');
-    } else alert('Credenciales incorrectas');
-  }
-
-  // Purchase
-  async function purchase(){
-    // Abre el QR/PayPal en nueva pestaña
-    window.open(PAYPAL_QR,'_blank');
-    // Después de pagar, el usuario puede confirmar (simulación)
-    if(confirm('¿Confirmar que pagaste? (simulación)')){
-      await api('/api/confirm-payment',{method:'POST'});
-      updateStatus();
-      alert('Pago confirmado — acceso concedido.');
-    }
-  }
-
-  document.getElementById('buyBtn').onclick = purchase;
-  document.getElementById('buyBtn2').onclick = purchase;
-
-  document.getElementById('openAdmin').onclick = async ()=>{
-    const s = await api('/api/status');
-    if(s.admin) window.location.href='/admin';
-    else alert('Solo el admin puede acceder aquí. Inicia sesión con la cuenta admin.');
-  }
-
-  async function updateStatus(){
-    const s = await api('/api/status');
-    const el = document.getElementById('statusMsg');
-    if(s.email){
-      el.innerText = `Conectado como ${s.email}. Acceso: ${s.paid? 'COMPLETO' : 'NO PAGADO'}`;
-    } else {
-      el.innerText = 'No has iniciado sesión.';
-    }
-  }
-
-  document.getElementById('demoBtn').onclick = async ()=>{
-    const s = await api('/api/status');
-    if(s.paid) window.location.href='/dashboard';
-    else alert('Compra la app para acceder al panel.');
-  }
-
-  updateStatus();
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
