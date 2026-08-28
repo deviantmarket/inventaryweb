@@ -704,18 +704,6 @@ function bindEvents() {
         DOM.customerAddress.addEventListener("input", updateCheckoutGuidance);
     }
 
-    // En móvil, cuando aparece el teclado, nos aseguramos de que el campo
-    // que el cliente está llenando quede visible por encima del teclado
-    // (sin esto, en algunos celulares el campo queda tapado y no se ve lo que se escribe)
-    [DOM.customerName, DOM.customerAddress, DOM.orderNotes].forEach((field) => {
-        if (!field) return;
-        field.addEventListener("focus", () => {
-            setTimeout(() => {
-                field.scrollIntoView({ behavior: "smooth", block: "center" });
-            }, 300);
-        });
-    });
-
     // Enviar pedido por WhatsApp
     if (DOM.whatsappOrderBtn) {
         DOM.whatsappOrderBtn.addEventListener("click", handleWhatsAppCheckout);
