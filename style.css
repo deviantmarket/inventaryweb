@@ -109,7 +109,11 @@ img {
 
 input, select, textarea {
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px; /* Evita el zoom automático de Safari en iPhone al enfocar */
+}
+
+.search-input-box input {
+    font-size: 14px; /* La búsqueda no está dentro de un panel fijo, no necesita el ajuste */
 }
 
 .container {
