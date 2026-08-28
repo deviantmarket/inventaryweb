@@ -27,6 +27,7 @@ const DOM = {
     cartOverlay: document.getElementById("cartOverlay"),
     openCartBtn: document.getElementById("openCart"),
     closeCartBtn: document.getElementById("closeCart"),
+    cartScrollArea: document.getElementById("cartScrollArea"),
     cartItems: document.getElementById("cartItems"),
     cartCountBadge: document.getElementById("cartCount"),
     cartSubtotal: document.getElementById("cartSubtotal"),
@@ -34,12 +35,19 @@ const DOM = {
     deliveryCost: document.getElementById("deliveryCost"),
     cartTotal: document.getElementById("cartTotal"),
     whatsappOrderBtn: document.getElementById("whatsappOrder"),
+    whatsappHelperHint: document.getElementById("whatsappHelperHint"),
+
+    // Guía de pasos (tracker)
+    trackerStep1: document.getElementById("trackerStep1"),
+    trackerStep2: document.getElementById("trackerStep2"),
+    trackerStep3: document.getElementById("trackerStep3"),
 
     // Free Shipping Bar
     shippingProgressFill: document.getElementById("shippingProgressFill"),
     shippingProgressText: document.getElementById("shippingProgressText"),
 
     // Formulario de Checkout
+    cartCheckoutForm: document.getElementById("cartCheckoutForm"),
     tabDelivery: document.getElementById("tabDelivery"),
     tabPickup: document.getElementById("tabPickup"),
     addressGroup: document.getElementById("addressGroup"),
@@ -279,7 +287,7 @@ function renderCart() {
                             <span class="qty-number">${item.quantity}</span>
                             <button type="button" class="qty-btn" data-action="plus" data-index="${index}" aria-label="Aumentar cantidad">+</button>
                         </div>
-                        <button type="button" class="remove-item-btn" data-action="remove" data-index="${index}" aria-label="Eliminar producto">✕</button>
+                        <button type="button" class="remove-item-btn" data-action="remove" data-index="${index}" aria-label="Eliminar ${escapeHtml(item.name)} del carrito" title="Eliminar del carrito">🗑️</button>
                     </div>
                 </div>
             `;
@@ -302,6 +310,45 @@ function renderCart() {
     }
 
     if (DOM.cartTotal) DOM.cartTotal.textContent = `${CONFIG.currencySymbol}${grandTotal.toFixed(2)}`;
+
+    // Guía de pasos + mensaje de ayuda junto al botón de WhatsApp
+    updateCheckoutGuidance();
+}
+
+/**
+ * Actualiza en vivo el tracker de pasos (Pedido → Entrega → Enviar),
+ * resalta los campos ya completados y muestra un aviso claro junto al
+ * botón de WhatsApp cuando aún falta algo, para que el cliente siempre
+ * sepa qué hacer y dónde está el botón de envío.
+ */
+function updateCheckoutGuidance() {
+    const hasItems = state.cart.length > 0;
+    const name = DOM.customerName ? DOM.customerName.value.trim() : "";
+    const address = DOM.customerAddress ? DOM.customerAddress.value.trim() : "";
+    const needsAddress = state.deliveryMode !== "pickup";
+    const dataComplete = Boolean(name) && (!needsAddress || Boolean(address));
+
+    // Resaltar campos completados
+    if (DOM.customerName) DOM.customerName.classList.toggle("field-complete", Boolean(name));
+    if (DOM.customerAddress) DOM.customerAddress.classList.toggle("field-complete", !needsAddress || Boolean(address));
+
+    // Tracker de pasos
+    if (DOM.trackerStep1) {
+        DOM.trackerStep1.classList.toggle("done", hasItems);
+        DOM.trackerStep1.classList.toggle("active", !hasItems);
+    }
+    if (DOM.trackerStep2) {
+        DOM.trackerStep2.classList.toggle("done", hasItems && dataComplete);
+        DOM.trackerStep2.classList.toggle("active", hasItems && !dataComplete);
+    }
+    if (DOM.trackerStep3) {
+        DOM.trackerStep3.classList.toggle("active", hasItems && dataComplete);
+    }
+
+    // Aviso junto al botón de WhatsApp
+    if (DOM.whatsappHelperHint) {
+        DOM.whatsappHelperHint.style.display = (hasItems && !dataComplete) ? "block" : "none";
+    }
 }
 
 function renderFreeShippingProgress(subtotal) {
@@ -420,13 +467,13 @@ function handleWhatsAppCheckout() {
 
     if (!name) {
         showToast("⚠️ Por favor ingresa tu nombre completo");
-        if (DOM.customerName) DOM.customerName.focus();
+        scrollToCheckoutField(DOM.customerName);
         return;
     }
 
     if (state.deliveryMode === "delivery" && !address) {
         showToast("⚠️ Por favor ingresa la dirección de entrega");
-        if (DOM.customerAddress) DOM.customerAddress.focus();
+        scrollToCheckoutField(DOM.customerAddress);
         return;
     }
 
@@ -436,6 +483,16 @@ function handleWhatsAppCheckout() {
     const url = createWhatsAppUrl(message);
 
     window.open(url, "_blank");
+}
+
+/**
+ * Lleva la vista (dentro del scroll único del carrito) hasta el campo
+ * que falta completar y lo enfoca, para que el cliente lo vea de inmediato.
+ */
+function scrollToCheckoutField(field) {
+    if (!field) return;
+    field.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => field.focus(), 300);
 }
 
 /* =====================================================
@@ -637,6 +694,14 @@ function bindEvents() {
             if (DOM.addressGroup) DOM.addressGroup.style.display = "none";
             renderCart();
         });
+    }
+
+    // Guía de pasos en vivo: se actualiza mientras el cliente escribe
+    if (DOM.customerName) {
+        DOM.customerName.addEventListener("input", updateCheckoutGuidance);
+    }
+    if (DOM.customerAddress) {
+        DOM.customerAddress.addEventListener("input", updateCheckoutGuidance);
     }
 
     // Enviar pedido por WhatsApp

@@ -857,67 +857,112 @@
             </div>
         </div>
 
-        <!-- Free Delivery Progress Bar -->
-        <div class="free-shipping-bar" id="freeShippingBanner">
-            <div class="shipping-progress-track">
-                <div class="shipping-progress-fill" id="shippingProgressFill" style="width: 0%;"></div>
+        <!-- Mini guía de pasos: siempre visible para orientar al cliente -->
+        <div class="cart-steps-tracker" aria-hidden="true">
+            <div class="tracker-step active" id="trackerStep1">
+                <span class="tracker-dot">1</span>
+                <span class="tracker-label">Pedido</span>
             </div>
-            <p class="shipping-progress-text" id="shippingProgressText">
-                Agrega <strong>$30.00</strong> para <strong>Envío Gratis</strong> 🛵
-            </p>
-        </div>
-
-        <!-- Cart Items List -->
-        <div class="cart-items" id="cartItems">
-            <!-- Dynamic items rendered by JS -->
-        </div>
-
-        <!-- Checkout / Delivery Information Form -->
-        <div class="cart-checkout-form" id="cartCheckoutForm">
-            <div class="form-section-title">
-                <span>📍 Datos de Entrega</span>
+            <span class="tracker-line"></span>
+            <div class="tracker-step" id="trackerStep2">
+                <span class="tracker-dot">2</span>
+                <span class="tracker-label">Entrega</span>
             </div>
-
-            <!-- Delivery Mode Selector -->
-            <div class="delivery-tabs" role="tablist">
-                <button type="button" class="delivery-tab active" id="tabDelivery" data-mode="delivery">
-                    🛵 A Domicilio
-                </button>
-                <button type="button" class="delivery-tab" id="tabPickup" data-mode="pickup">
-                    🏪 Retiro en Local
-                </button>
-            </div>
-
-            <div class="form-fields">
-                <div class="form-group">
-                    <label for="customerName">Nombre completo *</label>
-                    <input type="text" id="customerName" placeholder="Ej. Juan Pérez" autocomplete="name" required>
-                </div>
-
-                <div class="form-group" id="addressGroup">
-                    <label for="customerAddress">Dirección y Referencia *</label>
-                    <input type="text" id="customerAddress" placeholder="Ej. Calle Sol #24, Apto 3B (frente al parque)" autocomplete="street-address">
-                </div>
-
-                <div class="form-group">
-                    <label for="paymentMethod">Forma de Pago</label>
-                    <select id="paymentMethod">
-                        <option value="Efectivo contra entrega">💵 Efectivo contra entrega</option>
-                        <option value="Transferencia / Pago Móvil">📱 Transferencia / Pago Móvil</option>
-                        <option value="Zelle">⚡ Zelle</option>
-                        <option value="Tarjeta al recibir (Punto de venta)">💳 Tarjeta al recibir (Punto)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="orderNotes">Notas de cocina o delivery (opcional)</label>
-                    <input type="text" id="orderNotes" placeholder="Ej. Sin cebolla, salsa tártara extra, timbre averiado...">
-                </div>
+            <span class="tracker-line"></span>
+            <div class="tracker-step" id="trackerStep3">
+                <span class="tracker-dot">3</span>
+                <span class="tracker-label">Enviar</span>
             </div>
         </div>
 
-        <!-- Cart Summary & WhatsApp Submit -->
+        <!-- Todo el contenido central comparte UN SOLO scroll, para que el
+             cliente nunca se quede "atrapado" scrolleando dentro de una
+             sección sin ver lo que sigue -->
+        <div class="cart-scroll-area" id="cartScrollArea">
+
+            <!-- Free Delivery Progress Bar -->
+            <div class="free-shipping-bar" id="freeShippingBanner">
+                <div class="shipping-progress-track">
+                    <div class="shipping-progress-fill" id="shippingProgressFill" style="width: 0%;"></div>
+                </div>
+                <p class="shipping-progress-text" id="shippingProgressText">
+                    Agrega <strong>$30.00</strong> para <strong>Envío Gratis</strong> 🛵
+                </p>
+            </div>
+
+            <!-- PASO 1: Productos -->
+            <div class="cart-block">
+                <div class="cart-block-title">
+                    <span class="cart-block-number">1</span>
+                    <span>Tu pedido</span>
+                </div>
+
+                <!-- Cart Items List -->
+                <div class="cart-items" id="cartItems">
+                    <!-- Dynamic items rendered by JS -->
+                </div>
+            </div>
+
+            <!-- PASO 2: Datos de entrega -->
+            <div class="cart-block" id="cartCheckoutForm">
+                <div class="cart-block-title">
+                    <span class="cart-block-number">2</span>
+                    <span>Datos de tu entrega</span>
+                </div>
+                <p class="cart-block-hint">Completa esto para poder enviarte el pedido y confirmarlo por WhatsApp.</p>
+
+                <!-- Delivery Mode Selector -->
+                <div class="delivery-tabs" role="tablist">
+                    <button type="button" class="delivery-tab active" id="tabDelivery" data-mode="delivery">
+                        🛵 A Domicilio
+                    </button>
+                    <button type="button" class="delivery-tab" id="tabPickup" data-mode="pickup">
+                        🏪 Retiro en Local
+                    </button>
+                </div>
+
+                <div class="form-fields">
+                    <div class="form-group">
+                        <label for="customerName">👤 Nombre completo *</label>
+                        <input type="text" id="customerName" placeholder="Ej. Juan Pérez" autocomplete="name" required>
+                    </div>
+
+                    <div class="form-group" id="addressGroup">
+                        <label for="customerAddress">📍 Dirección y Referencia *</label>
+                        <input type="text" id="customerAddress" placeholder="Ej. Calle Sol #24, Apto 3B (frente al parque)" autocomplete="street-address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentMethod">💳 Forma de Pago</label>
+                        <select id="paymentMethod">
+                            <option value="Efectivo contra entrega">💵 Efectivo contra entrega</option>
+                            <option value="Transferencia / Pago Móvil">📱 Transferencia / Pago Móvil</option>
+                            <option value="Zelle">⚡ Zelle</option>
+                            <option value="Tarjeta al recibir (Punto de venta)">💳 Tarjeta al recibir (Punto)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderNotes">📝 Notas de cocina o delivery (opcional)</label>
+                        <input type="text" id="orderNotes" placeholder="Ej. Sin cebolla, salsa tártara extra, timbre averiado...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empujón visual hacia el paso 3, que está fijo abajo -->
+            <div class="cart-scroll-end-hint">
+                <span class="hint-arrow">↓</span>
+                <span>Cuando termines, el botón para enviar tu pedido está aquí abajo</span>
+            </div>
+        </div>
+
+        <!-- PASO 3: Cart Summary & WhatsApp Submit (siempre visible, fijo) -->
         <div class="cart-footer">
+            <div class="cart-footer-step-label">
+                <span class="cart-block-number">3</span>
+                <span>Confirmar y enviar</span>
+            </div>
+
             <div class="summary-lines">
                 <div class="summary-row">
                     <span>Subtotal</span>
@@ -937,11 +982,15 @@
                 <span class="btn-icon">💬</span>
                 <span>Enviar Pedido por WhatsApp</span>
             </button>
+            <p class="whatsapp-helper-hint" id="whatsappHelperHint" style="display: none;">
+                ⚠️ Completa tu nombre y dirección en el Paso 2 para activar el envío
+            </p>
             <p class="whatsapp-disclaimer">
                 🔒 Serás redirigido a WhatsApp para confirmar tu orden al instante.
             </p>
         </div>
     </aside>
+
 
     <!-- ================= FLOATING ACTION BUTTONS ================= -->
     <div class="floating-actions" id="floatingActions">
