@@ -1,792 +1,1443 @@
-"use strict";
+// =====================================================
+// CONFIGURACIÓN DE LA TIENDA
+// =====================================================
+const PHONE_NUMBER = "18494268576";
+const SERVER_NAME = "Dream Y0002 NA";
+const VENDOR_NAME = "AegonTargaryen9";
+const PRICE_PER_1M_LINKS = 1.00;
+const STORAGE_KEY = "oh_market_cart_v1";
+const LANG_STORAGE_KEY = "oh_market_lang";
 
-/* =====================================================
-   SABOR CARIBE - LOGICA DE NEGOCIO & INTERACTIVIDAD
-   WhatsApp: +1 (849) 426-8576
-   ===================================================== */
+// =====================================================
+// DICCIONARIO DE INTERNACIONALIZACIÓN (i18n)
+// =====================================================
+const TRANSLATIONS = {
+  es: {
+    // Nav & Hero
+    nav_tagline: "Deviants y Energy Links sin esperas",
+    hero_badge: "Tienda Oficial Once Human",
+    hero_desc: "Domina el servidor <strong>Dream Y0002 NA</strong> con el mejor equipamiento, Deviants de combate de máximo nivel y Energy Links al mejor precio del mercado.",
+    hero_server_label: "Servidor:",
+    btn_catalog: "Ver Catálogo Deviants",
+    btn_calculator: "Calculadora de Links",
 
-const CONFIG = {
-    whatsappNumber: "18494268576",
-    freeShippingThreshold: 30.00,
-    standardDeliveryFee: 2.50,
-    currencySymbol: "$",
-    storageKey: "sabor_caribe_cart_v2",
-    userKey: "sabor_caribe_user_data_v2"
+    // Calculadora
+    calc_title: "Calculadora de Energy Links",
+    calc_subtitle: "Cotiza al instante la cantidad de links que necesitas y pide directo por WhatsApp.",
+    calc_amount_label: "Cantidad de Energy Links:",
+    calc_placeholder: "Ej: 1000000",
+    calc_est_price: "Precio estimado:",
+    calc_note: "Tasa: $1.00 USD por cada 1,000,000 Energy Links.",
+    btn_order_links: "Ordenar Energy Links por WhatsApp",
+    calc_invalid_alert: "Por favor ingresa una cantidad válida de Energy Links.",
+    wa_links_msg: (vendor, amount, server, price) =>
+      `Hola ${vendor}, quiero comprar ${amount} Energy Links en el servidor ${server}. Precio estimado: ${price}. ¿Tienes disponibilidad para entrega inmediata?`,
+
+    // Catálogo
+    catalog_title: "Catálogo de Deviants Disponibles",
+    catalog_subtitle: "Deviants de alto nivel listos para transferir de inmediato en Dream Y0002 NA",
+    search_placeholder: "Buscar Deviant por nombre o descripción (ej: Lobo, Wish, Sol...)",
+    filter_all: "Todos",
+    filter_starfall: "Starfall",
+    filter_lunar: "Lunar",
+    filter_caos: "Caos",
+    filter_aberrante: "Aberrante",
+    filter_infrasonicos: "Infrasónicos",
+    filter_otros: "Otros Deviants",
+    available_badge: "Disponible",
+    btn_add: "Agregar",
+    aria_add: "Agregar {name} al pedido",
+    results_count: (count) => `${count} Deviants disponibles`,
+    toolbar_updated: "Actualizado para Dream Y0002 NA",
+    no_results_title: "No se encontraron Deviants",
+    no_results_desc: (query) => `No hay coincidencias para "<strong>${query}</strong>" en esta categoría.`,
+    btn_show_all: "Mostrar todos",
+
+    // Carrito
+    cart_title: "Tu Pedido de Deviants",
+    cart_subtitle: "Selecciona los Deviants que deseas y envía la lista completa por WhatsApp.",
+    cart_selected_count: (count) => `${count} ${count === 1 ? 'seleccionado' : 'seleccionados'}`,
+    cart_clear_title: "Vaciar lista",
+    cart_clear_btn: "Vaciar",
+    cart_empty_text: "No has agregado Deviants a tu pedido todavía. ¡Haz clic en <strong>Agregar</strong> en las tarjetas de abajo!",
+    cart_total_label: "Total estimado:",
+    btn_send_cart: "Enviar Pedido por WhatsApp",
+    cart_confirm_clear: "¿Deseas vaciar todos los Deviants seleccionados?",
+    cart_added_toast: (name) => `¡${name} añadido al pedido!`,
+    floating_cart_view: "Ver Pedido",
+    floating_cart_items: (count) => `${count} ${count === 1 ? 'item' : 'items'}`,
+    wa_cart_header: (vendor, server) => `¡Hola ${vendor}! Quiero realizar el siguiente pedido de Deviants en el servidor *${server}*:\n\n`,
+    wa_cart_footer: (totalItems, totalUSD) => `\n📦 Total de Deviants: ${totalItems}\n💰 Monto Total: *${totalUSD}*\n\n¿Los tienes listos para transferir in-game?`,
+
+    // Pasos
+    steps_title: "¿Cómo Funciona la Compra?",
+    steps_subtitle: "Proceso transparente, rápido y 100% seguro dentro del juego.",
+    step1_title: "1. Arma tu Pedido",
+    step1_desc: "Selecciona tus Deviants o calcula tus Energy Links y pulsa en el botón de WhatsApp.",
+    step2_title: "2. Confirma y Paga",
+    step2_desc: "Acordamos disponibilidad por chat y realizas el pago por tu método preferido.",
+    step3_title: "3. Entrega In-Game",
+    step3_desc: "Nos coordinamos en el servidor <strong>Dream Y0002 NA</strong> y recibes tus ítems de inmediato.",
+
+    // Garantías
+    feat1_title: "Seguridad 100%",
+    feat1_desc: "Transacciones directas dentro del juego en el servidor Dream Y0002 NA sin riesgos.",
+    feat2_title: "Entrega Rápida",
+    feat2_desc: "Coordinación inmediata por WhatsApp una vez verificado el pedido.",
+    feat3_title: "Atención Directa",
+    feat3_desc: "Trato directo con AegonTargaryen9 sin intermediarios ni comisiones extra.",
+
+    // Footer
+    footer_title: "¿Tienes alguna duda o buscas un Deviant especial?",
+    footer_desc: "Escríbeme por WhatsApp y coordinamos tu entrega en <strong>Dream Y0002 NA</strong> al instante.",
+    footer_btn: "Hablar con Soporte por WhatsApp",
+    footer_copy: "© 2026 Once Human Market • Dream Y0002 NA Trading Store.",
+    wa_footer_text: "Hola AegonTargaryen9, quiero informacion sobre tus servicios en Once Human",
+
+    // Modal
+    modal_close_aria: "Cerrar imagen"
+  },
+
+  en: {
+    // Nav & Hero
+    nav_tagline: "Deviants & Energy Links with zero wait",
+    hero_badge: "Official Once Human Store",
+    hero_desc: "Dominate the <strong>Dream Y0002 NA</strong> server with top-tier gear, max-level combat Deviants, and Energy Links at the best market price.",
+    hero_server_label: "Server:",
+    btn_catalog: "Browse Deviants Catalog",
+    btn_calculator: "Links Calculator",
+
+    // Calculadora
+    calc_title: "Energy Links Calculator",
+    calc_subtitle: "Instantly quote the links you need and order directly via WhatsApp.",
+    calc_amount_label: "Energy Links Amount:",
+    calc_placeholder: "e.g. 1000000",
+    calc_est_price: "Estimated price:",
+    calc_note: "Rate: $1.00 USD per 1,000,000 Energy Links.",
+    btn_order_links: "Order Energy Links via WhatsApp",
+    calc_invalid_alert: "Please enter a valid amount of Energy Links.",
+    wa_links_msg: (vendor, amount, server, price) =>
+      `Hello ${vendor}, I would like to buy ${amount} Energy Links on the ${server} server. Estimated price: ${price}. Do you have immediate availability?`,
+
+    // Catálogo
+    catalog_title: "Available Deviants Catalog",
+    catalog_subtitle: "High-level Deviants ready for immediate in-game transfer on Dream Y0002 NA",
+    search_placeholder: "Search Deviant by name or description (e.g. Wolf, Wish, Sun...)",
+    filter_all: "All",
+    filter_starfall: "Starfall",
+    filter_lunar: "Lunar",
+    filter_caos: "Chaos",
+    filter_aberrante: "Aberrant",
+    filter_infrasonicos: "Infrasonic",
+    filter_otros: "Other Deviants",
+    available_badge: "Available",
+    btn_add: "Add",
+    aria_add: "Add {name} to order",
+    results_count: (count) => `${count} Deviants available`,
+    toolbar_updated: "Updated for Dream Y0002 NA",
+    no_results_title: "No Deviants Found",
+    no_results_desc: (query) => `No matches found for "<strong>${query}</strong>" in this category.`,
+    btn_show_all: "Show all",
+
+    // Carrito
+    cart_title: "Your Deviants Order",
+    cart_subtitle: "Select the Deviants you want and send the full list via WhatsApp.",
+    cart_selected_count: (count) => `${count} ${count === 1 ? 'selected' : 'selected'}`,
+    cart_clear_title: "Clear list",
+    cart_clear_btn: "Clear",
+    cart_empty_text: "You haven't added Deviants to your order yet. Click <strong>Add</strong> on the cards below!",
+    cart_total_label: "Estimated total:",
+    btn_send_cart: "Send Order via WhatsApp",
+    cart_confirm_clear: "Do you want to clear all selected Deviants?",
+    cart_added_toast: (name) => `Added ${name} to order!`,
+    floating_cart_view: "View Order",
+    floating_cart_items: (count) => `${count} ${count === 1 ? 'item' : 'items'}`,
+    wa_cart_header: (vendor, server) => `Hello ${vendor}! I would like to place the following Deviants order on the *${server}* server:\n\n`,
+    wa_cart_footer: (totalItems, totalUSD) => `\n📦 Total Deviants: ${totalItems}\n💰 Total Amount: *${totalUSD}*\n\nAre they ready for in-game transfer?`,
+
+    // Pasos
+    steps_title: "How Does Ordering Work?",
+    steps_subtitle: "Transparent, fast, and 100% secure in-game process.",
+    step1_title: "1. Build Your Order",
+    step1_desc: "Select your Deviants or calculate your Energy Links and click the WhatsApp button.",
+    step2_title: "2. Confirm & Pay",
+    step2_desc: "We confirm stock via chat and you pay through your preferred method.",
+    step3_title: "3. In-Game Delivery",
+    step3_desc: "We coordinate on the <strong>Dream Y0002 NA</strong> server and you receive your items immediately.",
+
+    // Garantías
+    feat1_title: "100% Secure",
+    feat1_desc: "Direct, risk-free in-game transactions on the Dream Y0002 NA server.",
+    feat2_title: "Fast Delivery",
+    feat2_desc: "Immediate WhatsApp coordination once the order is verified.",
+    feat3_title: "Direct Support",
+    feat3_desc: "Direct deal with AegonTargaryen9 with zero intermediaries or hidden fees.",
+
+    // Footer
+    footer_title: "Have any questions or looking for a special Deviant?",
+    footer_desc: "Message me on WhatsApp and we will coordinate your delivery on <strong>Dream Y0002 NA</strong> instantly.",
+    footer_btn: "Chat with Support on WhatsApp",
+    footer_copy: "© 2026 Once Human Market • Dream Y0002 NA Trading Store.",
+    wa_footer_text: "Hello AegonTargaryen9, I would like information about your Once Human services",
+
+    // Modal
+    modal_close_aria: "Close image"
+  }
 };
 
-/* ---------------- ELEMENTOS DEL DOM ---------------- */
-const DOM = {
-    // Header & Nav
-    siteHeader: document.getElementById("siteHeader"),
-    menuButton: document.getElementById("menuButton"),
-    mainNav: document.getElementById("mainNav"),
-    navLinks: document.querySelectorAll(".nav-link"),
+let currentLang = "es";
 
-    // Cart Panel & Overlay
-    cartPanel: document.getElementById("cartPanel"),
-    cartOverlay: document.getElementById("cartOverlay"),
-    openCartBtn: document.getElementById("openCart"),
-    closeCartBtn: document.getElementById("closeCart"),
-    cartScrollArea: document.getElementById("cartScrollArea"),
-    cartItems: document.getElementById("cartItems"),
-    cartCountBadge: document.getElementById("cartCount"),
-    cartSubtotal: document.getElementById("cartSubtotal"),
-    deliveryRow: document.getElementById("deliveryRow"),
-    deliveryCost: document.getElementById("deliveryCost"),
-    cartTotal: document.getElementById("cartTotal"),
-    whatsappOrderBtn: document.getElementById("whatsappOrder"),
-    whatsappHelperHint: document.getElementById("whatsappHelperHint"),
-
-    // Guía de pasos (tracker)
-    trackerStep1: document.getElementById("trackerStep1"),
-    trackerStep2: document.getElementById("trackerStep2"),
-    trackerStep3: document.getElementById("trackerStep3"),
-
-    // Free Shipping Bar
-    shippingProgressFill: document.getElementById("shippingProgressFill"),
-    shippingProgressText: document.getElementById("shippingProgressText"),
-
-    // Formulario de Checkout
-    cartCheckoutForm: document.getElementById("cartCheckoutForm"),
-    tabDelivery: document.getElementById("tabDelivery"),
-    tabPickup: document.getElementById("tabPickup"),
-    addressGroup: document.getElementById("addressGroup"),
-    customerName: document.getElementById("customerName"),
-    customerAddress: document.getElementById("customerAddress"),
-    paymentMethod: document.getElementById("paymentMethod"),
-    orderNotes: document.getElementById("orderNotes"),
-
-    // Búsqueda y Filtros
-    searchInput: document.getElementById("searchInput"),
-    clearSearchBtn: document.getElementById("clearSearch"),
-    filterButtons: document.querySelectorAll(".filter"),
-    productCards: document.querySelectorAll(".product-card"),
-    productGrid: document.getElementById("productGrid"),
-    noResults: document.getElementById("noResults"),
-    resetSearchBtn: document.getElementById("resetSearchBtn"),
-
-    // Botones de Agregar
-    addButtons: document.querySelectorAll(".add-button"),
-
-    // Floating Actions
-    floatingCartBtn: document.getElementById("floatingCartBtn"),
-    floatingCartCount: document.getElementById("floatingCartCount"),
-    floatingCartTotal: document.getElementById("floatingCartTotal"),
-
-    // Links WhatsApp generales
-    heroWhatsapp: document.getElementById("heroWhatsapp"),
-    contactWhatsapp: document.getElementById("contactWhatsapp"),
-
-    // Toast Container
-    toastContainer: document.getElementById("toastContainer"),
-
-    // Status Badge
-    storeStatus: document.getElementById("storeStatus")
-};
-
-/* ---------------- ESTADO DE LA APLICACIÓN ---------------- */
-let state = {
-    cart: [],
-    deliveryMode: "delivery", // "delivery" o "pickup"
-    activeCategory: "todos",
-    searchQuery: ""
-};
-
-/* =====================================================
-   INICIALIZACIÓN
-   ===================================================== */
-function init() {
-    loadCartFromStorage();
-    loadUserDataFromStorage();
-    bindEvents();
-    renderCart();
-    updateLiveCategoryCounts();
-    updateStoreOpenStatus();
+function t(key) {
+  if (TRANSLATIONS[currentLang] && TRANSLATIONS[currentLang][key] !== undefined) {
+    return TRANSLATIONS[currentLang][key];
+  }
+  if (TRANSLATIONS.es && TRANSLATIONS.es[key] !== undefined) {
+    return TRANSLATIONS.es[key];
+  }
+  return key;
 }
 
-/* =====================================================
-   PERSISTENCIA (LOCAL STORAGE)
-   ===================================================== */
-function loadCartFromStorage() {
-    try {
-        const saved = localStorage.getItem(CONFIG.storageKey);
-        if (saved) {
-            state.cart = JSON.parse(saved);
-        }
-    } catch (e) {
-        console.warn("No se pudo cargar el carrito del almacenamiento local", e);
-        state.cart = [];
+// =====================================================
+// CATÁLOGO COMPLETO DE DEVIANTS (BILINGÜE)
+// =====================================================
+const DEVIANTS_DATA = [
+  // --- STARFALL ---
+  {
+    id: "medusa-polar",
+    name: "Medusa Polar",
+    name_en: "Polar Jelly - Starfall Inversion",
+    category: "Starfall",
+    price: 15,
+    img: "Medusa Polar.jpeg",
+    desc: "Deviant Starfall exclusivo de alto rendimiento.",
+    desc_en: "Can participate in combat to deal Ice DMG to a large area.",
+    highlight: "Top Starfall",
+    highlight_en: "Top Starfall"
+  },
+  {
+    id: "vudu",
+    name: "Vudú",
+    name_en: "Voodoo Doll - Starfall Inversion",
+    category: "Starfall",
+    price: 15,
+    img: "Vudú.jpeg",
+    desc: "Deviant Starfall versátil para combate y control.",
+    desc_en: "Can participate in combat, sharing damage received by its master or possessing enemies.",
+    highlight: "Popular",
+    highlight_en: "Popular"
+  },
+  {
+    id: "sol",
+    name: "Sol",
+    name_en: "Invincible Sun - Starfall Inversion",
+    category: "Starfall",
+    price: 15,
+    img: "Sol.jpeg",
+    desc: "Deviant Starfall radiante de gran potencia.",
+    desc_en: "Can participate in combat to periodically release blazing energy rays, inflicting continuous Burn DMG.",
+    highlight: "Top Tier",
+    highlight_en: "Top Tier"
+  },
+  {
+    id: "zapamandra",
+    name: "Zapamandra",
+    name_en: "Zapamander - Gravity Abyss",
+    category: "Starfall",
+    price: 15,
+    img: "Zapamandra.jpeg",
+    desc: "Deviant Starfall elemental eléctrico letal.",
+    desc_en: "Can participate in combat to summon thunderclouds to strike enemies and enhance electrical damage.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "minicomilon-starfall",
+    name: "Minicomilón",
+    name_en: "Mini Feaster - Starfall Inversion",
+    category: "Starfall",
+    price: 15,
+    img: "Minicomilón.jpeg",
+    desc: "Deviant Starfall de recolección y asistencia.",
+    desc_en: "Can participate in combat, marking enemies or summoning tentacles to attack them.",
+    highlight: "Destacado",
+    highlight_en: "Featured"
+  },
+
+  // --- LUNAR ---
+  {
+    id: "lobo",
+    name: "Lobo",
+    name_en: "Lonewolf's Whisper - Lunar Oracle",
+    category: "Lunar",
+    price: 15,
+    img: "Lobo.jpeg",
+    desc: "Deviant Lunar de agilidad y ataque veloz.",
+    desc_en: "Can participate in combat. Will transform into a black wolf and attack enemies.",
+    highlight: "Top Combate",
+    highlight_en: "Top Combat"
+  },
+  {
+    id: "camara",
+    name: "Cámara",
+    name_en: "ZapCam - Lunar Oracle",
+    category: "Lunar",
+    price: 15,
+    img: "Cámara.jpeg",
+    desc: "Deviant Lunar de soporte estratégico y visión.",
+    desc_en: "Can participate in combat to constantly photograph nearby enemies, increasing Weapon DMG received.",
+    highlight: "Utilidad",
+    highlight_en: "Utility"
+  },
+  {
+    id: "pyro-dino",
+    name: "Pyro Dino",
+    name_en: "Pyro Dino - Lunar Oracle",
+    category: "Lunar",
+    price: 15,
+    img: "Pirodino.jpeg",
+    desc: "Deviant Lunar con daño ígneo en área continuo.",
+    desc_en: "Can participate in combat to breathe fire and inflict continuous Burn DMG.",
+    highlight: "Daño Fuego",
+    highlight_en: "Fire Damage"
+  },
+  {
+    id: "hada-nieves",
+    name: "Hada de las Nieves",
+    name_en: "Snowsprite - Lunar Oracle",
+    category: "Lunar",
+    price: 15,
+    img: "Hada de las nieves.jpeg",
+    desc: "Deviant Lunar con congelación y ralentización táctica.",
+    desc_en: "Can participate in combat to summon fragile frost crystals that explode upon shattering for Frost DMG.",
+    highlight: "Control Frío",
+    highlight_en: "Cold Control"
+  },
+  {
+    id: "zenopurificador",
+    name: "Zenopurificador",
+    name_en: "Zeno-Purifier - Lunar Oracle",
+    category: "Lunar",
+    price: 15,
+    img: "Zenopurificador.jpeg",
+    desc: "Deviant Lunar de purificación y soporte de territorio.",
+    desc_en: "Can participate in combat. Grants its owner quick-draw attacks with a shadowy blade.",
+    highlight: "Territorio",
+    highlight_en: "Territory"
+  },
+  {
+    id: "mariposa-lunar",
+    name: "Mariposa Lunar",
+    name_en: "Butterfly's Emissary - Starry Night",
+    category: "Lunar",
+    price: 10,
+    img: "Mariposa Lunar.jpeg",
+    desc: "Deviant Lunar ágil y ligera para apoyo inicial.",
+    desc_en: "Can participate in combat to mark enemy Weakspots, increasing the damage they receive.",
+    highlight: "Económico",
+    highlight_en: "Budget Pick"
+  },
+
+  // --- CAOS ---
+  {
+    id: "hada-caos",
+    name: "Hada del Caos",
+    name_en: "Chaos Snowsprite",
+    category: "Caos",
+    price: 15,
+    img: "hada del caos.jpg",
+    desc: "Deviant Caos con habilidades impredecibles de combate.",
+    desc_en: "Chaos variant with high Dex value, summoning devastating exploding frost crystals.",
+    highlight: "Caos Especial",
+    highlight_en: "Special Chaos"
+  },
+  {
+    id: "mini-maravilla",
+    name: "Mini Maravilla del Caos",
+    name_en: "Chaos Mini Wonder",
+    category: "Caos",
+    price: 15,
+    img: "minimaravilla.webp",
+    desc: "Deviant Caos compacto de gran poder ofensivo.",
+    desc_en: "Chaos variant with high Dex value, absorbing enemy gunfire and retaliating with high power.",
+    highlight: "Alta Potencia",
+    highlight_en: "High Power"
+  },
+  {
+    id: "mr-wish-caos",
+    name: "Mr. Wish del Caos",
+    name_en: "Chaos Mr. Wish",
+    category: "Caos",
+    price: 15,
+    img: "mr_wish.jpg",
+    desc: "Deviant Caos que desata proyectiles continuos.",
+    desc_en: "Chaos variant with high Dex value, using firearms to unleash rapid-fire attacks and apply The Bull's Eye.",
+    highlight: "Tirador",
+    highlight_en: "Sharpshooter"
+  },
+  {
+    id: "chaosaurus",
+    name: "Chaosaurus",
+    name_en: "Chaosaurus",
+    category: "Caos",
+    price: 15,
+    img: "Chaosaurus.jpeg",
+    desc: "Deviant Caos prehistórico de ataque feroz.",
+    desc_en: "Prehistoric Chaos Deviation that participates in combat to breathe devastating fire.",
+    highlight: "Fuerza Bruta",
+    highlight_en: "Brute Force"
+  },
+
+  // --- ABERRANTE ---
+  {
+    id: "rebecca-aberrante",
+    name: "Rebecca Aberrante",
+    name_en: "Rebecca - Aberrant Progeny",
+    category: "Aberrante",
+    price: 15,
+    img: "Rebecca aberrante.jpeg",
+    desc: "Deviant Aberrante de élite con gran sinergia de combate.",
+    desc_en: "Can summon the avatar of \"her\" to comfort and soothe other Deviations.",
+    highlight: "Elite",
+    highlight_en: "Elite"
+  },
+  {
+    id: "dr-osito-aberrante",
+    name: "Dr. Osito Aberrante",
+    name_en: "Dr. Teddy - Aberrant Progeny",
+    category: "Aberrante",
+    price: 15,
+    img: "Dr Osito Aberrante.jpeg",
+    desc: "Deviant Aberrante con soporte de tanque y curación.",
+    desc_en: "Can participate in combat to heal or rescue fallen Meta-Humans with increased resilience.",
+    highlight: "Tanque/Soporte",
+    highlight_en: "Tank / Support"
+  },
+
+  // --- OTROS DEVIANTS ---
+  {
+    id: "invocador-almas",
+    name: "Invocador de Almas",
+    name_en: "Soul Summoner",
+    category: "Otros",
+    price: 10,
+    img: "Invocador de almas.jpeg",
+    desc: "Deviant místico invocador de refuerzos espirituales.",
+    desc_en: "Can participate in combat to weaken enemies with cursed arrows, increasing Weapon DMG.",
+    highlight: "Invocación",
+    highlight_en: "Summoner"
+  },
+  {
+    id: "alterador-espacio",
+    name: "Alterador de espacio",
+    name_en: "Space Turner",
+    category: "Otros",
+    price: 10,
+    img: "Alterador de espacio.jpeg",
+    desc: "Deviant especializado en alterar el espacio a su alrededor.",
+    desc_en: "Deviant specialized in altering the space around it.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "begimo",
+    name: "Bégimo",
+    name_en: "Behemoth",
+    category: "Otros",
+    price: 10,
+    img: "begimo.jpeg",
+    desc: "Deviant colosal de alta resistencia física.",
+    desc_en: "A loyal companion for George. High-durability guardian construct.",
+    highlight: "Defensivo",
+    highlight_en: "Defensive"
+  },
+  {
+    id: "caballero-plateado",
+    name: "Caballero Plateado",
+    name_en: "Nutcracker - Silver Knight",
+    category: "Otros",
+    price: 10,
+    img: "Caballero Plateado.jpeg",
+    desc: "Deviant acorazado ideal para choque frontal.",
+    desc_en: "Operates in the territory to defend it from invaders with stalwart armored combat.",
+    highlight: "Armadura",
+    highlight_en: "Armor"
+  },
+  {
+    id: "mr-wish-rex",
+    name: "Mr. Wish Rex",
+    name_en: "Mr. Wish - Chefosaurus Rex Warrior",
+    category: "Otros",
+    price: 10,
+    img: "Mr Wish Rex.jpeg",
+    desc: "Deviant clásico con bonificación de disparo y precisión.",
+    desc_en: "Can participate in combat to use guns to attack and apply The Bull's Eye on enemies.",
+    highlight: "Rango",
+    highlight_en: "Ranged"
+  },
+  {
+    id: "george-el-valiente",
+    name: "George el Valiente",
+    name_en: "Brave George",
+    category: "Otros",
+    price: 10,
+    img: "George el Valiente.jpeg",
+    desc: "Deviant valeroso que potencia el daño del jugador.",
+    desc_en: "A loyal companion for Metas, boosting player status effects and combat prowess.",
+    highlight: "Buff Daño",
+    highlight_en: "Damage Buff"
+  },
+  {
+    id: "ballenato",
+    name: "Ballenato",
+    name_en: "Whalepup",
+    category: "Otros",
+    price: 10,
+    img: "Ballenato.jpeg",
+    desc: "Deviant acuático de apoyo y utilidad en base.",
+    desc_en: "Can participate in combat, transforming the battlefield into an underwater world that drowns enemies.",
+    highlight: "Utilidad",
+    highlight_en: "Utility"
+  },
+  {
+    id: "lobo-radiante",
+    name: "Lobo Radiante",
+    name_en: "Lonewolf's Whisper - Radiant Variant",
+    category: "Otros",
+    price: 10,
+    img: "Lobo Radiante.jpeg",
+    desc: "Deviant veloz con efectos lumínicos de asistencia.",
+    desc_en: "Can participate in combat. Will transform into a black wolf and attack enemies.",
+    highlight: "Velocidad",
+    highlight_en: "Speed"
+  },
+  {
+    id: "vudu-esponjoso",
+    name: "Vudú Esponjoso",
+    name_en: "Voodoo Doll - Fluffy Curse",
+    category: "Otros",
+    price: 10,
+    img: "Vudú Esponjoso.jpeg",
+    desc: "Deviant de mitigación de daño y resistencia aumentada.",
+    desc_en: "Can participate in combat, sharing damage received by its master or possessing enemies.",
+    highlight: "Resistencia",
+    highlight_en: "Durability"
+  },
+  {
+    id: "sol-infrasonico",
+    name: "Sol Infrasónico",
+    name_en: "Invincible Sun - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "Sol infrasonico.jpeg",
+    desc: "Deviant de ondas sónicas devastadoras en área.",
+    desc_en: "Can participate in combat to periodically release blazing energy rays inflicting Burn DMG.",
+    highlight: "Daño Sónico",
+    highlight_en: "Burn / Sonic"
+  },
+  {
+    id: "mariposa-azul",
+    name: "Mariposa Azul",
+    name_en: "Butterfly's Emissary - Glistening Blue",
+    category: "Otros",
+    price: 10,
+    img: "Mariposa Azul.jpeg",
+    desc: "Deviant clásico de distracción y apoyo básico.",
+    desc_en: "Can participate in combat to mark enemy Weakspots, increasing the damage they receive.",
+    highlight: "Básico",
+    highlight_en: "Basic"
+  },
+  {
+    id: "minicomilon-devorador",
+    name: "Minicomilón - Devorador de Estrellas",
+    name_en: "Mini Feaster - Star Devourer",
+    category: "Otros",
+    price: 10,
+    img: "minicomilon_devorador_estrellas.jpeg",
+    desc: "Deviant especial de recolección acelerada de recursos.",
+    desc_en: "Can participate in combat, marking enemies or summoning tentacles to attack them.",
+    highlight: "Farmeo",
+    highlight_en: "Farming"
+  },
+  {
+    id: "gel-supurante",
+    name: "Gel Supurante: Estrella Marina",
+    name_en: "Festering Gel - Marine Star",
+    category: "Otros",
+    price: 10,
+    img: "Gel sulpurante estrella marina.jpeg",
+    desc: "Deviant gelatinoso de cobertura y regeneración de cordura.",
+    desc_en: "Can participate in combat to transform into shelter and block enemy attacks while recovering Sanity.",
+    highlight: "Cordura",
+    highlight_en: "Sanity"
+  },
+  {
+    id: "cuenco-reconfortante",
+    name: "Cuenco Reconfortante",
+    name_en: "Hug-in-a-Bowl",
+    category: "Otros",
+    price: 10,
+    img: "Cuenco reconfortante.jpeg",
+    desc: "Deviant de soporte culinario y nutrición en territorio.",
+    desc_en: "Produces special ingredients to cook unique dishes. Used to recover Sanity in territory.",
+    highlight: "Comida",
+    highlight_en: "Food"
+  },
+  {
+    id: "cocinosaurio-rex",
+    name: "Cocinosaurio Rex",
+    name_en: "Chefosaurus Rex",
+    category: "Otros",
+    price: 10,
+    img: "Cocinosaurio Rex.jpeg",
+    desc: "Deviant experto en cocina y buffs gastronómicos.",
+    desc_en: "Operates in the territory to assist in cooking and producing enhanced food dishes.",
+    highlight: "Cocina",
+    highlight_en: "Chef"
+  },
+  {
+    id: "munecooo",
+    name: "Muñeco de papel infrasónico",
+    name_en: "Paper Doll - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "munecooo.jpeg",
+    desc: "Deviant de apoyo con habilidades de resonancia infrasónica.",
+    desc_en: "Operates in the territory. Discovers lost materials while cleaning and maintaining base.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "bolita",
+    name: "Bola de nieve infrasónica",
+    name_en: "Snow Globe - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "bolita.jpeg",
+    desc: "Deviant infrasónico que utiliza el frío para controlar el combate.",
+    desc_en: "Infrasonic Deviant that uses frost to control the battlefield.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "conejito",
+    name: "Conejo recolector infrasónico",
+    name_en: "Gathering Rabbit - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "conejito.jpeg",
+    desc: "Deviant infrasónico que recolecta recursos para el territorio.",
+    desc_en: "Infrasonic Deviant that gathers resources for the territory.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "cachorrito",
+    name: "Cachorro amigable infrasónico",
+    name_en: "Friendly Puppy - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "cachorrito.jpeg",
+    desc: "Deviant infrasónico amistoso de compañía y apoyo.",
+    desc_en: "Friendly Infrasonic Deviant focused on companionship and support.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "cascanueces-infrasonico",
+    name: "Cascanueces -infrasónico",
+    name_en: "Nutcracker - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "cascanuecesinfra.jpeg",
+    desc: "Deviant infrasónico de territorio que defiende tu base contra invasores.",
+    desc_en: "Operates in the territory. Infrasonic variant that defends your base with sonic attacks.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "encendedor-atomico-infrasonico",
+    name: "Encendedor atomico- infrasónico",
+    name_en: "Atomic Lighter - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "encendedor.jpeg",
+    desc: "Deviant infrasónico de combate con detonación nuclear táctica.",
+    desc_en: "Can participate in combat to trigger a powerful nuclear explosion and sonic waves.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "alterador-espacio-infrasonico",
+    name: "Alterador de espacio - infrasónico",
+    name_en: "Space Turner - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 10,
+    img: "cubitoinfra.jpeg",
+    desc: "Deviant infrasónico especializado en distorsionar y alterar el espacio.",
+    desc_en: "Infrasonic Deviant specialized in altering the space around it.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "conejo",
+    name: "Conejo",
+    name_en: "Lethal Rabbit",
+    category: "Otros",
+    price: 10,
+    img: "Conejo.jpeg",
+    desc: "Deviant ágil de apoyo y utilidad.",
+    desc_en: "Operates in the territory. Can hunt animals to harvest meat and animal hides.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "abeja",
+    name: "Abeja",
+    name_en: "Buzzy Bee - Radiant Flourish",
+    category: "Otros",
+    price: 10,
+    img: "Abeja.jpeg",
+    desc: "Deviant de apoyo con gran movilidad.",
+    desc_en: "Operates in the territory to increase the probability of crop mutation.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  }
+];
+
+function getDeviantName(deviant, lang = currentLang) {
+  if (lang === 'en' && deviant.name_en) return deviant.name_en;
+  return deviant.name;
+}
+
+function getDeviantDesc(deviant, lang = currentLang) {
+  if (lang === 'en' && deviant.desc_en) return deviant.desc_en;
+  return deviant.desc;
+}
+
+function getDeviantHighlight(deviant, lang = currentLang) {
+  if (lang === 'en' && deviant.highlight_en) return deviant.highlight_en;
+  return deviant.highlight;
+}
+
+function getDeviantCategory(category, lang = currentLang) {
+  const cat = (category || "").toLowerCase();
+  if (lang === 'en') {
+    if (cat === 'caos') return 'Chaos';
+    if (cat === 'aberrante') return 'Aberrant';
+    if (cat === 'infrasonicos') return 'Infrasonic';
+    if (cat === 'otros') return 'Other';
+    return category;
+  }
+  if (cat === 'infrasonicos') return 'Infrasónicos';
+  return category;
+}
+
+// =====================================================
+// ESTADO GLOBAL
+// =====================================================
+let currentFilter = "all";
+let currentSearchQuery = "";
+let deviantsCart = [];
+
+// =====================================================
+// UTILIDADES DE FORMATO
+// =====================================================
+function formatUSD(value) {
+  return `$${Number(value).toFixed(2)} USD`;
+}
+
+function formatNumber(num) {
+  return Number(num).toLocaleString(currentLang === 'en' ? 'en-US' : 'es-ES');
+}
+
+// =====================================================
+// SISTEMA DE IDIOMA Y TRADUCCIÓN DEL DOM
+// =====================================================
+function updateDOMTranslations() {
+  document.documentElement.lang = currentLang;
+
+  // Actualizar textos normales con data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    const text = t(key);
+    if (text) {
+      el.innerHTML = text;
     }
+  });
+
+  // Actualizar placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    const text = t(key);
+    if (text) {
+      el.placeholder = text;
+    }
+  });
+
+  // Actualizar titles
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.dataset.i18nTitle;
+    const text = t(key);
+    if (text) {
+      el.title = text;
+    }
+  });
+
+  // Actualizar aria-labels
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const key = el.dataset.i18nAria;
+    const text = t(key);
+    if (text) {
+      el.setAttribute('aria-label', text);
+    }
+  });
+
+  // Actualizar botón de WhatsApp de soporte en footer
+  const btnWhatsappFooter = document.getElementById('btnWhatsappFooter');
+  if (btnWhatsappFooter) {
+    const waFooterMsg = encodeURIComponent(t('wa_footer_text'));
+    btnWhatsappFooter.href = `https://wa.me/${PHONE_NUMBER}?text=${waFooterMsg}`;
+  }
+
+  // Actualizar botones del selector de idioma
+  document.querySelectorAll('.btn-lang').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === currentLang);
+  });
 }
 
+function setLanguage(lang) {
+  if (lang !== 'es' && lang !== 'en') return;
+  currentLang = lang;
+
+  try {
+    localStorage.setItem(LANG_STORAGE_KEY, lang);
+  } catch (e) {
+    console.warn("No se pudo guardar el idioma en localStorage:", e);
+  }
+
+  updateDOMTranslations();
+  renderCatalog();
+  renderCart();
+  calculatePrice();
+}
+
+function initLanguage() {
+  let savedLang = null;
+  try {
+    savedLang = localStorage.getItem(LANG_STORAGE_KEY);
+  } catch (e) {
+    console.warn("No se pudo leer el idioma de localStorage:", e);
+  }
+
+  if (savedLang === 'en' || savedLang === 'es') {
+    currentLang = savedLang;
+  } else {
+    currentLang = 'es';
+  }
+
+  updateDOMTranslations();
+
+  // Escuchar eventos en los botones del selector de idioma
+  document.querySelectorAll('.btn-lang').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetLang = btn.dataset.lang;
+      if (targetLang && targetLang !== currentLang) {
+        setLanguage(targetLang);
+      }
+    });
+  });
+}
+
+// =====================================================
+// PERSISTENCIA LOCALSTORAGE DEL CARRITO
+// =====================================================
 function saveCartToStorage() {
-    try {
-        localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.cart));
-    } catch (e) {
-        console.warn("No se pudo guardar el carrito", e);
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(deviantsCart));
+  } catch (e) {
+    console.warn("No se pudo guardar el carrito en localStorage:", e);
+  }
+}
+
+function loadCartFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        deviantsCart = parsed;
+      }
     }
+  } catch (e) {
+    console.warn("No se pudo cargar el carrito:", e);
+    deviantsCart = [];
+  }
 }
 
-function loadUserDataFromStorage() {
-    try {
-        const saved = localStorage.getItem(CONFIG.userKey);
-        if (saved) {
-            const data = JSON.parse(saved);
-            if (data.name && DOM.customerName) DOM.customerName.value = data.name;
-            if (data.address && DOM.customerAddress) DOM.customerAddress.value = data.address;
-            if (data.payment && DOM.paymentMethod) DOM.paymentMethod.value = data.payment;
-        }
-    } catch (e) {
-        console.warn("Error cargando datos de usuario", e);
-    }
+// =====================================================
+// CALCULADORA DE ENERGY LINKS
+// =====================================================
+const linkAmountInput = document.getElementById('linkAmount');
+const totalPriceEl = document.getElementById('totalPrice');
+const btnOrderLinks = document.getElementById('btnOrderLinks');
+const quickBtns = document.querySelectorAll('.btn-quick-amount');
+
+function calculatePrice() {
+  if (!linkAmountInput || !totalPriceEl) return;
+
+  const amount = parseFloat(linkAmountInput.value) || 0;
+  const total = (amount / 1000000) * PRICE_PER_1M_LINKS;
+
+  totalPriceEl.textContent = formatUSD(total);
 }
 
-function saveUserDataToStorage() {
-    try {
-        const data = {
-            name: DOM.customerName ? DOM.customerName.value.trim() : "",
-            address: DOM.customerAddress ? DOM.customerAddress.value.trim() : "",
-            payment: DOM.paymentMethod ? DOM.paymentMethod.value : ""
-        };
-        localStorage.setItem(CONFIG.userKey, JSON.stringify(data));
-    } catch (e) {
-        console.warn("Error guardando datos de usuario", e);
-    }
+if (linkAmountInput) {
+  linkAmountInput.addEventListener('input', calculatePrice);
+  calculatePrice();
 }
 
-/* =====================================================
-   CÁLCULOS DEL CARRITO
-   ===================================================== */
-function getCartSubtotal() {
-    return state.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+if (quickBtns.length > 0) {
+  quickBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const addVal = parseInt(btn.dataset.amount, 10) || 0;
+      if (btn.dataset.mode === "set") {
+        linkAmountInput.value = addVal;
+      } else {
+        const currentVal = parseInt(linkAmountInput.value, 10) || 0;
+        linkAmountInput.value = currentVal + addVal;
+      }
+      calculatePrice();
+      pulseElement(linkAmountInput);
+    });
+  });
 }
 
-function getCartCount() {
-    return state.cart.reduce((sum, item) => sum + item.quantity, 0);
-}
+if (btnOrderLinks) {
+  btnOrderLinks.addEventListener('click', () => {
+    const rawVal = parseFloat(linkAmountInput?.value) || 0;
+    const price = totalPriceEl ? totalPriceEl.textContent : "$0.00 USD";
 
-function getDeliveryFee() {
-    if (state.deliveryMode === "pickup") {
-        return 0;
-    }
-    const subtotal = getCartSubtotal();
-    if (subtotal === 0 || subtotal >= CONFIG.freeShippingThreshold) {
-        return 0;
-    }
-    return CONFIG.standardDeliveryFee;
-}
-
-function getGrandTotal() {
-    const subtotal = getCartSubtotal();
-    if (subtotal === 0) return 0;
-    return subtotal + getDeliveryFee();
-}
-
-/* =====================================================
-   GESTIÓN DEL CARRITO
-   ===================================================== */
-function addToCart(name, price, image) {
-    const existingIndex = state.cart.findIndex(item => item.name.toLowerCase() === name.toLowerCase());
-
-    if (existingIndex > -1) {
-        state.cart[existingIndex].quantity += 1;
-    } else {
-        state.cart.push({
-            name: name,
-            price: Number(price),
-            quantity: 1,
-            image: image || "imagenes/productos/producto-01.jpg"
-        });
+    if (rawVal <= 0) {
+      alert(t('calc_invalid_alert'));
+      linkAmountInput?.focus();
+      return;
     }
 
+    const formattedAmount = formatNumber(rawVal);
+    const message = TRANSLATIONS[currentLang].wa_links_msg(VENDOR_NAME, formattedAmount, SERVER_NAME, price);
+
+    const waUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+  });
+}
+
+// =====================================================
+// RENDERIZADO DEL CATÁLOGO DE DEVIANTS
+// =====================================================
+const cardsGrid = document.getElementById('cardsGrid');
+const searchInput = document.getElementById('searchDeviants');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const resultsCountEl = document.getElementById('resultsCount');
+
+function getFilteredDeviants() {
+  return DEVIANTS_DATA.filter(item => {
+    // Filtro de categoría
+    const matchesCategory = currentFilter === "all" || item.category.toLowerCase() === currentFilter.toLowerCase();
+
+    // Filtro de búsqueda por texto (busca en español e inglés para mayor comodidad)
+    const query = currentSearchQuery.trim().toLowerCase();
+    const nameEs = item.name.toLowerCase();
+    const nameEn = (item.name_en || "").toLowerCase();
+    const descEs = item.desc.toLowerCase();
+    const descEn = (item.desc_en || "").toLowerCase();
+    const hlEs = (item.highlight || "").toLowerCase();
+    const hlEn = (item.highlight_en || "").toLowerCase();
+    const catEs = item.category.toLowerCase();
+    const catEn = getDeviantCategory(item.category, 'en').toLowerCase();
+
+    const matchesSearch = !query || 
+      nameEs.includes(query) || 
+      nameEn.includes(query) ||
+      descEs.includes(query) ||
+      descEn.includes(query) ||
+      hlEs.includes(query) ||
+      hlEn.includes(query) ||
+      catEs.includes(query) ||
+      catEn.includes(query);
+
+    return matchesCategory && matchesSearch;
+  });
+}
+
+function renderCatalog() {
+  if (!cardsGrid) return;
+
+  const filtered = getFilteredDeviants();
+
+  if (resultsCountEl) {
+    resultsCountEl.textContent = TRANSLATIONS[currentLang].results_count(filtered.length);
+  }
+
+  if (filtered.length === 0) {
+    cardsGrid.innerHTML = `
+      <div class="no-results">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <h3>${t('no_results_title')}</h3>
+        <p>${TRANSLATIONS[currentLang].no_results_desc(escapeHtml(currentSearchQuery))}</p>
+        <button type="button" class="btn-clear-search" onclick="resetFilters()">${t('btn_show_all')}</button>
+      </div>
+    `;
+    return;
+  }
+
+  cardsGrid.innerHTML = filtered.map(deviant => {
+    const displayName = escapeHtml(getDeviantName(deviant));
+    const displayCategory = escapeHtml(getDeviantCategory(deviant.category));
+    const displayDesc = escapeHtml(getDeviantDesc(deviant));
+    const displayHighlight = escapeHtml(getDeviantHighlight(deviant));
+    const ariaAdd = t('aria_add').replace('{name}', displayName);
+
+    return `
+      <div class="card" data-id="${deviant.id}" data-category="${deviant.category}">
+        <div class="card-tag tag-${deviant.category.toLowerCase()}">${displayCategory}</div>
+        <div class="card-img-wrapper">
+          ${deviant.img ? `
+            <img 
+              loading="lazy" 
+              class="deviant-img" 
+              src="${deviant.img}" 
+              alt="${displayName}" 
+              data-title="${displayName}"
+            >
+          ` : ''}
+          ${displayHighlight ? `<span class="card-badge-feat">${displayHighlight}</span>` : ''}
+        </div>
+        <h3>${displayName}</h3>
+        <p class="stats"><i class="fa-solid fa-bolt"></i> ${displayCategory} • ${t('available_badge')}</p>
+        <p class="desc">${displayDesc}</p>
+        <div class="card-footer">
+          <span class="price">${formatUSD(deviant.price)}</span>
+          <button 
+            type="button" 
+            class="btn-card-add" 
+            onclick="addDeviantById('${deviant.id}')"
+            aria-label="${ariaAdd}"
+          >
+            <i class="fa-solid fa-cart-plus"></i> ${t('btn_add')}
+          </button>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Re-enlazar eventos de imágenes para el modal
+  attachImageModalEvents();
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, function(m) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[m];
+  });
+}
+
+function resetFilters() {
+  currentFilter = "all";
+  currentSearchQuery = "";
+  if (searchInput) searchInput.value = "";
+  filterBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.category === "all");
+  });
+  renderCatalog();
+}
+
+// Eventos de Búsqueda y Filtros
+if (searchInput) {
+  searchInput.addEventListener('input', (e) => {
+    currentSearchQuery = e.target.value;
+    renderCatalog();
+  });
+}
+
+if (filterBtns.length > 0) {
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.category || "all";
+      renderCatalog();
+    });
+  });
+}
+
+// =====================================================
+// CARRITO DE COMPRAS Y PEDIDOS
+// =====================================================
+function addDeviantById(id) {
+  const itemData = DEVIANTS_DATA.find(d => d.id === id);
+  if (!itemData) return;
+
+  const existing = deviantsCart.find(item => item.id === id);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    deviantsCart.push({
+      id: itemData.id,
+      name: itemData.name,
+      category: itemData.category,
+      price: itemData.price,
+      quantity: 1
+    });
+  }
+
+  saveCartToStorage();
+  renderCart();
+  showCartToast(TRANSLATIONS[currentLang].cart_added_toast(getDeviantName(itemData)));
+  pulseCartBadge();
+}
+
+function addToCart(button, deviantName) {
+  const item = DEVIANTS_DATA.find(d => d.name === deviantName) || 
+               DEVIANTS_DATA.find(d => (d.name_en || "").toLowerCase() === (deviantName || "").toLowerCase()) ||
+               DEVIANTS_DATA.find(d => d.name.toLowerCase() === (deviantName || "").toLowerCase());
+  if (item) {
+    addDeviantById(item.id);
+  }
+}
+
+function increaseCartItem(index) {
+  if (!deviantsCart[index]) return;
+  deviantsCart[index].quantity += 1;
+  saveCartToStorage();
+  renderCart();
+  pulseCartBadge();
+}
+
+function decreaseCartItem(index) {
+  if (!deviantsCart[index]) return;
+  if (deviantsCart[index].quantity > 1) {
+    deviantsCart[index].quantity -= 1;
+  } else {
+    deviantsCart.splice(index, 1);
+  }
+  saveCartToStorage();
+  renderCart();
+  pulseCartBadge();
+}
+
+function removeCartItem(index) {
+  if (!deviantsCart[index]) return;
+  deviantsCart.splice(index, 1);
+  saveCartToStorage();
+  renderCart();
+  pulseCartBadge();
+}
+
+function clearCart() {
+  if (deviantsCart.length === 0) return;
+  if (confirm(t('cart_confirm_clear'))) {
+    deviantsCart = [];
     saveCartToStorage();
     renderCart();
-    showToast(`🛒 "${name}" agregado al carrito`);
-
-    // Feedback visual en el botón de carrito
-    if (DOM.cartCountBadge) {
-        DOM.cartCountBadge.style.transform = "scale(1.3)";
-        setTimeout(() => {
-            DOM.cartCountBadge.style.transform = "scale(1)";
-        }, 200);
-    }
+    pulseCartBadge();
+  }
 }
 
-function updateQuantity(index, delta) {
-    if (!state.cart[index]) return;
-
-    state.cart[index].quantity += delta;
-
-    if (state.cart[index].quantity <= 0) {
-        const removedName = state.cart[index].name;
-        state.cart.splice(index, 1);
-        showToast(`🗑️ "${removedName}" eliminado`);
-    }
-
-    saveCartToStorage();
-    renderCart();
-}
-
-function removeFromCart(index) {
-    if (!state.cart[index]) return;
-    const removedName = state.cart[index].name;
-    state.cart.splice(index, 1);
-    saveCartToStorage();
-    renderCart();
-    showToast(`🗑️ "${removedName}" eliminado`);
-}
-
-/* =====================================================
-   RENDERIZADO DEL CARRITO
-   ===================================================== */
 function renderCart() {
-    const count = getCartCount();
-    const subtotal = getCartSubtotal();
-    const deliveryFee = getDeliveryFee();
-    const grandTotal = getGrandTotal();
+  const cartItemsEl = document.getElementById('cartItems');
+  const cartEmptyEl = document.getElementById('cartEmpty');
+  const cartBadge = document.getElementById('cartBadge');
+  const cartTotalEl = document.getElementById('cartTotal');
+  const sendCartBtn = document.getElementById('btnSendCart');
+  const floatingCartBar = document.getElementById('floatingCartBar');
+  const floatingCount = document.getElementById('floatingCartCount');
+  const floatingTotal = document.getElementById('floatingCartTotal');
 
-    // Actualizar contadores
-    if (DOM.cartCountBadge) DOM.cartCountBadge.textContent = count;
-    if (DOM.floatingCartCount) DOM.floatingCartCount.textContent = count;
-    if (DOM.floatingCartTotal) DOM.floatingCartTotal.textContent = `${CONFIG.currencySymbol}${grandTotal.toFixed(2)}`;
+  const totalItems = deviantsCart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = deviantsCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    // Mostrar/ocultar floating cart según items y scroll
-    checkFloatingCartVisibility();
-
-    // Barra de envío gratis
-    renderFreeShippingProgress(subtotal);
-
-    // Items list
-    if (state.cart.length === 0) {
-        DOM.cartItems.innerHTML = `
-            <div class="empty-cart">
-                <div class="empty-icon">🛒</div>
-                <h3>Tu carrito está vacío</h3>
-                <p>Explora nuestro delicioso menú y agrega tus platos favoritos.</p>
-                <button type="button" class="button primary-button" onclick="closeCartPanel(); document.getElementById('productos').scrollIntoView({behavior: 'smooth'});">
-                    Ver Menú
-                </button>
-            </div>
-        `;
-        if (DOM.whatsappOrderBtn) DOM.whatsappOrderBtn.disabled = true;
+  // Actualizar barra flotante móvil
+  if (floatingCartBar && floatingCount && floatingTotal) {
+    if (totalItems > 0) {
+      floatingCartBar.classList.add('visible');
+      floatingCount.textContent = TRANSLATIONS[currentLang].floating_cart_items(totalItems);
+      floatingTotal.textContent = formatUSD(totalPrice);
     } else {
-        DOM.cartItems.innerHTML = state.cart.map((item, index) => {
-            const itemSubtotal = (item.price * item.quantity).toFixed(2);
-            return `
-                <div class="cart-item">
-                    <div class="cart-item-img">
-                        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" onerror="this.onerror=null; this.src='imagenes/productos/producto-01.jpg';">
-                    </div>
-                    <div class="cart-item-info">
-                        <strong>${escapeHtml(item.name)}</strong>
-                        <span class="cart-item-price">${CONFIG.currencySymbol}${itemSubtotal}</span>
-                    </div>
-                    <div class="cart-item-actions">
-                        <div class="qty-control">
-                            <button type="button" class="qty-btn" data-action="minus" data-index="${index}" aria-label="Disminuir cantidad">−</button>
-                            <span class="qty-number">${item.quantity}</span>
-                            <button type="button" class="qty-btn" data-action="plus" data-index="${index}" aria-label="Aumentar cantidad">+</button>
-                        </div>
-                        <button type="button" class="remove-item-btn" data-action="remove" data-index="${index}" aria-label="Eliminar ${escapeHtml(item.name)} del carrito" title="Eliminar del carrito">🗑️</button>
-                    </div>
-                </div>
-            `;
-        }).join("");
-
-        if (DOM.whatsappOrderBtn) DOM.whatsappOrderBtn.disabled = false;
+      floatingCartBar.classList.remove('visible');
     }
+  }
 
-    // Actualizar resumen de precios
-    if (DOM.cartSubtotal) DOM.cartSubtotal.textContent = `${CONFIG.currencySymbol}${subtotal.toFixed(2)}`;
+  if (!cartItemsEl || !cartEmptyEl || !cartBadge || !cartTotalEl || !sendCartBtn) {
+    return;
+  }
 
-    if (DOM.deliveryCost) {
-        if (state.deliveryMode === "pickup") {
-            DOM.deliveryCost.innerHTML = '<span style="color: var(--accent-green-dark); font-weight:700;">Retiro en Local ($0.00)</span>';
-        } else if (subtotal >= CONFIG.freeShippingThreshold) {
-            DOM.deliveryCost.innerHTML = '<span style="color: var(--accent-green-dark); font-weight:700;">¡GRATIS!</span>';
-        } else {
-            DOM.deliveryCost.textContent = `${CONFIG.currencySymbol}${deliveryFee.toFixed(2)}`;
-        }
-    }
+  cartItemsEl.innerHTML = '';
 
-    if (DOM.cartTotal) DOM.cartTotal.textContent = `${CONFIG.currencySymbol}${grandTotal.toFixed(2)}`;
+  if (deviantsCart.length === 0) {
+    cartEmptyEl.style.display = 'block';
+    sendCartBtn.disabled = true;
+    cartBadge.textContent = TRANSLATIONS[currentLang].cart_selected_count(0);
+    cartTotalEl.textContent = formatUSD(0);
+    return;
+  }
 
-    // Guía de pasos + mensaje de ayuda junto al botón de WhatsApp
-    updateCheckoutGuidance();
+  cartEmptyEl.style.display = 'none';
+  cartBadge.textContent = TRANSLATIONS[currentLang].cart_selected_count(totalItems);
+
+  deviantsCart.forEach((item, index) => {
+    const itemData = DEVIANTS_DATA.find(d => d.id === item.id);
+    const displayName = itemData ? getDeviantName(itemData) : item.name;
+    const displayCategory = itemData ? getDeviantCategory(itemData.category) : item.category;
+
+    const itemEl = document.createElement('div');
+    itemEl.className = 'cart-item';
+    itemEl.innerHTML = `
+      <div class="cart-item-title">
+        <strong>${escapeHtml(displayName)}</strong>
+        <div class="cart-item-meta">
+          <span class="cart-item-tag">${escapeHtml(displayCategory)}</span>
+          <span>${item.quantity} × ${formatUSD(item.price)} = <strong>${formatUSD(item.price * item.quantity)}</strong></span>
+        </div>
+      </div>
+      <div class="cart-item-actions">
+        <button type="button" class="btn-qty" onclick="decreaseCartItem(${index})" title="${currentLang === 'en' ? 'Subtract 1' : 'Restar uno'}" aria-label="${currentLang === 'en' ? 'Subtract 1' : 'Restar 1'}">−</button>
+        <span class="cart-item-qty">${item.quantity}</span>
+        <button type="button" class="btn-qty" onclick="increaseCartItem(${index})" title="${currentLang === 'en' ? 'Add 1' : 'Añadir uno'}" aria-label="${currentLang === 'en' ? 'Add 1' : 'Sumar 1'}">+</button>
+        <button type="button" class="btn-remove" onclick="removeCartItem(${index})" title="${currentLang === 'en' ? 'Remove from order' : 'Eliminar del pedido'}" aria-label="${currentLang === 'en' ? 'Remove ' + displayName : 'Eliminar ' + displayName}">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </div>
+    `;
+    cartItemsEl.appendChild(itemEl);
+  });
+
+  cartTotalEl.textContent = formatUSD(totalPrice);
+  sendCartBtn.disabled = false;
 }
 
-/**
- * Actualiza en vivo el tracker de pasos (Pedido → Entrega → Enviar),
- * resalta los campos ya completados y muestra un aviso claro junto al
- * botón de WhatsApp cuando aún falta algo, para que el cliente siempre
- * sepa qué hacer y dónde está el botón de envío.
- */
-function updateCheckoutGuidance() {
-    const hasItems = state.cart.length > 0;
-    const name = DOM.customerName ? DOM.customerName.value.trim() : "";
-    const address = DOM.customerAddress ? DOM.customerAddress.value.trim() : "";
-    const needsAddress = state.deliveryMode !== "pickup";
-    const dataComplete = Boolean(name) && (!needsAddress || Boolean(address));
+function sendCartWhatsApp() {
+  if (deviantsCart.length === 0) return;
 
-    // Resaltar campos completados
-    if (DOM.customerName) DOM.customerName.classList.toggle("field-complete", Boolean(name));
-    if (DOM.customerAddress) DOM.customerAddress.classList.toggle("field-complete", !needsAddress || Boolean(address));
+  const totalItems = deviantsCart.reduce((sum, item) => sum + item.quantity, 0);
+  const total = deviantsCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-    // Tracker de pasos
-    if (DOM.trackerStep1) {
-        DOM.trackerStep1.classList.toggle("done", hasItems);
-        DOM.trackerStep1.classList.toggle("active", !hasItems);
-    }
-    if (DOM.trackerStep2) {
-        DOM.trackerStep2.classList.toggle("done", hasItems && dataComplete);
-        DOM.trackerStep2.classList.toggle("active", hasItems && !dataComplete);
-    }
-    if (DOM.trackerStep3) {
-        DOM.trackerStep3.classList.toggle("active", hasItems && dataComplete);
-    }
+  const cartLines = deviantsCart.map(item => {
+    const itemData = DEVIANTS_DATA.find(d => d.id === item.id);
+    const name = itemData ? getDeviantName(itemData) : item.name;
+    const category = itemData ? getDeviantCategory(itemData.category) : item.category;
+    return `▪ ${item.quantity}x ${name} (${category}) — ${formatUSD(item.price * item.quantity)}`;
+  });
 
-    // Aviso junto al botón de WhatsApp
-    if (DOM.whatsappHelperHint) {
-        DOM.whatsappHelperHint.style.display = (hasItems && !dataComplete) ? "block" : "none";
-    }
+  const header = TRANSLATIONS[currentLang].wa_cart_header(VENDOR_NAME, SERVER_NAME);
+  const footer = TRANSLATIONS[currentLang].wa_cart_footer(totalItems, formatUSD(total));
+  const message = `${header}${cartLines.join('\n')}\n${footer}`;
+
+  const waUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
+  window.open(waUrl, '_blank');
 }
 
-function renderFreeShippingProgress(subtotal) {
-    if (!DOM.shippingProgressFill || !DOM.shippingProgressText) return;
+// =====================================================
+// TOAST Y NOTIFICACIONES
+// =====================================================
+let toastTimeout;
+function showCartToast(message) {
+  const toast = document.getElementById('cartToast');
+  if (!toast) return;
 
-    if (state.deliveryMode === "pickup") {
-        DOM.shippingProgressFill.style.width = "100%";
-        DOM.shippingProgressText.innerHTML = "🏪 Pedido para <strong>Retiro en Local</strong> (Sin costo de envío)";
-        return;
-    }
+  toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+  toast.classList.add('visible');
 
-    const threshold = CONFIG.freeShippingThreshold;
-    const percentage = Math.min(100, Math.round((subtotal / threshold) * 100));
-    DOM.shippingProgressFill.style.width = `${percentage}%`;
-
-    if (subtotal >= threshold) {
-        DOM.shippingProgressText.innerHTML = "🎉 ¡Felicidades! Tienes <strong>Envío GRATIS</strong> en esta orden";
-    } else {
-        const remaining = (threshold - subtotal).toFixed(2);
-        DOM.shippingProgressText.innerHTML = `Agrega <strong>${CONFIG.currencySymbol}${remaining}</strong> más para tener <strong>Envío Gratis</strong> 🛵`;
-    }
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove('visible');
+  }, 2200);
 }
 
-/* =====================================================
-   PANEL LATERAL (DRAWER)
-   ===================================================== */
-function openCartPanel() {
-    if (DOM.cartPanel && DOM.cartOverlay) {
-        DOM.cartPanel.classList.add("active");
-        DOM.cartOverlay.classList.add("active");
-        document.body.classList.add("no-scroll");
-    }
+function pulseCartBadge() {
+  const badge = document.getElementById('cartBadge');
+  if (badge) {
+    badge.classList.remove('pop');
+    void badge.offsetWidth;
+    badge.classList.add('pop');
+  }
 }
 
-function closeCartPanel() {
-    if (DOM.cartPanel && DOM.cartOverlay) {
-        DOM.cartPanel.classList.remove("active");
-        DOM.cartOverlay.classList.remove("active");
-        document.body.classList.remove("no-scroll");
-    }
+function pulseElement(el) {
+  if (!el) return;
+  el.style.transform = 'scale(1.02)';
+  setTimeout(() => {
+    el.style.transform = '';
+  }, 180);
 }
 
-/* =====================================================
-   WHATSAPP & GENERADOR DE PEDIDO
-   ===================================================== */
-function createWhatsAppUrl(message) {
-    return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+// =====================================================
+// MODAL DE IMÁGENES
+// =====================================================
+const imageModal = document.getElementById('imageModal');
+const imageModalImg = document.getElementById('imageModalImg');
+const imageModalCaption = document.getElementById('imageModalCaption');
+const imageModalClose = document.getElementById('imageModalClose');
+const imageModalBackdrop = document.getElementById('imageModalBackdrop');
+
+function openImageModal(src, title) {
+  if (!imageModal || !imageModalImg || !imageModalCaption) return;
+
+  imageModalImg.src = src;
+  imageModalImg.alt = title || '';
+  imageModalCaption.textContent = title || '';
+  imageModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
 }
 
-function generateWhatsAppOrderMessage() {
-    const customerName = DOM.customerName ? DOM.customerName.value.trim() : "";
-    const customerAddress = DOM.customerAddress ? DOM.customerAddress.value.trim() : "";
-    const paymentMethod = DOM.paymentMethod ? DOM.paymentMethod.value : "Efectivo";
-    const orderNotes = DOM.orderNotes ? DOM.orderNotes.value.trim() : "";
-
-    const subtotal = getCartSubtotal();
-    const deliveryFee = getDeliveryFee();
-    const total = getGrandTotal();
-
-    let msg = "🌴 *PEDIDO - SABOR CARIBE* 🌴\n";
-    msg += "━━━━━━━━━━━━━━━━━━━━━━\n";
-
-    if (customerName) {
-        msg += `👤 *Cliente:* ${customerName}\n`;
-    }
-
-    if (state.deliveryMode === "pickup") {
-        msg += "🏪 *Modalidad:* Retiro en Local\n";
-    } else {
-        msg += "🛵 *Modalidad:* Entrega a Domicilio\n";
-        if (customerAddress) {
-            msg += `📍 *Dirección:* ${customerAddress}\n`;
-        }
-    }
-
-    msg += `💳 *Método de Pago:* ${paymentMethod}\n`;
-
-    if (orderNotes) {
-        msg += `📝 *Notas Especiales:* ${orderNotes}\n`;
-    }
-
-    msg += "━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += "📋 *DETALLE DEL PEDIDO:*\n";
-
-    state.cart.forEach(item => {
-        const itemTotal = (item.price * item.quantity).toFixed(2);
-        msg += `• ${item.quantity}x ${item.name} ($${item.price.toFixed(2)}) ➜ $${itemTotal}\n`;
-    });
-
-    msg += "━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += `💵 *Subtotal:* $${subtotal.toFixed(2)}\n`;
-
-    if (state.deliveryMode === "delivery") {
-        if (deliveryFee === 0) {
-            msg += "🛵 *Envío:* ¡GRATIS!\n";
-        } else {
-            msg += `🛵 *Envío:* $${deliveryFee.toFixed(2)}\n`;
-        }
-    }
-
-    msg += `💰 *TOTAL A PAGAR: $${total.toFixed(2)}*\n`;
-    msg += "━━━━━━━━━━━━━━━━━━━━━━\n";
-    msg += "¿Me pueden confirmar la disponibilidad y tiempo estimado de entrega? ¡Muchas gracias!";
-
-    return msg;
+function closeImageModal() {
+  if (!imageModal) return;
+  imageModal.setAttribute('aria-hidden', 'true');
+  if (imageModalImg) imageModalImg.src = '';
+  if (imageModalCaption) imageModalCaption.textContent = '';
+  document.body.style.overflow = '';
 }
 
-function handleWhatsAppCheckout() {
-    if (state.cart.length === 0) {
-        showToast("⚠️ Agrega al menos un producto al carrito");
-        return;
-    }
-
-    const name = DOM.customerName ? DOM.customerName.value.trim() : "";
-    const address = DOM.customerAddress ? DOM.customerAddress.value.trim() : "";
-
-    if (!name) {
-        showToast("⚠️ Por favor ingresa tu nombre completo");
-        scrollToCheckoutField(DOM.customerName);
-        return;
-    }
-
-    if (state.deliveryMode === "delivery" && !address) {
-        showToast("⚠️ Por favor ingresa la dirección de entrega");
-        scrollToCheckoutField(DOM.customerAddress);
-        return;
-    }
-
-    saveUserDataToStorage();
-
-    const message = generateWhatsAppOrderMessage();
-    const url = createWhatsAppUrl(message);
-
-    window.open(url, "_blank");
-}
-
-/**
- * Lleva la vista (dentro del scroll único del carrito) hasta el campo
- * que falta completar y lo enfoca, para que el cliente lo vea de inmediato.
- */
-function scrollToCheckoutField(field) {
-    if (!field) return;
-    field.scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => field.focus(), 300);
-}
-
-/* =====================================================
-   BÚSQUEDA Y FILTRADO DE PRODUCTOS
-   ===================================================== */
-function filterAndSearchProducts() {
-    const query = state.searchQuery.toLowerCase().trim();
-    const category = state.activeCategory;
-    let visibleCount = 0;
-
-    DOM.productCards.forEach(card => {
-        const cardCategory = card.dataset.category || "";
-        const name = (card.dataset.name || "").toLowerCase();
-        const desc = (card.dataset.description || "").toLowerCase();
-
-        const matchesCategory = (category === "todos" || cardCategory === category);
-        const matchesSearch = (!query || name.includes(query) || desc.includes(query));
-
-        if (matchesCategory && matchesSearch) {
-            card.style.display = "";
-            visibleCount++;
-        } else {
-            card.style.display = "none";
-        }
-    });
-
-    if (DOM.noResults) {
-        DOM.noResults.style.display = visibleCount === 0 ? "block" : "none";
-    }
-
-    if (DOM.clearSearchBtn) {
-        DOM.clearSearchBtn.style.display = query.length > 0 ? "grid" : "none";
-    }
-}
-
-function updateLiveCategoryCounts() {
-    const counts = {
-        todos: DOM.productCards.length,
-        platos: 0,
-        hamburguesas: 0,
-        bebidas: 0,
-        postres: 0
+function attachImageModalEvents() {
+  document.querySelectorAll('.deviant-img').forEach(img => {
+    img.removeEventListener('click', img._modalHandler);
+    img._modalHandler = () => {
+      openImageModal(img.src, img.dataset.title || img.alt);
     };
+    img.addEventListener('click', img._modalHandler);
 
-    DOM.productCards.forEach(card => {
-        const cat = card.dataset.category;
-        if (counts[cat] !== undefined) {
-            counts[cat]++;
-        }
-    });
-
-    Object.keys(counts).forEach(cat => {
-        const el = document.getElementById(`count-${cat}`);
-        if (el) el.textContent = counts[cat];
-    });
-}
-
-/* =====================================================
-   ESTADO DE ATENCIÓN EN TIEMPO REAL
-   ===================================================== */
-function updateStoreOpenStatus() {
-    if (!DOM.storeStatus) return;
-
-    const now = new Date();
-    const hour = now.getHours();
-    const minutes = now.getMinutes();
-    const currentTime = hour + (minutes / 60);
-
-    // Horario: 11:30 a 23:00
-    const isOpen = (currentTime >= 11.5 && currentTime <= 23.5);
-
-    if (isOpen) {
-        DOM.storeStatus.innerHTML = `
-            <span class="pulse-dot"></span>
-            <strong>Abierto ahora</strong>
-            <span class="delivery-time">• Entregas en 25 - 40 min</span>
-        `;
+    if (img.complete) {
+      img.style.opacity = '1';
     } else {
-        DOM.storeStatus.innerHTML = `
-            <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#eab308;margin-right:6px;"></span>
-            <strong>Tomando reservas</strong>
-            <span class="delivery-time">• Abrimos 11:30 AM</span>
-        `;
+      img.addEventListener('load', () => {
+        img.style.opacity = '1';
+      });
     }
+  });
 }
 
-/* =====================================================
-   FLOATING CART & SCROLL OBSERVER
-   ===================================================== */
-function checkFloatingCartVisibility() {
-    if (!DOM.floatingCartBtn) return;
-    const hasItems = state.cart.length > 0;
-    const scrolledPastHero = window.scrollY > 400;
+if (imageModalClose) imageModalClose.addEventListener('click', closeImageModal);
+if (imageModalBackdrop) imageModalBackdrop.addEventListener('click', closeImageModal);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeImageModal();
+});
 
-    if (hasItems && scrolledPastHero) {
-        DOM.floatingCartBtn.classList.add("visible");
-    } else {
-        DOM.floatingCartBtn.classList.remove("visible");
+// =====================================================
+// ANIMACIÓN DE PARTÍCULAS EN CANVAS (Optimizado)
+// =====================================================
+const canvas = document.getElementById('particlesCanvas');
+
+if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const ctx = canvas.getContext('2d');
+  let particlesArray = [];
+  let animationFrameId;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles();
+  }
+
+  window.addEventListener('resize', () => {
+    clearTimeout(window._resizeTimer);
+    window._resizeTimer = setTimeout(resizeCanvas, 200);
+  });
+
+  class Particle {
+    constructor() {
+      this.reset(true);
     }
-}
 
-/* =====================================================
-   NOTIFICACIONES TOAST
-   ===================================================== */
-function showToast(message) {
-    if (!DOM.toastContainer) return;
+    reset(initial = false) {
+      this.x = Math.random() * canvas.width;
+      this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
+      this.size = Math.random() * 2 + 0.6;
+      this.speedX = (Math.random() - 0.5) * 0.4;
+      this.speedY = -(Math.random() * 0.5 + 0.2);
+      this.color = Math.random() > 0.4 ? '#00f0ff' : '#ff0055';
+      this.opacity = Math.random() * 0.6 + 0.2;
+    }
 
-    const toast = document.createElement("div");
-    toast.className = "toast";
-    toast.textContent = message;
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+        this.reset(false);
+      }
+    }
 
-    DOM.toastContainer.appendChild(toast);
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
-    setTimeout(() => {
-        toast.classList.add("toast-out");
-        setTimeout(() => {
-            if (toast.parentNode) toast.parentNode.removeChild(toast);
-        }, 300);
-    }, 2200);
-}
+  function initParticles() {
+    particlesArray = [];
+    const count = Math.min(Math.floor((canvas.width * canvas.height) / 18000), 75);
+    for (let i = 0; i < count; i++) {
+      particlesArray.push(new Particle());
+    }
+  }
 
-/* =====================================================
-   UTILIDADES
-   ===================================================== */
-function escapeHtml(text) {
-    if (!text) return "";
-    return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-/* =====================================================
-   EVENT LISTENERS
-   ===================================================== */
-function bindEvents() {
-    // Abrir/Cerrar Carrito
-    if (DOM.openCartBtn) DOM.openCartBtn.addEventListener("click", openCartPanel);
-    if (DOM.closeCartBtn) DOM.closeCartBtn.addEventListener("click", closeCartPanel);
-    if (DOM.cartOverlay) DOM.cartOverlay.addEventListener("click", closeCartPanel);
-    if (DOM.floatingCartBtn) DOM.floatingCartBtn.addEventListener("click", openCartPanel);
-
-    // Botones de agregar producto
-    DOM.addButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const name = button.dataset.name;
-            const price = Number(button.dataset.price);
-            const image = button.dataset.image;
-
-            if (!name || isNaN(price)) {
-                showToast("⚠️ No se pudo agregar este plato");
-                return;
-            }
-
-            addToCart(name, price, image);
-
-            // Feedback visual temporal
-            const originalText = button.innerHTML;
-            button.classList.add("added");
-            button.innerHTML = "<span>✓ ¡Agregado!</span>";
-            setTimeout(() => {
-                button.classList.remove("added");
-                button.innerHTML = originalText;
-            }, 1200);
-        });
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
     });
+    ctx.globalAlpha = 1;
+    animationFrameId = requestAnimationFrame(animateParticles);
+  }
 
-    // Delegación de eventos dentro del Carrito (Sumar, Restar, Eliminar)
-    if (DOM.cartItems) {
-        DOM.cartItems.addEventListener("click", (e) => {
-            const btn = e.target.closest("button[data-action]");
-            if (!btn) return;
-
-            const action = btn.dataset.action;
-            const index = Number(btn.dataset.index);
-
-            if (action === "plus") updateQuantity(index, 1);
-            if (action === "minus") updateQuantity(index, -1);
-            if (action === "remove") removeFromCart(index);
-        });
-    }
-
-    // Modalidad de Entrega (Tabs: Delivery vs Retiro)
-    if (DOM.tabDelivery && DOM.tabPickup) {
-        DOM.tabDelivery.addEventListener("click", () => {
-            state.deliveryMode = "delivery";
-            DOM.tabDelivery.classList.add("active");
-            DOM.tabPickup.classList.remove("active");
-            if (DOM.addressGroup) DOM.addressGroup.style.display = "";
-            renderCart();
-        });
-
-        DOM.tabPickup.addEventListener("click", () => {
-            state.deliveryMode = "pickup";
-            DOM.tabPickup.classList.add("active");
-            DOM.tabDelivery.classList.remove("active");
-            if (DOM.addressGroup) DOM.addressGroup.style.display = "none";
-            renderCart();
-        });
-    }
-
-    // Guía de pasos en vivo: se actualiza mientras el cliente escribe
-    if (DOM.customerName) {
-        DOM.customerName.addEventListener("input", updateCheckoutGuidance);
-    }
-    if (DOM.customerAddress) {
-        DOM.customerAddress.addEventListener("input", updateCheckoutGuidance);
-    }
-
-    // Enviar pedido por WhatsApp
-    if (DOM.whatsappOrderBtn) {
-        DOM.whatsappOrderBtn.addEventListener("click", handleWhatsAppCheckout);
-    }
-
-    // Búsqueda en Vivo
-    if (DOM.searchInput) {
-        DOM.searchInput.addEventListener("input", (e) => {
-            state.searchQuery = e.target.value;
-            filterAndSearchProducts();
-        });
-    }
-
-    if (DOM.clearSearchBtn) {
-        DOM.clearSearchBtn.addEventListener("click", () => {
-            DOM.searchInput.value = "";
-            state.searchQuery = "";
-            filterAndSearchProducts();
-            DOM.searchInput.focus();
-        });
-    }
-
-    if (DOM.resetSearchBtn) {
-        DOM.resetSearchBtn.addEventListener("click", () => {
-            DOM.searchInput.value = "";
-            state.searchQuery = "";
-            state.activeCategory = "todos";
-            DOM.filterButtons.forEach(btn => {
-                btn.classList.toggle("active", btn.dataset.filter === "todos");
-            });
-            filterAndSearchProducts();
-        });
-    }
-
-    // Filtros de categoría
-    DOM.filterButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            DOM.filterButtons.forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-            state.activeCategory = btn.dataset.filter || "todos";
-            filterAndSearchProducts();
-        });
-    });
-
-    // Menú Móvil
-    if (DOM.menuButton && DOM.mainNav) {
-        DOM.menuButton.addEventListener("click", () => {
-            const isOpen = DOM.mainNav.classList.toggle("open");
-            DOM.menuButton.setAttribute("aria-expanded", String(isOpen));
-        });
-
-        DOM.mainNav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                DOM.mainNav.classList.remove("open");
-                DOM.menuButton.setAttribute("aria-expanded", "false");
-            });
-        });
-    }
-
-    // Tecla Escape para cerrar modales
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-            closeCartPanel();
-            if (DOM.mainNav) DOM.mainNav.classList.remove("open");
-        }
-    });
-
-    // Scroll Events (Sticky Header & Floating Cart)
-    window.addEventListener("scroll", () => {
-        if (DOM.siteHeader) {
-            DOM.siteHeader.classList.toggle("scrolled", window.scrollY > 30);
-        }
-        checkFloatingCartVisibility();
-    }, { passive: true });
-
-    // Guardar cambios en inputs del usuario
-    if (DOM.customerName) DOM.customerName.addEventListener("change", saveUserDataToStorage);
-    if (DOM.customerAddress) DOM.customerAddress.addEventListener("change", saveUserDataToStorage);
-    if (DOM.paymentMethod) DOM.paymentMethod.addEventListener("change", saveUserDataToStorage);
+  resizeCanvas();
+  animateParticles();
 }
 
-// Iniciar app al cargar el DOM
-document.addEventListener("DOMContentLoaded", init);
-if (document.readyState === "complete" || document.readyState === "interactive") {
-    init();
-}
+// =====================================================
+// SMOOTH SCROLL PARA ANCLAS
+// =====================================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href && href.length > 1 && href.startsWith('#')) {
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  });
+});
+
+// =====================================================
+// INICIALIZACIÓN GLOBAL
+// =====================================================
+document.addEventListener('DOMContentLoaded', () => {
+  initLanguage();
+  loadCartFromStorage();
+  renderCatalog();
+  renderCart();
+
+  const sendCartBtn = document.getElementById('btnSendCart');
+  if (sendCartBtn) {
+    sendCartBtn.addEventListener('click', sendCartWhatsApp);
+  }
+
+  const clearCartBtn = document.getElementById('btnClearCart');
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener('click', clearCart);
+  }
+});
