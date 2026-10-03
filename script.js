@@ -3,7 +3,7 @@
 // =====================================================
 const PHONE_NUMBER = "18494268576";
 const SERVER_NAME = "Dream Y0002 NA";
-const VENDOR_NAME = "AegonTargaryen9";
+const VENDOR_NAME = "Sr:X";
 const PRICE_PER_1M_LINKS = 1.00;
 const STORAGE_KEY = "oh_market_cart_v1";
 const LANG_STORAGE_KEY = "oh_market_lang";
@@ -85,14 +85,14 @@ const TRANSLATIONS = {
     feat2_title: "Entrega Rápida",
     feat2_desc: "Coordinación inmediata por WhatsApp una vez verificado el pedido.",
     feat3_title: "Atención Directa",
-    feat3_desc: "Trato directo con AegonTargaryen9 sin intermediarios ni comisiones extra.",
+    feat3_desc: "Trato directo con Sr:X sin intermediarios ni comisiones extra.",
 
     // Footer
     footer_title: "¿Tienes alguna duda o buscas un Deviant especial?",
     footer_desc: "Escríbeme por WhatsApp y coordinamos tu entrega en <strong>Dream Y0002 NA</strong> al instante.",
     footer_btn: "Hablar con Soporte por WhatsApp",
     footer_copy: "© 2026 Once Human Market • Dream Y0002 NA Trading Store.",
-    wa_footer_text: "Hola AegonTargaryen9, quiero informacion sobre tus servicios en Once Human",
+    wa_footer_text: "Hola Sr:X, quiero informacion sobre tus servicios en Once Human",
 
     // Modal
     modal_close_aria: "Cerrar imagen"
@@ -171,14 +171,14 @@ const TRANSLATIONS = {
     feat2_title: "Fast Delivery",
     feat2_desc: "Immediate WhatsApp coordination once the order is verified.",
     feat3_title: "Direct Support",
-    feat3_desc: "Direct deal with AegonTargaryen9 with zero intermediaries or hidden fees.",
+    feat3_desc: "Direct deal with Sr:X with zero intermediaries or hidden fees.",
 
     // Footer
     footer_title: "Have any questions or looking for a special Deviant?",
     footer_desc: "Message me on WhatsApp and we will coordinate your delivery on <strong>Dream Y0002 NA</strong> instantly.",
     footer_btn: "Chat with Support on WhatsApp",
     footer_copy: "© 2026 Once Human Market • Dream Y0002 NA Trading Store.",
-    wa_footer_text: "Hello AegonTargaryen9, I would like information about your Once Human services",
+    wa_footer_text: "Hello Sr:X, I would like information about your Once Human services",
 
     // Modal
     modal_close_aria: "Close image"
