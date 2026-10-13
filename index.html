@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Once Human Market | Deviants & Energy Links Store</title>
+  <title>Once Human Market | Deviants & Energy Links Store • Dream Y0002 NA</title>
   
   <!-- SEO & Open Graph Meta Tags -->
   <meta name="description" content="Tienda oficial de Deviants y Energy Links para Once Human en el servidor Dream Y0002 NA. Entrega rápida y segura vía WhatsApp y Discord.">
-  <meta property="og:title" content="Once Human Market | Deviants & Energy Links">
+  <meta property="og:title" content="Once Human Market | Deviants & Energy Links Store">
   <meta property="og:description" content="Compra Deviants de combate y territorio de nivel máximo y Energy Links al mejor precio en Dream Y0002 NA.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="Medusa Polar.jpeg">
@@ -32,7 +32,24 @@
       <span class="store-tagline"><i class="fa-solid fa-circle-check" style="color: #25d366;"></i> <span data-i18n="nav_tagline">Deviants y Energy Links sin esperas</span></span>
     </div>
 
+    <!-- Menú de Navegación -->
+    <nav class="nav-menu" id="navMenu">
+      <a href="#calculator" class="nav-link"><i class="fa-solid fa-bolt"></i> <span data-i18n="nav_calculator">Energy Links</span></a>
+      <a href="#deviants" class="nav-link"><i class="fa-solid fa-paw"></i> <span data-i18n="nav_deviants">Catálogo Deviants</span></a>
+      <a href="#steps" class="nav-link"><i class="fa-solid fa-list-check"></i> <span data-i18n="nav_steps">Cómo Comprar</span></a>
+      <a href="#payments" class="nav-link"><i class="fa-solid fa-credit-card"></i> <span data-i18n="nav_payments">Método de Pago</span></a>
+      <a href="#faq" class="nav-link"><i class="fa-solid fa-circle-question"></i> <span data-i18n="nav_faq">FAQ</span></a>
+      <a href="#contacto" class="nav-link"><i class="fa-solid fa-headset"></i> <span data-i18n="nav_contact">Contacto</span></a>
+    </nav>
+
     <div class="top-banner-actions">
+      <!-- Botón Rápido de Carrito en Header -->
+      <button type="button" class="btn-nav-cart" id="btnNavCart" title="Ver pedido" aria-label="Ver pedido">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="nav-cart-text" data-i18n="nav_cart">Mi Pedido</span>
+        <span class="nav-cart-badge" id="navCartCount">0</span>
+      </button>
+
       <!-- Selector de Idiomas -->
       <div class="lang-selector" id="langSelector" role="group" aria-label="Selector de idioma / Language selector">
         <button type="button" class="btn-lang active" data-lang="es" title="Español" aria-label="Cambiar a Español">
@@ -43,9 +60,15 @@
         </button>
       </div>
 
+      <!-- Discord -->
       <a href="https://discord.com/users/AegonTargaryen9" target="_blank" class="btn-discord-nav" rel="noopener noreferrer">
         <i class="fa-brands fa-discord"></i> Discord: JT Deviant Market
       </a>
+
+      <!-- Botón Menú Móvil -->
+      <button type="button" class="btn-mobile-toggle" id="mobileToggle" aria-label="Abrir menú" aria-expanded="false">
+        <i class="fa-solid fa-bars"></i>
+      </button>
     </div>
   </header>
 
@@ -74,30 +97,59 @@
 
     <div class="calculator-box">
       <div class="input-group">
-        <label for="linkAmount"><i class="fa-solid fa-bolt" style="color: #00f0ff;"></i> <span data-i18n="calc_amount_label">Cantidad de Energy Links:</span></label>
+        <label for="linkAmount">
+          <i class="fa-solid fa-bolt" style="color: #00f0ff;"></i>
+          <span data-i18n="calc_amount_label">Cantidad de Energy Links:</span>
+        </label>
+        
         <input type="number" id="linkAmount" placeholder="Ej: 1000000" data-i18n-placeholder="calc_placeholder" value="1000000" step="100000" min="100000">
+
+        <!-- Slider de ajuste interactivo -->
+        <div class="slider-wrapper">
+          <div class="slider-header">
+            <span class="slider-label" data-i18n="calc_slider_label">Ajustar cantidad con barra deslizante:</span>
+            <span class="slider-val"><strong id="calcFormattedAmount">1,000,000</strong> Links</span>
+          </div>
+          <input type="range" id="linkAmountSlider" min="1000000" max="100000000" step="1000000" value="1000000" class="custom-slider">
+          <div class="slider-ticks">
+            <span data-i18n="calc_slider_min">1M</span>
+            <span>25M</span>
+            <span>50M</span>
+            <span>75M</span>
+            <span data-i18n="calc_slider_max">100M</span>
+          </div>
+        </div>
         
         <!-- Botones de selección rápida -->
         <div class="quick-buttons-row">
           <button type="button" class="btn-quick-amount" data-mode="set" data-amount="1000000">1M</button>
           <button type="button" class="btn-quick-amount" data-mode="set" data-amount="5000000">5M</button>
           <button type="button" class="btn-quick-amount" data-mode="set" data-amount="10000000">10M</button>
+          <button type="button" class="btn-quick-amount" data-mode="set" data-amount="20000000">20M</button>
           <button type="button" class="btn-quick-amount" data-mode="set" data-amount="50000000">50M</button>
-          <button type="button" class="btn-quick-amount" data-mode="add" data-amount="1000000">+1M</button>
+          <button type="button" class="btn-quick-amount" data-mode="set" data-amount="100000000">100M</button>
+          <button type="button" class="btn-quick-amount btn-quick-add" data-mode="add" data-amount="1000000">+1M</button>
+          <button type="button" class="btn-quick-amount btn-quick-add" data-mode="add" data-amount="5000000">+5M</button>
         </div>
       </div>
       
       <div class="calc-results">
         <div class="res-item">
           <span data-i18n="calc_est_price">Precio estimado:</span>
-          <strong id="totalPrice">$1.00 USD</strong>
+          <strong id="totalPrice">$1.50 USD</strong>
         </div>
-        <p class="calc-note" data-i18n="calc_note">Tasa: $1.00 USD por cada 1,000,000 Energy Links.</p>
+        <p class="calc-note" data-i18n="calc_note">Tasa: $1.50 USD por cada 1,000,000 Energy Links.</p>
+        <p class="calc-delivery" data-i18n="calc_delivery_time">⏱️ Tiempo de entrega estimado: 5 a 15 minutos en Dream Y0002 NA</p>
       </div>
 
-      <button id="btnOrderLinks" type="button" class="btn-whatsapp-large">
-        <i class="fa-brands fa-whatsapp"></i> <span data-i18n="btn_order_links">Ordenar Energy Links por WhatsApp</span>
-      </button>
+      <div class="calc-actions">
+        <button id="btnOrderLinks" type="button" class="btn-whatsapp-large">
+          <i class="fa-brands fa-whatsapp"></i> <span data-i18n="btn_order_links">Ordenar Energy Links por WhatsApp</span>
+        </button>
+        <button id="btnCopyQuote" type="button" class="btn-copy-quote" title="Copiar resumen al portapapeles">
+          <i class="fa-solid fa-copy"></i> <span data-i18n="btn_copy_quote">Copiar Cotización</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -110,8 +162,11 @@
     <div class="deviant-cart" id="deviantCart">
       <div class="cart-header">
         <div>
-          <h3><i class="fa-solid fa-cart-shopping" style="color: #00f0ff;"></i> <span data-i18n="cart_title">Tu Pedido de Deviants</span></h3>
-          <p data-i18n="cart_subtitle">Selecciona los Deviants que deseas y envía la lista completa por WhatsApp.</p>
+          <h3>
+            <i class="fa-solid fa-cart-shopping" style="color: #00f0ff;"></i>
+            <span data-i18n="cart_title">Tu Pedido de Deviants</span>
+          </h3>
+          <p data-i18n="cart_subtitle">Selecciona los Deviants que deseas y envía la lista completa por WhatsApp con un solo clic.</p>
         </div>
         <div class="cart-header-actions">
           <span class="cart-badge" id="cartBadge">0 seleccionados</span>
@@ -132,40 +187,61 @@
           <strong id="cartTotal">$0.00 USD</strong>
         </div>
 
-        <button id="btnSendCart" type="button" class="btn-send-cart" disabled>
-          <i class="fa-brands fa-whatsapp"></i> <span data-i18n="btn_send_cart">Enviar Pedido por WhatsApp</span>
-        </button>
+        <div class="cart-action-buttons">
+          <button id="btnCopyCart" type="button" class="btn-copy-cart" disabled>
+            <i class="fa-solid fa-copy"></i> <span data-i18n="btn_copy_cart">Copiar Pedido</span>
+          </button>
+          <button id="btnSendCart" type="button" class="btn-send-cart" disabled>
+            <i class="fa-brands fa-whatsapp"></i> <span data-i18n="btn_send_cart">Enviar Pedido por WhatsApp</span>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Barra de Búsqueda y Filtros de Categoría -->
+    <!-- Barra de Búsqueda, Filtros y Ordenación -->
     <div class="catalog-toolbar">
-      <div class="search-box">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchDeviants" placeholder="Buscar Deviant por nombre o descripción (ej: Lobo, Wish, Sol...)" data-i18n-placeholder="search_placeholder" autocomplete="off">
+      <div class="toolbar-top-row">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchDeviants" placeholder="Buscar Deviant por nombre o descripción (ej: Lobo, Wish, Sol...)" data-i18n-placeholder="search_placeholder" autocomplete="off">
+          <button type="button" class="btn-clear-search-icon" id="btnClearSearch" title="Borrar búsqueda" aria-label="Borrar búsqueda">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="sort-box">
+          <label for="sortDeviants"><i class="fa-solid fa-arrow-down-short-wide"></i> <span data-i18n="sort_label">Ordenar:</span></label>
+          <select id="sortDeviants" class="sort-select">
+            <option value="default" data-i18n="sort_default">Destacados</option>
+            <option value="price-asc" data-i18n="sort_price_asc">Precio: Menor a Mayor</option>
+            <option value="price-desc" data-i18n="sort_price_desc">Precio: Mayor a Menor</option>
+            <option value="name-asc" data-i18n="sort_name_asc">Nombre: A - Z</option>
+            <option value="name-desc" data-i18n="sort_name_desc">Nombre: Z - A</option>
+          </select>
+        </div>
       </div>
 
       <div class="filter-tabs">
         <button type="button" class="filter-btn active" data-category="all">
-          <i class="fa-solid fa-layer-group"></i> <span data-i18n="filter_all">Todos</span>
+          <i class="fa-solid fa-layer-group"></i> <span data-i18n="filter_all">Todos</span> <span class="tab-count">(41)</span>
         </button>
         <button type="button" class="filter-btn" data-category="starfall">
-          <i class="fa-solid fa-star"></i> <span data-i18n="filter_starfall">Starfall</span>
+          <i class="fa-solid fa-star"></i> <span data-i18n="filter_starfall">Starfall</span> <span class="tab-count">(5)</span>
         </button>
         <button type="button" class="filter-btn" data-category="lunar">
-          <i class="fa-solid fa-moon"></i> <span data-i18n="filter_lunar">Lunar</span>
+          <i class="fa-solid fa-moon"></i> <span data-i18n="filter_lunar">Lunar</span> <span class="tab-count">(6)</span>
         </button>
         <button type="button" class="filter-btn" data-category="caos">
-          <i class="fa-solid fa-fire-flame-curved"></i> <span data-i18n="filter_caos">Caos</span>
+          <i class="fa-solid fa-fire-flame-curved"></i> <span data-i18n="filter_caos">Caos</span> <span class="tab-count">(4)</span>
         </button>
         <button type="button" class="filter-btn" data-category="aberrante">
-          <i class="fa-solid fa-biohazard"></i> <span data-i18n="filter_aberrante">Aberrante</span>
+          <i class="fa-solid fa-biohazard"></i> <span data-i18n="filter_aberrante">Aberrante</span> <span class="tab-count">(2)</span>
         </button>
         <button type="button" class="filter-btn" data-category="infrasonicos">
-          <i class="fa-solid fa-wave-square"></i> <span data-i18n="filter_infrasonicos">Infrasónicos</span>
+          <i class="fa-solid fa-wave-square"></i> <span data-i18n="filter_infrasonicos">Infrasónicos</span> <span class="tab-count">(7)</span>
         </button>
         <button type="button" class="filter-btn" data-category="otros">
-          <i class="fa-solid fa-paw"></i> <span data-i18n="filter_otros">Otros Deviants</span>
+          <i class="fa-solid fa-paw"></i> <span data-i18n="filter_otros">Otros Deviants</span> <span class="tab-count">(17)</span>
         </button>
       </div>
 
@@ -181,31 +257,46 @@
     </div>
   </section>
 
-  <!-- Sección: Cómo Funciona la Entrega y Métodos de Pago -->
-  <section class="section-container">
+  <!-- Sección: Cómo Funciona la Entrega -->
+  <section id="steps" class="section-container">
     <h2 class="section-title" data-i18n="steps_title">¿Cómo Funciona la Compra?</h2>
-    <p class="section-subtitle" data-i18n="steps_subtitle">Proceso transparente, rápido y 100% seguro dentro del juego.</p>
+    <p class="section-subtitle" data-i18n="steps_subtitle">Proceso transparente, rápido y 100% seguro dentro del juego en Dream Y0002 NA.</p>
 
     <div class="steps-grid">
       <div class="step-card">
         <span class="step-number">01</span>
         <div class="step-icon"><i class="fa-solid fa-list-check"></i></div>
         <h3 data-i18n="step1_title">1. Arma tu Pedido</h3>
-        <p data-i18n="step1_desc">Selecciona tus Deviants o calcula tus Energy Links y pulsa en el botón de WhatsApp.</p>
+        <p data-i18n="step1_desc">Selecciona tus Deviants en el catálogo o cotiza tus Energy Links con la calculadora.</p>
       </div>
 
       <div class="step-card">
         <span class="step-number">02</span>
         <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
         <h3 data-i18n="step2_title">2. Confirma y Paga</h3>
-        <p data-i18n="step2_desc">Acordamos disponibilidad por chat y realizas el pago por tu método preferido.</p>
+        <p data-i18n="step2_desc">Acordamos disponibilidad y punto de encuentro por WhatsApp. Pagas por Zelle de forma rápida y segura.</p>
       </div>
 
       <div class="step-card">
         <span class="step-number">03</span>
         <div class="step-icon"><i class="fa-solid fa-handshake"></i></div>
         <h3 data-i18n="step3_title">3. Entrega In-Game</h3>
-        <p data-i18n="step3_desc">Nos coordinamos en el servidor <strong>Dream Y0002 NA</strong> y recibes tus ítems de inmediato.</p>
+        <p data-i18n="step3_desc">Nos coordinamos en el servidor <strong>Dream Y0002 NA</strong> y recibes tus ítems en 5 a 15 minutos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: Método de Pago (Únicamente Zelle) -->
+  <section id="payments" class="section-container">
+    <h2 class="section-title" data-i18n="payments_title">Método de Pago Aceptado</h2>
+    <p class="section-subtitle" data-i18n="payments_subtitle">Transacción rápida, directa y 100% segura</p>
+
+    <div class="payments-single-wrapper">
+      <div class="payment-card payment-card-featured">
+        <div class="payment-icon icon-zelle"><i class="fa-solid fa-dollar-sign"></i></div>
+        <h3 data-i18n="pay_zelle">Zelle</h3>
+        <p data-i18n="pay_zelle_desc">Transferencias bancarias directas e instantáneas en USD sin comisiones extra. Coordinamos los datos de pago al instante por WhatsApp.</p>
+        <span class="payment-badge-secure"><i class="fa-solid fa-shield-halved"></i> 100% Seguro &amp; Verificado</span>
       </div>
     </div>
   </section>
@@ -220,14 +311,128 @@
 
     <div class="feature-card">
       <i class="fa-solid fa-bolt"></i>
-      <h3 data-i18n="feat2_title">Entrega Rápida</h3>
-      <p data-i18n="feat2_desc">Coordinación inmediata por WhatsApp una vez verificado el pedido.</p>
+      <h3 data-i18n="feat2_title">Entrega Ultra Rápida</h3>
+      <p data-i18n="feat2_desc">Coordinación inmediata por WhatsApp. Entrega completada habitualmente en menos de 10 minutos.</p>
     </div>
 
     <div class="feature-card">
       <i class="fa-solid fa-crown"></i>
       <h3 data-i18n="feat3_title">Atención Directa</h3>
-      <p data-i18n="feat3_desc">Trato directo con Sr:X sin intermediarios ni comisiones extra.</p>
+      <p data-i18n="feat3_desc">Trato directo con Sr:X sin intermediarios, bots ni comisiones abusivas.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-certificate"></i>
+      <h3 data-i18n="feat4_title">Deviants Legítimos</h3>
+      <p data-i18n="feat4_desc">Todos los Deviants provienen de juego legítimo con estadísticas y habilidades listas para usar.</p>
+    </div>
+  </section>
+
+  <!-- Sección: Testimonios de Clientes -->
+  <section class="section-container" id="testimonials">
+    <h2 class="section-title" data-i18n="testimonials_title">Opiniones de Clientes Satisfechos</h2>
+    <p class="section-subtitle" data-i18n="testimonials_subtitle">Jugadores del servidor Dream Y0002 NA recomiendan nuestro servicio</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testimonial-comment" data-i18n="test1_comment">"¡Entrega súper rápida! Compré Energy Links y en menos de 10 minutos ya los tenía en mi inventario. Excelente atención del Sr:X."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar"><i class="fa-solid fa-user-astronaut"></i></div>
+          <div>
+            <strong data-i18n="test1_name">Carlos R.</strong>
+            <span class="author-tag" data-i18n="test1_server">Meta-Human • Dream Y0002 NA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testimonial-comment" data-i18n="test2_comment">"Excelente atención y catálogo completo. Me llevé la Medusa Polar y el Lobo en cuestión de minutos. Pago rápido por Zelle y 100% recomendado."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar"><i class="fa-solid fa-shield-cat"></i></div>
+          <div>
+            <strong data-i18n="test2_name">Valkyrie_99</strong>
+            <span class="author-tag" data-i18n="test2_server">Líder de Hive • Dream Y0002 NA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-rating">
+          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+        </div>
+        <p class="testimonial-comment" data-i18n="test3_comment">"El mejor trader del servidor. Trato serio, amable y sin vueltas. Ya es mi tienda de confianza para cada ciclo del juego."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar"><i class="fa-solid fa-crosshairs"></i></div>
+          <div>
+            <strong data-i18n="test3_name">GhostRider_NA</strong>
+            <span class="author-tag" data-i18n="test3_server">PvP Veteran • Dream Y0002 NA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección: Preguntas Frecuentes (FAQ) -->
+  <section id="faq" class="section-container">
+    <h2 class="section-title" data-i18n="faq_title">Preguntas Frecuentes (FAQ)</h2>
+    <p class="section-subtitle" data-i18n="faq_subtitle">Resolvemos tus dudas antes de realizar tu compra</p>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button type="button" class="faq-question">
+          <span data-i18n="faq_q1">¿Cómo se realiza la entrega dentro del juego?</span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq_a1">Nos coordinamos directamente por WhatsApp. Te indicamos un punto de encuentro seguro en el servidor <strong>Dream Y0002 NA</strong> (como una zona neutral o territorio) y realizamos el intercambio del Deviant o los Energy Links de forma inmediata y 100% segura.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-question">
+          <span data-i18n="faq_q2">¿Cuánto tiempo tarda la entrega?</span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq_a2">En la gran mayoría de los casos, la entrega se completa entre 5 y 15 minutos una vez confirmado el pago y coordinada la hora dentro del juego.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-question">
+          <span data-i18n="faq_q3">¿Qué métodos de pago aceptan?</span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq_a3">Aceptamos <strong>Zelle</strong> para transferencias bancarias directas e instantáneas en USD sin comisiones. Escríbenos por WhatsApp y te facilitamos los datos exactos.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-question">
+          <span data-i18n="faq_q4">¿Los Deviants están garantizados y qué nivel tienen?</span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq_a4">Todos los Deviants provienen de juego legítimo, están en perfecto estado y listos para transferir de inmediato en Dream Y0002 NA.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-question">
+          <span data-i18n="faq_q5">¿Puedo comprar Energy Links y Deviants en un mismo pedido?</span>
+          <i class="fa-solid fa-chevron-down faq-chevron"></i>
+        </button>
+        <div class="faq-answer">
+          <p data-i18n="faq_a5">¡Sí! Puedes usar la calculadora para tus links y agregar los Deviants que gustes a tu pedido para enviar un mensaje unificado por WhatsApp.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -237,13 +442,19 @@
       <h2 data-i18n="footer_title">¿Tienes alguna duda o buscas un Deviant especial?</h2>
       <p data-i18n="footer_desc">Escríbeme por WhatsApp y coordinamos tu entrega en <strong>Dream Y0002 NA</strong> al instante.</p>
 
-      <a href="https://wa.me/18494268576?text=Hola%20Sr:X,%20quiero%20informacion%20sobre%20tus%20servicios%20en%20Once%20Human"
-         target="_blank"
-         class="btn-whatsapp-footer"
-         id="btnWhatsappFooter"
-         rel="noopener noreferrer">
-        <i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_btn">Hablar con Soporte por WhatsApp</span>
-      </a>
+      <div class="footer-cta-group">
+        <a href="https://wa.me/18494268576?text=Hola%20Sr:X,%20quiero%20informacion%20sobre%20tus%20servicios%20en%20Once%20Human"
+           target="_blank"
+           class="btn-whatsapp-footer"
+           id="btnWhatsappFooter"
+           rel="noopener noreferrer">
+          <i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_btn">Hablar con Soporte por WhatsApp</span>
+        </a>
+
+        <a href="https://discord.com/users/AegonTargaryen9" target="_blank" class="btn-discord-footer" rel="noopener noreferrer">
+          <i class="fa-brands fa-discord"></i> Discord: JT Deviant Market
+        </a>
+      </div>
     </div>
 
     <div class="footer-bottom">
@@ -260,6 +471,11 @@
     </div>
     <a href="#deviantCart" class="btn-floating-view" data-i18n="floating_cart_view">Ver Pedido</a>
   </div>
+
+  <!-- Botón Volver Arriba -->
+  <button type="button" id="btnScrollTop" class="btn-scroll-top" title="Volver arriba" aria-label="Volver arriba">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
 
   <!-- Toast de Notificaciones -->
   <div id="cartToast" class="cart-toast" aria-live="polite"></div>

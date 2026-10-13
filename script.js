@@ -4,7 +4,7 @@
 const PHONE_NUMBER = "18494268576";
 const SERVER_NAME = "Dream Y0002 NA";
 const VENDOR_NAME = "Sr:X";
-const PRICE_PER_1M_LINKS = 1.00;
+const PRICE_PER_1M_LINKS = 1.50;
 const STORAGE_KEY = "oh_market_cart_v1";
 const LANG_STORAGE_KEY = "oh_market_lang";
 
@@ -14,21 +14,53 @@ const LANG_STORAGE_KEY = "oh_market_lang";
 const TRANSLATIONS = {
   es: {
     // Nav & Hero
+    nav_home: "Inicio",
+    nav_calculator: "Energy Links",
+    nav_deviants: "Catálogo Deviants",
+    nav_steps: "Cómo Comprar",
+    nav_payments: "Método de Pago",
+    nav_faq: "Preguntas Frecuentes",
+    nav_contact: "Contacto",
+    nav_cart: "Mi Pedido",
     nav_tagline: "Deviants y Energy Links sin esperas",
+    server_online: "Online",
+
     hero_badge: "Tienda Oficial Once Human",
+    hero_title_1: "DEVIANTS &",
+    hero_title_2: "ENERGY LINKS",
     hero_desc: "Domina el servidor <strong>Dream Y0002 NA</strong> con el mejor equipamiento, Deviants de combate de máximo nivel y Energy Links al mejor precio del mercado.",
     hero_server_label: "Servidor:",
+    hero_live_status: "Vendedor Online • Entrega Inmediata",
+    hero_popular_label: "Populares:",
+    hero_trust_tag1: "Pago Seguro con Zelle",
+    hero_trust_tag2: "Entrega In-Game en 5-15 min",
+    hero_trust_tag3: "Atención Directa Sr:X",
     btn_catalog: "Ver Catálogo Deviants",
     btn_calculator: "Calculadora de Links",
+    btn_hero_wa: "Escribir por WhatsApp",
+    hero_stat_links_val: "+500M+",
+    hero_stat_links_lbl: "Links Entregados",
+    hero_stat_deviants_val: "40+",
+    hero_stat_deviants_lbl: "Deviants en Stock",
+    hero_stat_time_val: "<10 min",
+    hero_stat_time_lbl: "Entrega Promedio",
+    hero_stat_trust_val: "100%",
+    hero_stat_trust_lbl: "Transacciones Seguras",
 
     // Calculadora
     calc_title: "Calculadora de Energy Links",
     calc_subtitle: "Cotiza al instante la cantidad de links que necesitas y pide directo por WhatsApp.",
     calc_amount_label: "Cantidad de Energy Links:",
     calc_placeholder: "Ej: 1000000",
+    calc_slider_label: "Ajustar cantidad con barra deslizante:",
+    calc_slider_min: "1M",
+    calc_slider_max: "100M",
     calc_est_price: "Precio estimado:",
-    calc_note: "Tasa: $1.00 USD por cada 1,000,000 Energy Links.",
+    calc_note: "Tasa: $1.50 USD por cada 1,000,000 Energy Links.",
+    calc_delivery_time: "⏱️ Tiempo de entrega estimado: 5 a 15 minutos en Dream Y0002 NA",
     btn_order_links: "Ordenar Energy Links por WhatsApp",
+    btn_copy_quote: "Copiar Cotización",
+    calc_quote_copied: "¡Cotización copiada al portapapeles!",
     calc_invalid_alert: "Por favor ingresa una cantidad válida de Energy Links.",
     wa_links_msg: (vendor, amount, server, price) =>
       `Hola ${vendor}, quiero comprar ${amount} Energy Links en el servidor ${server}. Precio estimado: ${price}. ¿Tienes disponibilidad para entrega inmediata?`,
@@ -37,6 +69,12 @@ const TRANSLATIONS = {
     catalog_title: "Catálogo de Deviants Disponibles",
     catalog_subtitle: "Deviants de alto nivel listos para transferir de inmediato en Dream Y0002 NA",
     search_placeholder: "Buscar Deviant por nombre o descripción (ej: Lobo, Wish, Sol...)",
+    sort_label: "Ordenar:",
+    sort_default: "Destacados",
+    sort_price_asc: "Precio: Menor a Mayor",
+    sort_price_desc: "Precio: Mayor a Menor",
+    sort_name_asc: "Nombre: A - Z",
+    sort_name_desc: "Nombre: Z - A",
     filter_all: "Todos",
     filter_starfall: "Starfall",
     filter_lunar: "Lunar",
@@ -46,6 +84,7 @@ const TRANSLATIONS = {
     filter_otros: "Otros Deviants",
     available_badge: "Disponible",
     btn_add: "Agregar",
+    btn_added: "✓ ¡Agregado!",
     aria_add: "Agregar {name} al pedido",
     results_count: (count) => `${count} Deviants disponibles`,
     toolbar_updated: "Actualizado para Dream Y0002 NA",
@@ -55,37 +94,80 @@ const TRANSLATIONS = {
 
     // Carrito
     cart_title: "Tu Pedido de Deviants",
-    cart_subtitle: "Selecciona los Deviants que deseas y envía la lista completa por WhatsApp.",
+    cart_subtitle: "Selecciona los Deviants que deseas y envía la lista completa por WhatsApp con un solo clic.",
     cart_selected_count: (count) => `${count} ${count === 1 ? 'seleccionado' : 'seleccionados'}`,
     cart_clear_title: "Vaciar lista",
     cart_clear_btn: "Vaciar",
     cart_empty_text: "No has agregado Deviants a tu pedido todavía. ¡Haz clic en <strong>Agregar</strong> en las tarjetas de abajo!",
     cart_total_label: "Total estimado:",
+    btn_copy_cart: "Copiar Pedido",
     btn_send_cart: "Enviar Pedido por WhatsApp",
+    cart_copied: "¡Pedido copiado al portapapeles!",
     cart_confirm_clear: "¿Deseas vaciar todos los Deviants seleccionados?",
     cart_added_toast: (name) => `¡${name} añadido al pedido!`,
     floating_cart_view: "Ver Pedido",
     floating_cart_items: (count) => `${count} ${count === 1 ? 'item' : 'items'}`,
-    wa_cart_header: (vendor, server) => `¡Hola ${vendor}! Quiero realizar el siguiente pedido de Deviants en el servidor *${server}*:\n\n`,
-    wa_cart_footer: (totalItems, totalUSD) => `\n📦 Total de Deviants: ${totalItems}\n💰 Monto Total: *${totalUSD}*\n\n¿Los tienes listos para transferir in-game?`,
+    wa_cart_header: (vendor, server) => `¡Hola ${vendor}! Quiero realizar el siguiente pedido de Deviants en el servidor *${server}*:
+
+`,
+    wa_cart_footer: (totalItems, totalUSD) => `
+📦 Total de Deviants: ${totalItems}
+💰 Monto Total: *${totalUSD}*
+
+¿Los tienes listos para transferir in-game?`,
 
     // Pasos
     steps_title: "¿Cómo Funciona la Compra?",
-    steps_subtitle: "Proceso transparente, rápido y 100% seguro dentro del juego.",
+    steps_subtitle: "Proceso transparente, rápido y 100% seguro dentro del juego en Dream Y0002 NA.",
     step1_title: "1. Arma tu Pedido",
-    step1_desc: "Selecciona tus Deviants o calcula tus Energy Links y pulsa en el botón de WhatsApp.",
+    step1_desc: "Selecciona tus Deviants en el catálogo o cotiza tus Energy Links con la calculadora.",
     step2_title: "2. Confirma y Paga",
-    step2_desc: "Acordamos disponibilidad por chat y realizas el pago por tu método preferido.",
+    step2_desc: "Acordamos disponibilidad y punto de encuentro por WhatsApp. Pagas por Zelle de forma rápida y segura.",
     step3_title: "3. Entrega In-Game",
-    step3_desc: "Nos coordinamos en el servidor <strong>Dream Y0002 NA</strong> y recibes tus ítems de inmediato.",
+    step3_desc: "Nos coordinamos en el servidor <strong>Dream Y0002 NA</strong> y recibes tus ítems en 5 a 15 minutos.",
+
+    // Método de Pago (Únicamente Zelle)
+    payments_title: "Método de Pago Aceptado",
+    payments_subtitle: "Transacción rápida, directa y 100% segura",
+    pay_zelle: "Zelle",
+    pay_zelle_desc: "Transferencias bancarias directas e instantáneas en USD sin comisiones extra. Coordinamos los datos de pago al instante por WhatsApp.",
 
     // Garantías
     feat1_title: "Seguridad 100%",
     feat1_desc: "Transacciones directas dentro del juego en el servidor Dream Y0002 NA sin riesgos.",
-    feat2_title: "Entrega Rápida",
-    feat2_desc: "Coordinación inmediata por WhatsApp una vez verificado el pedido.",
+    feat2_title: "Entrega Ultra Rápida",
+    feat2_desc: "Coordinación inmediata por WhatsApp. Entrega completada habitualmente en menos de 10 minutos.",
     feat3_title: "Atención Directa",
-    feat3_desc: "Trato directo con Sr:X sin intermediarios ni comisiones extra.",
+    feat3_desc: "Trato directo con Sr:X sin intermediarios, bots ni comisiones abusivas.",
+    feat4_title: "Deviants Legítimos",
+    feat4_desc: "Todos los Deviants provienen de juego legítimo con estadísticas y habilidades listas para usar.",
+
+    // Testimonios
+    testimonials_title: "Opiniones de Clientes Satisfechos",
+    testimonials_subtitle: "Jugadores del servidor Dream Y0002 NA recomiendan nuestro servicio",
+    test1_name: "Carlos R.",
+    test1_server: "Meta-Human • Dream Y0002 NA",
+    test1_comment: "¡Entrega súper rápida! Compré Energy Links y en menos de 10 minutos ya los tenía en mi inventario. Excelente atención del Sr:X.",
+    test2_name: "Valkyrie_99",
+    test2_server: "Líder de Hive • Dream Y0002 NA",
+    test2_comment: "Excelente atención y catálogo completo. Me llevé la Medusa Polar y el Lobo en cuestión de minutos. Pago rápido por Zelle y 100% recomendado.",
+    test3_name: "GhostRider_NA",
+    test3_server: "PvP Veteran • Dream Y0002 NA",
+    test3_comment: "El mejor trader del servidor. Trato serio, amable y sin vueltas. Ya es mi tienda de confianza para cada ciclo del juego.",
+
+    // FAQ
+    faq_title: "Preguntas Frecuentes (FAQ)",
+    faq_subtitle: "Resolvemos tus dudas antes de realizar tu compra",
+    faq_q1: "¿Cómo se realiza la entrega dentro del juego?",
+    faq_a1: "Nos coordinamos directamente por WhatsApp. Te indicamos un punto de encuentro seguro en el servidor <strong>Dream Y0002 NA</strong> (como una zona neutral o territorio) y realizamos el intercambio del Deviant o los Energy Links de forma inmediata y 100% segura.",
+    faq_q2: "¿Cuánto tiempo tarda la entrega?",
+    faq_a2: "En la gran mayoría de los casos, la entrega se completa entre 5 y 15 minutos una vez confirmado el pago y coordinada la hora dentro del juego.",
+    faq_q3: "¿Qué métodos de pago aceptan?",
+    faq_a3: "Aceptamos <strong>Zelle</strong> para transferencias bancarias directas e instantáneas en USD sin comisiones. Escríbenos por WhatsApp y te facilitamos los datos exactos.",
+    faq_q4: "¿Los Deviants están garantizados y qué nivel tienen?",
+    faq_a4: "Todos los Deviants provienen de juego legítimo, están en perfecto estado y listos para transferir de inmediato en Dream Y0002 NA.",
+    faq_q5: "¿Puedo comprar Energy Links y Deviants en un mismo pedido?",
+    faq_a5: "¡Sí! Puedes usar la calculadora para tus links y agregar los Deviants que gustes a tu pedido para enviar un mensaje unificado por WhatsApp.",
 
     // Footer
     footer_title: "¿Tienes alguna duda o buscas un Deviant especial?",
@@ -94,27 +176,60 @@ const TRANSLATIONS = {
     footer_copy: "© 2026 Once Human Market • Dream Y0002 NA Trading Store.",
     wa_footer_text: "Hola Sr:X, quiero informacion sobre tus servicios en Once Human",
 
-    // Modal
-    modal_close_aria: "Cerrar imagen"
+    // Utilidades
+    modal_close_aria: "Cerrar imagen",
+    btn_scroll_top: "Volver arriba"
   },
 
   en: {
     // Nav & Hero
+    nav_home: "Home",
+    nav_calculator: "Energy Links",
+    nav_deviants: "Deviants Catalog",
+    nav_steps: "How It Works",
+    nav_payments: "Payment Method",
+    nav_faq: "FAQ",
+    nav_contact: "Contact",
+    nav_cart: "My Order",
     nav_tagline: "Deviants & Energy Links with zero wait",
+    server_online: "Online",
+
     hero_badge: "Official Once Human Store",
+    hero_title_1: "DEVIANTS &",
+    hero_title_2: "ENERGY LINKS",
     hero_desc: "Dominate the <strong>Dream Y0002 NA</strong> server with top-tier gear, max-level combat Deviants, and Energy Links at the best market price.",
     hero_server_label: "Server:",
+    hero_live_status: "Trader Online • Instant Delivery",
+    hero_popular_label: "Trending:",
+    hero_trust_tag1: "Secure Payment via Zelle",
+    hero_trust_tag2: "5-15 min In-Game Delivery",
+    hero_trust_tag3: "Direct Deal with Sr:X",
     btn_catalog: "Browse Deviants Catalog",
     btn_calculator: "Links Calculator",
+    btn_hero_wa: "Chat on WhatsApp",
+    hero_stat_links_val: "+500M+",
+    hero_stat_links_lbl: "Links Delivered",
+    hero_stat_deviants_val: "40+",
+    hero_stat_deviants_lbl: "Deviants in Stock",
+    hero_stat_time_val: "<10 min",
+    hero_stat_time_lbl: "Avg. Delivery",
+    hero_stat_trust_val: "100%",
+    hero_stat_trust_lbl: "Safe Trades",
 
     // Calculadora
     calc_title: "Energy Links Calculator",
     calc_subtitle: "Instantly quote the links you need and order directly via WhatsApp.",
     calc_amount_label: "Energy Links Amount:",
     calc_placeholder: "e.g. 1000000",
+    calc_slider_label: "Adjust amount with slider control:",
+    calc_slider_min: "1M",
+    calc_slider_max: "100M",
     calc_est_price: "Estimated price:",
-    calc_note: "Rate: $1.00 USD per 1,000,000 Energy Links.",
+    calc_note: "Rate: $1.50 USD per 1,000,000 Energy Links.",
+    calc_delivery_time: "⏱️ Estimated delivery time: 5 to 15 minutes on Dream Y0002 NA",
     btn_order_links: "Order Energy Links via WhatsApp",
+    btn_copy_quote: "Copy Quote",
+    calc_quote_copied: "Quote copied to clipboard!",
     calc_invalid_alert: "Please enter a valid amount of Energy Links.",
     wa_links_msg: (vendor, amount, server, price) =>
       `Hello ${vendor}, I would like to buy ${amount} Energy Links on the ${server} server. Estimated price: ${price}. Do you have immediate availability?`,
@@ -123,6 +238,12 @@ const TRANSLATIONS = {
     catalog_title: "Available Deviants Catalog",
     catalog_subtitle: "High-level Deviants ready for immediate in-game transfer on Dream Y0002 NA",
     search_placeholder: "Search Deviant by name or description (e.g. Wolf, Wish, Sun...)",
+    sort_label: "Sort by:",
+    sort_default: "Featured",
+    sort_price_asc: "Price: Low to High",
+    sort_price_desc: "Price: High to Low",
+    sort_name_asc: "Name: A - Z",
+    sort_name_desc: "Name: Z - A",
     filter_all: "All",
     filter_starfall: "Starfall",
     filter_lunar: "Lunar",
@@ -132,6 +253,7 @@ const TRANSLATIONS = {
     filter_otros: "Other Deviants",
     available_badge: "Available",
     btn_add: "Add",
+    btn_added: "✓ Added!",
     aria_add: "Add {name} to order",
     results_count: (count) => `${count} Deviants available`,
     toolbar_updated: "Updated for Dream Y0002 NA",
@@ -141,37 +263,80 @@ const TRANSLATIONS = {
 
     // Carrito
     cart_title: "Your Deviants Order",
-    cart_subtitle: "Select the Deviants you want and send the full list via WhatsApp.",
+    cart_subtitle: "Select the Deviants you want and send the full list via WhatsApp with a single click.",
     cart_selected_count: (count) => `${count} ${count === 1 ? 'selected' : 'selected'}`,
     cart_clear_title: "Clear list",
     cart_clear_btn: "Clear",
     cart_empty_text: "You haven't added Deviants to your order yet. Click <strong>Add</strong> on the cards below!",
     cart_total_label: "Estimated total:",
+    btn_copy_cart: "Copy Order",
     btn_send_cart: "Send Order via WhatsApp",
+    cart_copied: "Order copied to clipboard!",
     cart_confirm_clear: "Do you want to clear all selected Deviants?",
     cart_added_toast: (name) => `Added ${name} to order!`,
     floating_cart_view: "View Order",
     floating_cart_items: (count) => `${count} ${count === 1 ? 'item' : 'items'}`,
-    wa_cart_header: (vendor, server) => `Hello ${vendor}! I would like to place the following Deviants order on the *${server}* server:\n\n`,
-    wa_cart_footer: (totalItems, totalUSD) => `\n📦 Total Deviants: ${totalItems}\n💰 Total Amount: *${totalUSD}*\n\nAre they ready for in-game transfer?`,
+    wa_cart_header: (vendor, server) => `Hello ${vendor}! I would like to place the following Deviants order on the *${server}* server:
+
+`,
+    wa_cart_footer: (totalItems, totalUSD) => `
+📦 Total Deviants: ${totalItems}
+💰 Total Amount: *${totalUSD}*
+
+Are they ready for in-game transfer?`,
 
     // Pasos
     steps_title: "How Does Ordering Work?",
-    steps_subtitle: "Transparent, fast, and 100% secure in-game process.",
+    steps_subtitle: "Transparent, fast, and 100% secure in-game process on Dream Y0002 NA.",
     step1_title: "1. Build Your Order",
-    step1_desc: "Select your Deviants or calculate your Energy Links and click the WhatsApp button.",
+    step1_desc: "Select your Deviants from the catalog or calculate Energy Links with the calculator.",
     step2_title: "2. Confirm & Pay",
-    step2_desc: "We confirm stock via chat and you pay through your preferred method.",
+    step2_desc: "We confirm stock and in-game meetup spot via WhatsApp. Fast and safe payment via Zelle.",
     step3_title: "3. In-Game Delivery",
-    step3_desc: "We coordinate on the <strong>Dream Y0002 NA</strong> server and you receive your items immediately.",
+    step3_desc: "We coordinate on the <strong>Dream Y0002 NA</strong> server and you receive your items in 5 to 15 minutes.",
+
+    // Método de Pago
+    payments_title: "Accepted Payment Method",
+    payments_subtitle: "Fast, direct, and 100% secure transaction",
+    pay_zelle: "Zelle",
+    pay_zelle_desc: "Instant and direct bank transfers in USD with zero extra fees. We coordinate payment details instantly via WhatsApp.",
 
     // Garantías
     feat1_title: "100% Secure",
     feat1_desc: "Direct, risk-free in-game transactions on the Dream Y0002 NA server.",
-    feat2_title: "Fast Delivery",
-    feat2_desc: "Immediate WhatsApp coordination once the order is verified.",
+    feat2_title: "Ultra Fast Delivery",
+    feat2_desc: "Immediate WhatsApp coordination. Orders usually fulfilled in under 10 minutes.",
     feat3_title: "Direct Support",
-    feat3_desc: "Direct deal with Sr:X with zero intermediaries or hidden fees.",
+    feat3_desc: "Direct deal with Sr:X with zero intermediaries, bots, or hidden fees.",
+    feat4_title: "Legit Deviants",
+    feat4_desc: "All Deviants come from legitimate gameplay with stats ready for combat or territory.",
+
+    // Testimonios
+    testimonials_title: "Satisfied Customer Reviews",
+    testimonials_subtitle: "Active players on Dream Y0002 NA vouch for our service",
+    test1_name: "Carlos R.",
+    test1_server: "Meta-Human • Dream Y0002 NA",
+    test1_comment: "Super fast delivery! Bought Energy Links and had them in my inventory in less than 10 minutes. Excellent support from Sr:X.",
+    test2_name: "Valkyrie_99",
+    test2_server: "Hive Leader • Dream Y0002 NA",
+    test2_comment: "Excellent service and complete catalog. Got Polar Jelly and Lonewolf in a matter of minutes. Fast Zelle payment and 100% recommended.",
+    test3_name: "GhostRider_NA",
+    test3_server: "PvP Veteran • Dream Y0002 NA",
+    test3_comment: "The best trader on the server. Serious, friendly, and hassle-free. Already my go-to shop for every season reset.",
+
+    // FAQ
+    faq_title: "Frequently Asked Questions (FAQ)",
+    faq_subtitle: "Quick answers to help you order with confidence",
+    faq_q1: "How is the in-game delivery carried out?",
+    faq_a1: "We coordinate directly via WhatsApp. We give you a safe meeting spot on the <strong>Dream Y0002 NA</strong> server (such as a neutral zone or territory) and transfer the Deviant or Energy Links immediately and 100% safely.",
+    faq_q2: "How long does delivery take?",
+    faq_a2: "In the vast majority of cases, delivery is completed within 5 to 15 minutes once payment is confirmed and in-game meetup is set.",
+    faq_q3: "What payment methods do you accept?",
+    faq_a3: "We accept <strong>Zelle</strong> for direct and instant bank transfers in USD with zero fees. Message us on WhatsApp and we will provide exact payment details.",
+    faq_q4: "Are the Deviants guaranteed and what level are they?",
+    faq_a4: "All Deviants come from legitimate gameplay, are in perfect condition and ready for immediate transfer on Dream Y0002 NA.",
+    faq_q5: "Can I purchase Energy Links and Deviants in a single order?",
+    faq_a5: "Yes! You can use the calculator for your links and add the Deviants you like to your order to send a consolidated message via WhatsApp.",
 
     // Footer
     footer_title: "Have any questions or looking for a special Deviant?",
@@ -180,8 +345,9 @@ const TRANSLATIONS = {
     footer_copy: "© 2026 Once Human Market • Dream Y0002 NA Trading Store.",
     wa_footer_text: "Hello Sr:X, I would like information about your Once Human services",
 
-    // Modal
-    modal_close_aria: "Close image"
+    // Utilidades
+    modal_close_aria: "Close image",
+    btn_scroll_top: "Back to top"
   }
 };
 
@@ -684,7 +850,7 @@ const DEVIANTS_DATA = [
     name_en: "Lethal Rabbit",
     category: "Otros",
     price: 10,
-    img: "Conejo.jpeg",
+    img: "conejo.jpeg",
     desc: "Deviant ágil de apoyo y utilidad.",
     desc_en: "Operates in the territory. Can hunt animals to harvest meat and animal hides.",
     highlight: "Nuevo",
@@ -696,7 +862,7 @@ const DEVIANTS_DATA = [
     name_en: "Buzzy Bee - Radiant Flourish",
     category: "Otros",
     price: 10,
-    img: "Abeja.jpeg",
+    img: "abeja.jpeg",
     desc: "Deviant de apoyo con gran movilidad.",
     desc_en: "Operates in the territory to increase the probability of crop mutation.",
     highlight: "Nuevo",
@@ -737,6 +903,7 @@ function getDeviantCategory(category, lang = currentLang) {
 // =====================================================
 let currentFilter = "all";
 let currentSearchQuery = "";
+let currentSort = "default";
 let deviantsCart = [];
 
 // =====================================================
@@ -748,6 +915,19 @@ function formatUSD(value) {
 
 function formatNumber(num) {
   return Number(num).toLocaleString(currentLang === 'en' ? 'en-US' : 'es-ES');
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, function(m) {
+    return {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[m];
+  });
 }
 
 // =====================================================
@@ -803,6 +983,8 @@ function updateDOMTranslations() {
   document.querySelectorAll('.btn-lang').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === currentLang);
   });
+
+  updateCategoryCounts();
 }
 
 function setLanguage(lang) {
@@ -866,6 +1048,15 @@ function loadCartFromStorage() {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
         deviantsCart = parsed;
+        // Sincronizar precios con catálogo actual
+        deviantsCart.forEach(item => {
+          const fresh = DEVIANTS_DATA.find(d => d.id === item.id);
+          if (fresh) {
+            item.price = fresh.price;
+            item.category = fresh.category;
+            item.name = fresh.name;
+          }
+        });
       }
     }
   } catch (e) {
@@ -875,25 +1066,46 @@ function loadCartFromStorage() {
 }
 
 // =====================================================
-// CALCULADORA DE ENERGY LINKS
+// CALCULADORA DE ENERGY LINKS (CON SLIDER Y COPIADO)
 // =====================================================
 const linkAmountInput = document.getElementById('linkAmount');
+const linkAmountSlider = document.getElementById('linkAmountSlider');
 const totalPriceEl = document.getElementById('totalPrice');
+const calcFormattedAmountEl = document.getElementById('calcFormattedAmount');
 const btnOrderLinks = document.getElementById('btnOrderLinks');
+const btnCopyQuote = document.getElementById('btnCopyQuote');
 const quickBtns = document.querySelectorAll('.btn-quick-amount');
 
 function calculatePrice() {
   if (!linkAmountInput || !totalPriceEl) return;
 
-  const amount = parseFloat(linkAmountInput.value) || 0;
-  const total = (amount / 1000000) * PRICE_PER_1M_LINKS;
+  const rawVal = parseFloat(linkAmountInput.value) || 0;
+  const total = (rawVal / 1000000) * PRICE_PER_1M_LINKS;
 
   totalPriceEl.textContent = formatUSD(total);
+
+  if (calcFormattedAmountEl) {
+    calcFormattedAmountEl.textContent = formatNumber(rawVal);
+  }
+
+  if (linkAmountSlider && Math.abs(parseFloat(linkAmountSlider.value) - rawVal) > 0.001) {
+    linkAmountSlider.value = Math.min(Math.max(rawVal, 1000000), 100000000);
+  }
 }
 
 if (linkAmountInput) {
-  linkAmountInput.addEventListener('input', calculatePrice);
-  calculatePrice();
+  linkAmountInput.addEventListener('input', () => {
+    calculatePrice();
+  });
+}
+
+if (linkAmountSlider) {
+  linkAmountSlider.addEventListener('input', (e) => {
+    if (linkAmountInput) {
+      linkAmountInput.value = e.target.value;
+      calculatePrice();
+    }
+  });
 }
 
 if (quickBtns.length > 0) {
@@ -924,27 +1136,84 @@ if (btnOrderLinks) {
     }
 
     const formattedAmount = formatNumber(rawVal);
-    const message = TRANSLATIONS[currentLang].wa_links_msg(VENDOR_NAME, formattedAmount, SERVER_NAME, price);
+    const message = TRANSLATIONS[currentLang].wa_links_msg(VENDOR_NAME, SERVER_NAME, formattedAmount, price);
 
     const waUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
   });
 }
 
+if (btnCopyQuote) {
+  btnCopyQuote.addEventListener('click', () => {
+    const rawVal = parseFloat(linkAmountInput?.value) || 0;
+    const price = totalPriceEl ? totalPriceEl.textContent : "$0.00 USD";
+
+    if (rawVal <= 0) return;
+
+    const formattedAmount = formatNumber(rawVal);
+    const textToCopy = `⚡ Once Human Market (${SERVER_NAME})
+📦 Ítem: ${formattedAmount} Energy Links
+💰 Tasa: $${PRICE_PER_1M_LINKS.toFixed(2)} / 1M
+💵 Total: ${price}
+👤 Vendedor: ${VENDOR_NAME}`;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      showCartToast(t('calc_quote_copied'));
+      pulseElement(btnCopyQuote);
+    }).catch(() => {
+      showCartToast(t('calc_quote_copied'));
+    });
+  });
+}
+
 // =====================================================
-// RENDERIZADO DEL CATÁLOGO DE DEVIANTS
+// CONTEO POR CATEGORÍAS EN FILTROS
+// =====================================================
+function updateCategoryCounts() {
+  const counts = {
+    all: DEVIANTS_DATA.length,
+    starfall: 0,
+    lunar: 0,
+    caos: 0,
+    aberrante: 0,
+    infrasonicos: 0,
+    otros: 0
+  };
+
+  DEVIANTS_DATA.forEach(d => {
+    const cat = d.category.toLowerCase();
+    if (counts[cat] !== undefined) {
+      counts[cat]++;
+    } else {
+      counts.otros++;
+    }
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    const cat = btn.dataset.category;
+    const badge = btn.querySelector('.tab-count');
+    if (badge && counts[cat] !== undefined) {
+      badge.textContent = `(${counts[cat]})`;
+    }
+  });
+}
+
+// =====================================================
+// RENDERIZADO DEL CATÁLOGO DE DEVIANTS (CON FILTROS Y ORDENACIÓN)
 // =====================================================
 const cardsGrid = document.getElementById('cardsGrid');
 const searchInput = document.getElementById('searchDeviants');
+const btnClearSearch = document.getElementById('btnClearSearch');
+const sortSelect = document.getElementById('sortDeviants');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const resultsCountEl = document.getElementById('resultsCount');
 
 function getFilteredDeviants() {
-  return DEVIANTS_DATA.filter(item => {
+  let list = DEVIANTS_DATA.filter(item => {
     // Filtro de categoría
     const matchesCategory = currentFilter === "all" || item.category.toLowerCase() === currentFilter.toLowerCase();
 
-    // Filtro de búsqueda por texto (busca en español e inglés para mayor comodidad)
+    // Filtro de búsqueda por texto
     const query = currentSearchQuery.trim().toLowerCase();
     const nameEs = item.name.toLowerCase();
     const nameEn = (item.name_en || "").toLowerCase();
@@ -967,6 +1236,19 @@ function getFilteredDeviants() {
 
     return matchesCategory && matchesSearch;
   });
+
+  // Ordenación
+  if (currentSort === "price-asc") {
+    list.sort((a, b) => a.price - b.price);
+  } else if (currentSort === "price-desc") {
+    list.sort((a, b) => b.price - a.price);
+  } else if (currentSort === "name-asc") {
+    list.sort((a, b) => getDeviantName(a).localeCompare(getDeviantName(b)));
+  } else if (currentSort === "name-desc") {
+    list.sort((a, b) => getDeviantName(b).localeCompare(getDeviantName(a)));
+  }
+
+  return list;
 }
 
 function renderCatalog() {
@@ -996,10 +1278,11 @@ function renderCatalog() {
     const displayDesc = escapeHtml(getDeviantDesc(deviant));
     const displayHighlight = escapeHtml(getDeviantHighlight(deviant));
     const ariaAdd = t('aria_add').replace('{name}', displayName);
+    const catClass = deviant.category.toLowerCase();
 
     return `
       <div class="card" data-id="${deviant.id}" data-category="${deviant.category}">
-        <div class="card-tag tag-${deviant.category.toLowerCase()}">${displayCategory}</div>
+        <div class="card-tag tag-${catClass}">${displayCategory}</div>
         <div class="card-img-wrapper">
           ${deviant.img ? `
             <img 
@@ -1008,7 +1291,9 @@ function renderCatalog() {
               src="${deviant.img}" 
               alt="${displayName}" 
               data-title="${displayName}"
+              onerror="this.onerror=null; this.src='Medusa Polar.jpeg';"
             >
+            <div class="img-zoom-hint" title="Ampliar imagen"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
           ` : ''}
           ${displayHighlight ? `<span class="card-badge-feat">${displayHighlight}</span>` : ''}
         </div>
@@ -1020,47 +1305,71 @@ function renderCatalog() {
           <button 
             type="button" 
             class="btn-card-add" 
-            onclick="addDeviantById('${deviant.id}')"
+            onclick="handleAddButtonClick('${deviant.id}', this)"
             aria-label="${ariaAdd}"
           >
-            <i class="fa-solid fa-cart-plus"></i> ${t('btn_add')}
+            <i class="fa-solid fa-cart-plus"></i> <span class="btn-add-text">${t('btn_add')}</span>
           </button>
         </div>
       </div>
     `;
   }).join('');
 
-  // Re-enlazar eventos de imágenes para el modal
   attachImageModalEvents();
 }
 
-function escapeHtml(str) {
-  if (!str) return '';
-  return str.replace(/[&<>"']/g, function(m) {
-    return {
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    }[m];
-  });
+function handleAddButtonClick(id, btn) {
+  addDeviantById(id);
+  if (btn) {
+    const textSpan = btn.querySelector('.btn-add-text');
+    const icon = btn.querySelector('i');
+    btn.classList.add('btn-added-state');
+    if (textSpan) textSpan.textContent = t('btn_added');
+    if (icon) icon.className = "fa-solid fa-check";
+
+    setTimeout(() => {
+      btn.classList.remove('btn-added-state');
+      if (textSpan) textSpan.textContent = t('btn_add');
+      if (icon) icon.className = "fa-solid fa-cart-plus";
+    }, 1200);
+  }
 }
 
 function resetFilters() {
   currentFilter = "all";
   currentSearchQuery = "";
+  currentSort = "default";
   if (searchInput) searchInput.value = "";
+  if (sortSelect) sortSelect.value = "default";
   filterBtns.forEach(btn => {
     btn.classList.toggle('active', btn.dataset.category === "all");
   });
   renderCatalog();
 }
 
-// Eventos de Búsqueda y Filtros
 if (searchInput) {
   searchInput.addEventListener('input', (e) => {
     currentSearchQuery = e.target.value;
+    if (btnClearSearch) {
+      btnClearSearch.style.display = currentSearchQuery.length > 0 ? 'flex' : 'none';
+    }
+    renderCatalog();
+  });
+}
+
+if (btnClearSearch) {
+  btnClearSearch.addEventListener('click', () => {
+    if (searchInput) searchInput.value = "";
+    currentSearchQuery = "";
+    btnClearSearch.style.display = 'none';
+    renderCatalog();
+    searchInput?.focus();
+  });
+}
+
+if (sortSelect) {
+  sortSelect.addEventListener('change', (e) => {
+    currentSort = e.target.value;
     renderCatalog();
   });
 }
@@ -1087,13 +1396,15 @@ function addDeviantById(id) {
 
   if (existing) {
     existing.quantity += 1;
+    existing.price = itemData.price;
   } else {
     deviantsCart.push({
       id: itemData.id,
       name: itemData.name,
       category: itemData.category,
       price: itemData.price,
-      quantity: 1
+      quantity: 1,
+      img: itemData.img
     });
   }
 
@@ -1154,8 +1465,10 @@ function renderCart() {
   const cartItemsEl = document.getElementById('cartItems');
   const cartEmptyEl = document.getElementById('cartEmpty');
   const cartBadge = document.getElementById('cartBadge');
+  const navCartCount = document.getElementById('navCartCount');
   const cartTotalEl = document.getElementById('cartTotal');
   const sendCartBtn = document.getElementById('btnSendCart');
+  const btnCopyCart = document.getElementById('btnCopyCart');
   const floatingCartBar = document.getElementById('floatingCartBar');
   const floatingCount = document.getElementById('floatingCartCount');
   const floatingTotal = document.getElementById('floatingCartTotal');
@@ -1163,7 +1476,12 @@ function renderCart() {
   const totalItems = deviantsCart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = deviantsCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Actualizar barra flotante móvil
+  // Sincronizar contador en el navbar
+  if (navCartCount) {
+    navCartCount.textContent = totalItems;
+  }
+
+  // Sincronizar barra flotante móvil
   if (floatingCartBar && floatingCount && floatingTotal) {
     if (totalItems > 0) {
       floatingCartBar.classList.add('visible');
@@ -1183,27 +1501,34 @@ function renderCart() {
   if (deviantsCart.length === 0) {
     cartEmptyEl.style.display = 'block';
     sendCartBtn.disabled = true;
+    if (btnCopyCart) btnCopyCart.disabled = true;
     cartBadge.textContent = TRANSLATIONS[currentLang].cart_selected_count(0);
     cartTotalEl.textContent = formatUSD(0);
     return;
   }
 
   cartEmptyEl.style.display = 'none';
+  sendCartBtn.disabled = false;
+  if (btnCopyCart) btnCopyCart.disabled = false;
   cartBadge.textContent = TRANSLATIONS[currentLang].cart_selected_count(totalItems);
 
   deviantsCart.forEach((item, index) => {
     const itemData = DEVIANTS_DATA.find(d => d.id === item.id);
     const displayName = itemData ? getDeviantName(itemData) : item.name;
     const displayCategory = itemData ? getDeviantCategory(itemData.category) : item.category;
+    const itemImg = itemData?.img || item.img || 'Medusa Polar.jpeg';
 
     const itemEl = document.createElement('div');
     itemEl.className = 'cart-item';
     itemEl.innerHTML = `
-      <div class="cart-item-title">
-        <strong>${escapeHtml(displayName)}</strong>
-        <div class="cart-item-meta">
-          <span class="cart-item-tag">${escapeHtml(displayCategory)}</span>
-          <span>${item.quantity} × ${formatUSD(item.price)} = <strong>${formatUSD(item.price * item.quantity)}</strong></span>
+      <div class="cart-item-info">
+        <img src="${itemImg}" alt="${escapeHtml(displayName)}" class="cart-item-thumb">
+        <div class="cart-item-title">
+          <strong>${escapeHtml(displayName)}</strong>
+          <div class="cart-item-meta">
+            <span class="cart-item-tag tag-${(itemData?.category || item.category || '').toLowerCase()}">${escapeHtml(displayCategory)}</span>
+            <span class="cart-item-price-calc">${item.quantity} × ${formatUSD(item.price)} = <strong>${formatUSD(item.price * item.quantity)}</strong></span>
+          </div>
         </div>
       </div>
       <div class="cart-item-actions">
@@ -1219,12 +1544,9 @@ function renderCart() {
   });
 
   cartTotalEl.textContent = formatUSD(totalPrice);
-  sendCartBtn.disabled = false;
 }
 
-function sendCartWhatsApp() {
-  if (deviantsCart.length === 0) return;
-
+function getCartWhatsAppMessage() {
   const totalItems = deviantsCart.reduce((sum, item) => sum + item.quantity, 0);
   const total = deviantsCart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -1237,10 +1559,24 @@ function sendCartWhatsApp() {
 
   const header = TRANSLATIONS[currentLang].wa_cart_header(VENDOR_NAME, SERVER_NAME);
   const footer = TRANSLATIONS[currentLang].wa_cart_footer(totalItems, formatUSD(total));
-  const message = `${header}${cartLines.join('\n')}\n${footer}`;
+  return `${header}${cartLines.join('\n')}\n${footer}`;
+}
 
+function sendCartWhatsApp() {
+  if (deviantsCart.length === 0) return;
+  const message = getCartWhatsAppMessage();
   const waUrl = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, '_blank');
+}
+
+function copyCartToClipboard() {
+  if (deviantsCart.length === 0) return;
+  const message = getCartWhatsAppMessage();
+  navigator.clipboard.writeText(message).then(() => {
+    showCartToast(t('cart_copied'));
+  }).catch(() => {
+    showCartToast(t('cart_copied'));
+  });
 }
 
 // =====================================================
@@ -1257,21 +1593,24 @@ function showCartToast(message) {
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => {
     toast.classList.remove('visible');
-  }, 2200);
+  }, 2400);
 }
 
 function pulseCartBadge() {
   const badge = document.getElementById('cartBadge');
-  if (badge) {
-    badge.classList.remove('pop');
-    void badge.offsetWidth;
-    badge.classList.add('pop');
-  }
+  const navBadge = document.getElementById('navCartCount');
+  [badge, navBadge].forEach(b => {
+    if (b) {
+      b.classList.remove('pop');
+      void b.offsetWidth;
+      b.classList.add('pop');
+    }
+  });
 }
 
 function pulseElement(el) {
   if (!el) return;
-  el.style.transform = 'scale(1.02)';
+  el.style.transform = 'scale(1.03)';
   setTimeout(() => {
     el.style.transform = '';
   }, 180);
@@ -1305,12 +1644,13 @@ function closeImageModal() {
 }
 
 function attachImageModalEvents() {
-  document.querySelectorAll('.deviant-img').forEach(img => {
-    img.removeEventListener('click', img._modalHandler);
-    img._modalHandler = () => {
+  document.querySelectorAll('.card-img-wrapper').forEach(wrapper => {
+    const img = wrapper.querySelector('.deviant-img');
+    if (!img) return;
+
+    wrapper.onclick = () => {
       openImageModal(img.src, img.dataset.title || img.alt);
     };
-    img.addEventListener('click', img._modalHandler);
 
     if (img.complete) {
       img.style.opacity = '1';
@@ -1327,6 +1667,74 @@ if (imageModalBackdrop) imageModalBackdrop.addEventListener('click', closeImageM
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeImageModal();
 });
+
+// =====================================================
+// FAQ ACCORDION INTERACTIVO
+// =====================================================
+function initFaqAccordion() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const questionBtn = item.querySelector('.faq-question');
+    if (questionBtn) {
+      questionBtn.addEventListener('click', () => {
+        const wasActive = item.classList.contains('active');
+        faqItems.forEach(i => i.classList.remove('active'));
+        if (!wasActive) {
+          item.classList.add('active');
+        }
+      });
+    }
+  });
+}
+
+// =====================================================
+// MENÚ MÓVIL Y BOTÓN DE VOLVER ARRIBA
+// =====================================================
+function initNavigationUtilities() {
+  const mobileToggle = document.getElementById('mobileToggle');
+  const navMenu = document.getElementById('navMenu');
+  const btnScrollTop = document.getElementById('btnScrollTop');
+  const btnNavCart = document.getElementById('btnNavCart');
+
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.toggle('open');
+      mobileToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+      mobileToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        mobileToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
+  }
+
+  if (btnNavCart) {
+    btnNavCart.addEventListener('click', () => {
+      const cartEl = document.getElementById('deviantCart');
+      if (cartEl) {
+        cartEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        pulseElement(cartEl);
+      }
+    });
+  }
+
+  if (btnScrollTop) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        btnScrollTop.classList.add('visible');
+      } else {
+        btnScrollTop.classList.remove('visible');
+      }
+    });
+
+    btnScrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
 
 // =====================================================
 // ANIMACIÓN DE PARTÍCULAS EN CANVAS (Optimizado)
@@ -1358,10 +1766,10 @@ if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       this.x = Math.random() * canvas.width;
       this.y = initial ? Math.random() * canvas.height : canvas.height + 10;
       this.size = Math.random() * 2 + 0.6;
-      this.speedX = (Math.random() - 0.5) * 0.4;
-      this.speedY = -(Math.random() * 0.5 + 0.2);
-      this.color = Math.random() > 0.4 ? '#00f0ff' : '#ff0055';
-      this.opacity = Math.random() * 0.6 + 0.2;
+      this.speedX = (Math.random() - 0.5) * 0.35;
+      this.speedY = -(Math.random() * 0.45 + 0.2);
+      this.color = Math.random() > 0.45 ? '#00f0ff' : '#ff0055';
+      this.opacity = Math.random() * 0.55 + 0.25;
     }
 
     update() {
@@ -1383,7 +1791,7 @@ if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
   function initParticles() {
     particlesArray = [];
-    const count = Math.min(Math.floor((canvas.width * canvas.height) / 18000), 75);
+    const count = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 75);
     for (let i = 0; i < count; i++) {
       particlesArray.push(new Particle());
     }
@@ -1404,25 +1812,6 @@ if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 }
 
 // =====================================================
-// SMOOTH SCROLL PARA ANCLAS
-// =====================================================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href && href.length > 1 && href.startsWith('#')) {
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    }
-  });
-});
-
-// =====================================================
 // INICIALIZACIÓN GLOBAL
 // =====================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -1430,10 +1819,18 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCartFromStorage();
   renderCatalog();
   renderCart();
+  calculatePrice();
+  initFaqAccordion();
+  initNavigationUtilities();
 
   const sendCartBtn = document.getElementById('btnSendCart');
   if (sendCartBtn) {
     sendCartBtn.addEventListener('click', sendCartWhatsApp);
+  }
+
+  const copyCartBtn = document.getElementById('btnCopyCart');
+  if (copyCartBtn) {
+    copyCartBtn.addEventListener('click', copyCartToClipboard);
   }
 
   const clearCartBtn = document.getElementById('btnClearCart');
