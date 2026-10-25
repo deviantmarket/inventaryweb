@@ -179,6 +179,13 @@ img, video {
   border-radius: 999px;
   min-width: 18px;
   text-align: center;
+  transition: transform 220ms cubic-bezier(0.2, 0.9, 0.2, 1), background-color 220ms ease;
+}
+
+.nav-cart-badge.pop {
+  transform: scale(1.35);
+  background: var(--primary-magenta);
+  color: #ffffff;
 }
 
 /* SELECTOR DE IDIOMAS */
@@ -1137,8 +1144,9 @@ img, video {
 }
 
 .tag-lunar {
-  background: linear-gradient(135deg, #00f0ff, #0077b6);
-  color: #040810;
+  background: linear-gradient(135deg, #9d4edd, #3a0ca3);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(157, 78, 221, 0.4);
 }
 
 .tag-caos {
@@ -1151,7 +1159,9 @@ img, video {
 }
 
 .tag-infrasonicos {
-  background: linear-gradient(135deg, #00b4d8, #03045e);
+  background: linear-gradient(135deg, #00f5d4, #0077b6);
+  color: #040810;
+  box-shadow: 0 4px 12px rgba(0, 245, 212, 0.35);
 }
 
 .tag-otros {
@@ -1249,13 +1259,15 @@ img, video {
 }
 
 .price {
-  background: linear-gradient(90deg, rgba(255, 138, 0, 0.15), rgba(255, 0, 85, 0.15));
-  border: 1px solid rgba(255, 138, 0, 0.35);
-  color: #ffae42;
+  background: linear-gradient(90deg, rgba(255, 138, 0, 0.16), rgba(255, 0, 85, 0.16));
+  border: 1px solid rgba(255, 138, 0, 0.4);
+  color: #ffb703;
   padding: 0.35rem 0.75rem;
   border-radius: 8px;
   font-weight: 800;
   font-size: 1.05rem;
+  box-shadow: 0 0 10px rgba(255, 183, 3, 0.15);
+  font-variant-numeric: tabular-nums;
 }
 
 .btn-card-add {

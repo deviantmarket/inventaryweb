@@ -40,7 +40,7 @@ const TRANSLATIONS = {
     btn_hero_wa: "Escribir por WhatsApp",
     hero_stat_links_val: "+500M+",
     hero_stat_links_lbl: "Links Entregados",
-    hero_stat_deviants_val: "40+",
+    hero_stat_deviants_val: "49+",
     hero_stat_deviants_lbl: "Deviants en Stock",
     hero_stat_time_val: "<10 min",
     hero_stat_time_lbl: "Entrega Promedio",
@@ -209,7 +209,7 @@ const TRANSLATIONS = {
     btn_hero_wa: "Chat on WhatsApp",
     hero_stat_links_val: "+500M+",
     hero_stat_links_lbl: "Links Delivered",
-    hero_stat_deviants_val: "40+",
+    hero_stat_deviants_val: "49+",
     hero_stat_deviants_lbl: "Deviants in Stock",
     hero_stat_time_val: "<10 min",
     hero_stat_time_lbl: "Avg. Delivery",
@@ -435,7 +435,7 @@ const DEVIANTS_DATA = [
     name: "Lobo",
     name_en: "Lonewolf's Whisper - Lunar Oracle",
     category: "Lunar",
-    price: 15,
+    price: 20,
     img: "Lobo.jpeg",
     desc: "Deviant Lunar de agilidad y ataque veloz.",
     desc_en: "Can participate in combat. Will transform into a black wolf and attack enemies.",
@@ -447,7 +447,7 @@ const DEVIANTS_DATA = [
     name: "Cámara",
     name_en: "ZapCam - Lunar Oracle",
     category: "Lunar",
-    price: 15,
+    price: 20,
     img: "Cámara.jpeg",
     desc: "Deviant Lunar de soporte estratégico y visión.",
     desc_en: "Can participate in combat to constantly photograph nearby enemies, increasing Weapon DMG received.",
@@ -459,7 +459,7 @@ const DEVIANTS_DATA = [
     name: "Pyro Dino",
     name_en: "Pyro Dino - Lunar Oracle",
     category: "Lunar",
-    price: 15,
+    price: 20,
     img: "Pirodino.jpeg",
     desc: "Deviant Lunar con daño ígneo en área continuo.",
     desc_en: "Can participate in combat to breathe fire and inflict continuous Burn DMG.",
@@ -471,7 +471,7 @@ const DEVIANTS_DATA = [
     name: "Hada de las Nieves",
     name_en: "Snowsprite - Lunar Oracle",
     category: "Lunar",
-    price: 15,
+    price: 20,
     img: "Hada de las nieves.jpeg",
     desc: "Deviant Lunar con congelación y ralentización táctica.",
     desc_en: "Can participate in combat to summon fragile frost crystals that explode upon shattering for Frost DMG.",
@@ -483,7 +483,7 @@ const DEVIANTS_DATA = [
     name: "Zenopurificador",
     name_en: "Zeno-Purifier - Lunar Oracle",
     category: "Lunar",
-    price: 15,
+    price: 20,
     img: "Zenopurificador.jpeg",
     desc: "Deviant Lunar de purificación y soporte de territorio.",
     desc_en: "Can participate in combat. Grants its owner quick-draw attacks with a shadowy blade.",
@@ -502,6 +502,18 @@ const DEVIANTS_DATA = [
     highlight: "Económico",
     highlight_en: "Budget Pick"
   },
+  {
+    id: "caracol-lunar",
+    name: "Caracol Lunar",
+    name_en: "Atomic Snail - Lunar Oracle",
+    category: "Lunar",
+    price: 20,
+    img: "caracol.jpeg",
+    desc: "Deviant Lunar de territorio que produce elixires para mejorar la agilidad y movilidad.",
+    desc_en: "Lunar variant. Operates in the territory to produce special whim elixirs that grant immense agility and dash leap.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
 
   // --- CAOS ---
   {
@@ -509,7 +521,7 @@ const DEVIANTS_DATA = [
     name: "Hada del Caos",
     name_en: "Chaos Snowsprite",
     category: "Caos",
-    price: 15,
+    price: 10,
     img: "hada del caos.jpg",
     desc: "Deviant Caos con habilidades impredecibles de combate.",
     desc_en: "Chaos variant with high Dex value, summoning devastating exploding frost crystals.",
@@ -521,7 +533,7 @@ const DEVIANTS_DATA = [
     name: "Mini Maravilla del Caos",
     name_en: "Chaos Mini Wonder",
     category: "Caos",
-    price: 15,
+    price: 10,
     img: "minimaravilla.webp",
     desc: "Deviant Caos compacto de gran poder ofensivo.",
     desc_en: "Chaos variant with high Dex value, absorbing enemy gunfire and retaliating with high power.",
@@ -533,7 +545,7 @@ const DEVIANTS_DATA = [
     name: "Mr. Wish del Caos",
     name_en: "Chaos Mr. Wish",
     category: "Caos",
-    price: 15,
+    price: 10,
     img: "mr_wish.jpg",
     desc: "Deviant Caos que desata proyectiles continuos.",
     desc_en: "Chaos variant with high Dex value, using firearms to unleash rapid-fire attacks and apply The Bull's Eye.",
@@ -545,7 +557,7 @@ const DEVIANTS_DATA = [
     name: "Chaosaurus",
     name_en: "Chaosaurus",
     category: "Caos",
-    price: 15,
+    price: 10,
     img: "Chaosaurus.jpeg",
     desc: "Deviant Caos prehistórico de ataque feroz.",
     desc_en: "Prehistoric Chaos Deviation that participates in combat to breathe devastating fire.",
@@ -591,18 +603,6 @@ const DEVIANTS_DATA = [
     desc_en: "Can participate in combat to weaken enemies with cursed arrows, increasing Weapon DMG.",
     highlight: "Invocación",
     highlight_en: "Summoner"
-  },
-  {
-    id: "alterador-espacio",
-    name: "Alterador de espacio",
-    name_en: "Space Turner",
-    category: "Otros",
-    price: 10,
-    img: "Alterador de espacio.jpeg",
-    desc: "Deviant especializado en alterar el espacio a su alrededor.",
-    desc_en: "Deviant specialized in altering the space around it.",
-    highlight: "Nuevo",
-    highlight_en: "New"
   },
   {
     id: "begimo",
@@ -689,18 +689,6 @@ const DEVIANTS_DATA = [
     highlight_en: "Durability"
   },
   {
-    id: "sol-infrasonico",
-    name: "Sol Infrasónico",
-    name_en: "Invincible Sun - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "Sol infrasonico.jpeg",
-    desc: "Deviant de ondas sónicas devastadoras en área.",
-    desc_en: "Can participate in combat to periodically release blazing energy rays inflicting Burn DMG.",
-    highlight: "Daño Sónico",
-    highlight_en: "Burn / Sonic"
-  },
-  {
     id: "mariposa-azul",
     name: "Mariposa Azul",
     name_en: "Butterfly's Emissary - Glistening Blue",
@@ -737,18 +725,6 @@ const DEVIANTS_DATA = [
     highlight_en: "Sanity"
   },
   {
-    id: "cuenco-reconfortante",
-    name: "Cuenco Reconfortante",
-    name_en: "Hug-in-a-Bowl",
-    category: "Otros",
-    price: 10,
-    img: "Cuenco reconfortante.jpeg",
-    desc: "Deviant de soporte culinario y nutrición en territorio.",
-    desc_en: "Produces special ingredients to cook unique dishes. Used to recover Sanity in territory.",
-    highlight: "Comida",
-    highlight_en: "Food"
-  },
-  {
     id: "cocinosaurio-rex",
     name: "Cocinosaurio Rex",
     name_en: "Chefosaurus Rex",
@@ -759,90 +735,6 @@ const DEVIANTS_DATA = [
     desc_en: "Operates in the territory to assist in cooking and producing enhanced food dishes.",
     highlight: "Cocina",
     highlight_en: "Chef"
-  },
-  {
-    id: "munecooo",
-    name: "Muñeco de papel infrasónico",
-    name_en: "Paper Doll - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "munecooo.jpeg",
-    desc: "Deviant de apoyo con habilidades de resonancia infrasónica.",
-    desc_en: "Operates in the territory. Discovers lost materials while cleaning and maintaining base.",
-    highlight: "Nuevo",
-    highlight_en: "New"
-  },
-  {
-    id: "bolita",
-    name: "Bola de nieve infrasónica",
-    name_en: "Snow Globe - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "bolita.jpeg",
-    desc: "Deviant infrasónico que utiliza el frío para controlar el combate.",
-    desc_en: "Infrasonic Deviant that uses frost to control the battlefield.",
-    highlight: "Nuevo",
-    highlight_en: "New"
-  },
-  {
-    id: "conejito",
-    name: "Conejo recolector infrasónico",
-    name_en: "Gathering Rabbit - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "conejito.jpeg",
-    desc: "Deviant infrasónico que recolecta recursos para el territorio.",
-    desc_en: "Infrasonic Deviant that gathers resources for the territory.",
-    highlight: "Nuevo",
-    highlight_en: "New"
-  },
-  {
-    id: "cachorrito",
-    name: "Cachorro amigable infrasónico",
-    name_en: "Friendly Puppy - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "cachorrito.jpeg",
-    desc: "Deviant infrasónico amistoso de compañía y apoyo.",
-    desc_en: "Friendly Infrasonic Deviant focused on companionship and support.",
-    highlight: "Nuevo",
-    highlight_en: "New"
-  },
-  {
-    id: "cascanueces-infrasonico",
-    name: "Cascanueces -infrasónico",
-    name_en: "Nutcracker - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "cascanuecesinfra.jpeg",
-    desc: "Deviant infrasónico de territorio que defiende tu base contra invasores.",
-    desc_en: "Operates in the territory. Infrasonic variant that defends your base with sonic attacks.",
-    highlight: "Nuevo",
-    highlight_en: "New"
-  },
-  {
-    id: "encendedor-atomico-infrasonico",
-    name: "Encendedor atomico- infrasónico",
-    name_en: "Atomic Lighter - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "encendedor.jpeg",
-    desc: "Deviant infrasónico de combate con detonación nuclear táctica.",
-    desc_en: "Can participate in combat to trigger a powerful nuclear explosion and sonic waves.",
-    highlight: "Nuevo",
-    highlight_en: "New"
-  },
-  {
-    id: "alterador-espacio-infrasonico",
-    name: "Alterador de espacio - infrasónico",
-    name_en: "Space Turner - Infrasonic Illusion",
-    category: "Infrasonicos",
-    price: 10,
-    img: "cubitoinfra.jpeg",
-    desc: "Deviant infrasónico especializado en distorsionar y alterar el espacio.",
-    desc_en: "Infrasonic Deviant specialized in altering the space around it.",
-    highlight: "Nuevo",
-    highlight_en: "New"
   },
   {
     id: "conejo",
@@ -865,6 +757,212 @@ const DEVIANTS_DATA = [
     img: "abeja.jpeg",
     desc: "Deviant de apoyo con gran movilidad.",
     desc_en: "Operates in the territory to increase the probability of crop mutation.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "sapo-dorado",
+    name: "Sapo Dorado",
+    name_en: "Flame Essence - Golden Toad",
+    category: "Otros",
+    price: 10,
+    img: "sapito.jpeg",
+    desc: "Deviant de territorio que acelera la fundición de metales y producción en hornos.",
+    desc_en: "Operates in the territory to significantly increase furnace smelting speed and ingot crafting efficiency.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "toque-artesano",
+    name: "Toque del Artesano",
+    name_en: "Artisan's Touch",
+    category: "Otros",
+    price: 10,
+    img: "manita.jpeg",
+    desc: "Deviant de artesanía que desbloquea la mano multiusos para reparar equipamiento desgastado.",
+    desc_en: "Crafting Deviant that produces the All-Purpose Hand to repair equipped gear with low durability.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "croseta-extragrande",
+    name: "Croseta Extragrande",
+    name_en: "Growshroom - Extra Large",
+    category: "Otros",
+    price: 10,
+    img: "croseta.jpeg",
+    desc: "Deviant de territorio de gran tamaño que siembra y acelera el crecimiento de cultivos con mayor ánimo.",
+    desc_en: "Oversized farming Deviant that automatically plants seeds and accelerates crop growth with enhanced max mood.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "digby-oro-puro",
+    name: "Digby Oro Puro",
+    name_en: "The Digby Boy - Pure Gold",
+    category: "Otros",
+    price: 10,
+    img: "digby.jpeg",
+    desc: "Deviant minero legendario bañado en oro con mayor probabilidad de extraer minerales raros.",
+    desc_en: "Gilded territory miner Deviant with increased yield and higher chance to mine rare and precious ores.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "castor",
+    name: "Castor",
+    name_en: "Logging Beaver",
+    category: "Otros",
+    price: 10,
+    img: "Castor.jpeg",
+    desc: "Deviant de territorio que recolecta madera y tala árboles de forma automática para tu base.",
+    desc_en: "Operates in the territory to automatically fell trees and harvest wood for your base.",
+    highlight: "Madera",
+    highlight_en: "Lumberjack"
+  },
+
+  // --- INFRASÓNICOS ---
+  {
+    id: "sol-infrasonico",
+    name: "Sol Infrasónico",
+    name_en: "Invincible Sun - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "Sol infrasonico.jpeg",
+    desc: "Deviant de ondas sónicas devastadoras en área.",
+    desc_en: "Can participate in combat to periodically release blazing energy rays inflicting Burn DMG.",
+    highlight: "Daño Sónico",
+    highlight_en: "Burn / Sonic"
+  },
+  {
+    id: "munecooo",
+    name: "Muñeco de papel infrasónico",
+    name_en: "Paper Doll - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "munecooo.jpeg",
+    desc: "Deviant de apoyo con habilidades de resonancia infrasónica.",
+    desc_en: "Operates in the territory. Discovers lost materials while cleaning and maintaining base.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "bolita",
+    name: "Bola de nieve infrasónica",
+    name_en: "Snow Globe - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "bolita.jpeg",
+    desc: "Deviant infrasónico que utiliza el frío para controlar el combate.",
+    desc_en: "Infrasonic Deviant that uses frost to control the battlefield.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "conejito",
+    name: "Conejo recolector infrasónico",
+    name_en: "Gathering Rabbit - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "conejito.jpeg",
+    desc: "Deviant infrasónico que recolecta recursos para el territorio.",
+    desc_en: "Infrasonic Deviant that gathers resources for the territory.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "cachorrito",
+    name: "Cachorro amigable infrasónico",
+    name_en: "Friendly Puppy - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "cachorrito.jpeg",
+    desc: "Deviant infrasónico amistoso de compañía y apoyo.",
+    desc_en: "Friendly Infrasonic Deviant focused on companionship and support.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "cascanueces-infrasonico",
+    name: "Cascanueces Infrasónico",
+    name_en: "Nutcracker - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "cascanuecesinfra.jpeg",
+    desc: "Deviant infrasónico de territorio que defiende tu base contra invasores.",
+    desc_en: "Operates in the territory. Infrasonic variant that defends your base with sonic attacks.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "encendedor-atomico-infrasonico",
+    name: "Encendedor Atómico Infrasónico",
+    name_en: "Atomic Lighter - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "encendedor.jpeg",
+    desc: "Deviant infrasónico de combate con detonación nuclear táctica.",
+    desc_en: "Can participate in combat to trigger a powerful nuclear explosion and sonic waves.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "alterador-espacio-infrasonico",
+    name: "Alterador de Espacio Infrasónico",
+    name_en: "Space Turner - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "cubitoinfra.jpeg",
+    desc: "Deviant infrasónico especializado en distorsionar y alterar el espacio.",
+    desc_en: "Infrasonic Deviant specialized in altering the space around it.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "cuenco-infrasonico",
+    name: "Cuenco Infrasónico",
+    name_en: "Hug-in-a-Bowl - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "cuenquito.jpeg",
+    desc: "Deviant infrasónico de soporte culinario y nutrición en territorio.",
+    desc_en: "Infrasonic variant. Produces special ingredients to cook unique dishes and recover Sanity in territory.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "gel-infrasonico",
+    name: "Gel Infrasónico",
+    name_en: "Festering Gel - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "gel infrasonico.jpeg",
+    desc: "Deviant infrasónico de combate que provee cobertura sólida y regeneración de cordura con resonancia sónica.",
+    desc_en: "Infrasonic variant. Can participate in combat to provide shelter, mitigate damage, and restore Sanity.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "bola-infrasonica",
+    name: "Bola Infrasónica",
+    name_en: "Disco Ball - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "bolitaxx.jpeg",
+    desc: "Deviant infrasónico de artesanía y euforia que proyecta luces y produce fragmentos de inspiración.",
+    desc_en: "Infrasonic variant. Projects dazzling disco lights and dancers, producing inspiration fragments and whim buffs.",
+    highlight: "Nuevo",
+    highlight_en: "New"
+  },
+  {
+    id: "caja-deseos-infrasonica",
+    name: "Caja de Deseos Infrasónica",
+    name_en: "Wish Box - Infrasonic Illusion",
+    category: "Infrasonicos",
+    price: 15,
+    img: "cajita.jpeg",
+    desc: "Deviant infrasónico de territorio que procesa objetos y minerales para otorgar recompensas aleatorias valiosas.",
+    desc_en: "Infrasonic territory Deviant that processes ores and materials into valuable random resources and gear.",
     highlight: "Nuevo",
     highlight_en: "New"
   }
@@ -1055,8 +1153,10 @@ function loadCartFromStorage() {
             item.price = fresh.price;
             item.category = fresh.category;
             item.name = fresh.name;
+            item.img = fresh.img;
           }
         });
+        saveCartToStorage();
       }
     }
   } catch (e) {
